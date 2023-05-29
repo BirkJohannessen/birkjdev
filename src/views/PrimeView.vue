@@ -1,11 +1,18 @@
 <template>
     <div class="content">
+        <div class="info">
+            {{ calculateRerender() }}
+            {{ calculateZoom() }}
+
+        </div>
         <div class="sticky">
-            <img :src="primes[calculateRerender()]" :class="'zoom'+calculateZoom()" />
+            <transition name="fade">
+                <img :src="primes[calculateRerender()]" :class="'zoom'+calculateZoom()" />
+            </transition>
         </div>
         <div class="spaceStatic"></div>
-        <div v-for="index in 19" :key="index" >
-            <div class="spaceDynamic">asdf</div>
+        <div v-for="index in 29" :key="index" >
+            <div class="spaceDynamic"></div>
         </div>
     </div>
 </template>
@@ -32,7 +39,7 @@ import a15 from '../assets/PRIME_2097152.png'
 import a16 from '../assets/PRIME_4194304.png'
 import a17 from '../assets/PRIME_8388608.png'
 import a18 from '../assets/PRIME_16777216.png'
-import a19 from '../assets/PRIME_33554432.png'
+import a19 from '../assets/PRIME_16777216.png'
 
 export default {
     name: 'PrimeView',
@@ -55,12 +62,13 @@ export default {
     },
     computed: {
         primes(){
-            return [a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19];
+            //return [a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19];
+            return [a1,a3,a5,a7,a9,a11,a13,a15,a17,a19];
         },
     },
     data() {
         return {
-            scrollLengthForRerender: 600,
+            scrollLengthForRerender: 1800,
             scrollLengthForZoom: 120,
             windowTop: 0,
         }
@@ -72,31 +80,88 @@ export default {
 .zoom0{
     width: 100%;
     height: 100vh;
-    transform: scale(1.8);
+    transform: scale(4);
 }
 .zoom1{
     width: 100%;
     height: 100vh;
-    transform: scale(1.6);
+    transform: scale(3.8);
 }
 .zoom2{
     width: 100%;
     height: 100vh;
-    transform: scale(1.4);
+    transform: scale(3.6);
 }
 .zoom3{
     width: 100%;
     height: 100vh;
-    transform: scale(1.2);
+    transform: scale(3.4);
 }
 .zoom4{
     width: 100%;
     height: 100vh;
+    transform: scale(3.2);
+}
+.zoom5{
+    width: 100%;
+    height: 100vh;
+    transform: scale(3.0);
+}
+.zoom6{
+    width: 100%;
+    height: 100vh;
+    transform: scale(2.8);
+}
+.zoom7{
+    width: 100%;
+    height: 100vh;
+    transform: scale(2.6);
+}
+.zoom8{
+    width: 100%;
+    height: 100vh;
+    transform: scale(2.4);
+}
+.zoom9{
+    width: 100%;
+    height: 100vh;
+    transform: scale(2.2);
+}
+.zoom10{
+    width: 100%;
+    height: 100vh;
+    transform: scale(2.0);
+}
+.zoom11{
+    width: 100%;
+    height: 100vh;
+    transform: scale(1.8);
+}
+.zoom12{
+    width: 100%;
+    height: 100vh;
+    transform: scale(1.6);
+}
+.zoom13{
+    width: 100%;
+    height: 100vh;
+    transform: scale(1.4);
+}
+.zoom14{
+    width: 100%;
+    height: 100vh;
+    transform: scale(1.2);
+}
+.zoom15{
+    width: 100%;
+    height: 100vh;
+    transform: scale(1.2);
 }
 
 .content{
     background: black;
     width: 100%;
+    color:white;
 }
 .sticky{
     width: 100%;
@@ -109,6 +174,172 @@ export default {
 .spaceStatic{
     width: 50px;
     height: 100vh;
+}
+.info{
+    color:white;
+    position: fixed;
+    z-index: 99;
+}
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+@media only screen and (max-width: 768px) {
+    .content{
+        background: black;
+        width: 100vw;
+        color:white;
+    }
+    .sticky{
+        width: 100vw;
+        position: fixed;
+    }
+    .spaceDynamic {
+        width: 5px;
+        height: 600px;
+    }
+    .spaceStatic{
+        width: 5px;
+        height: 100vh;
+    }
+    .info{
+        color:white;
+        position: fixed;
+        z-index: 99;
+    }
+
+    .zoom0{
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+        transform: scale(4.0);
+    }
+    .zoom1{
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+        transform: scale(3.8);
+    }
+    .zoom2{
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+        transform: scale(3.6);
+    }
+    .zoom3{
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+        transform: scale(3.4);
+    }
+    .zoom4{
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+        transform: scale(3.2);
+    }
+    .zoom5{
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+        transform: scale(3.0);
+    }
+    .zoom6{
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+        transform: scale(2.8);
+    }
+    .zoom7{
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+        transform: scale(2.6);
+    }
+    .zoom8{
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+        transform: scale(2.4);
+    }
+    .zoom9{
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+        transform: scale(2.2);
+    }
+    .zoom10{
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+        transform: scale(2.0);
+    }
+    .zoom11{
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+        transform: scale(1.8);
+    }
+    .zoom12{
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+        transform: scale(1.6);
+    }
+    .zoom13{
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+        transform: scale(1.4);
+    }
+    .zoom14{
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+        transform: scale(1.2);
+    }
+    .zoom15{
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+    }
 }
 
 </style>
