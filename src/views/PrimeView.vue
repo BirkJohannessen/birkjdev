@@ -3,12 +3,10 @@
         <div class="info">
             {{ calculateRerender() }}
             {{ calculateZoom() }}
-
+            <HoverController :zoomLevel="calculateZoom()" :indexLevel="calculateRerender()" />
         </div>
         <div class="sticky">
-            <transition name="fade">
-                <img :src="primes[calculateRerender()]" :class="'zoom'+calculateZoom()" />
-            </transition>
+            <img :src="primes[calculateRerender()]" :class="'zoom'+calculateZoom()" />
         </div>
         <div class="spaceStatic"></div>
         <div v-for="index in 29" :key="index" >
@@ -40,9 +38,13 @@ import a15 from '../assets/PRIME_2097152.png'
 import a17 from '../assets/PRIME_8388608.png'
 //import a18 from '../assets/PRIME_16777216.png'
 //import a19 from '../assets/PRIME_16777216.png'
+import HoverController from '@/components/HoverController.vue'
 
 export default {
     name: 'PrimeView',
+    components: {
+        HoverController
+    },
     created () {
         window.addEventListener('scroll', this.handleScroll);
     },
@@ -180,15 +182,7 @@ export default {
     position: fixed;
     z-index: 99;
 }
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.2s ease;
-}
 
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
 @media only screen and (max-width: 768px) {
     .content{
         background: black;
