@@ -6,17 +6,17 @@
             <HoverController :zoomLevel="calculateZoom()" :indexLevel="calculateRerender()" />
         </div>
         <div class="sticky">
-                <img v-if="calculateRerender() == 0" :src="primes[calculateRerender()]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 1" :src="primes[calculateRerender()]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 2" :src="primes[calculateRerender()]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 3" :src="primes[calculateRerender()]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 4" :src="primes[calculateRerender()]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 5" :src="primes[calculateRerender()]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 6" :src="primes[calculateRerender()]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 7" :src="primes[calculateRerender()]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 8" :src="primes[calculateRerender()]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 9" :src="primes[calculateRerender()]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 10" :src="primes[calculateRerender()]" :class="'zoom'+calculateZoom()" />
+                <img v-if="calculateRerender() == 0" :src="primes[0]" :class="'zoom'+calculateZoom()" />
+                <img v-if="calculateRerender() == 1" :src="primes[1]" :class="'zoom'+calculateZoom()" />
+                <img v-if="calculateRerender() == 2" :src="primes[2]" :class="'zoom'+calculateZoom()" />
+                <img v-if="calculateRerender() == 3" :src="primes[3]" :class="'zoom'+calculateZoom()" />
+                <img v-if="calculateRerender() == 4" :src="primes[4]" :class="'zoom'+calculateZoom()" />
+                <img v-if="calculateRerender() == 5" :src="primes[5]" :class="'zoom'+calculateZoom()" />
+                <img v-if="calculateRerender() == 6" :src="primes[6]" :class="'zoom'+calculateZoom()" />
+                <img v-if="calculateRerender() == 7" :src="primes[7]" :class="'zoom'+calculateZoom()" />
+                <img v-if="calculateRerender() == 8" :src="primes[8]" :class="'zoom'+calculateZoom()" />
+                <img v-if="calculateRerender() == 9" :src="primes[9]" :class="'zoom'+calculateZoom()" />
+                <img v-if="calculateRerender() == 10" :src="primes[10]" :class="'zoom'+calculateZoom()" />
         </div>
         <div class="spaceStatic"></div>
         <div v-for="index in 32" :key="index" >
