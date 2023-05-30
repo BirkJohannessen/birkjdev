@@ -6,17 +6,17 @@
             <HoverController :zoomLevel="calculateZoom()" :indexLevel="calculateRerender()" />
         </div>
         <div class="sticky">
-                <img v-if="calculateRerender() == 0" :src="primes[0]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 1" :src="primes[1]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 2" :src="primes[2]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 3" :src="primes[3]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 4" :src="primes[4]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 5" :src="primes[5]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 6" :src="primes[6]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 7" :src="primes[7]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 8" :src="primes[8]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 9" :src="primes[9]" :class="'zoom'+calculateZoom()" />
-                <img v-if="calculateRerender() == 10" :src="primes[10]" :class="'zoom'+calculateZoom()" />
+                <img v-if="this.activeIndex == 0" :src="primes[0]" :class="this.activeIndex === 0 ? 'zoom'+this.activeZoom : 'idle'" />
+                <img v-if="this.activeIndex == 1" :src="primes[1]" :class="this.activeIndex === 1 ? 'zoom'+this.activeZoom : 'idle'" />
+                <img v-if="this.activeIndex == 2" :src="primes[2]" :class="this.activeIndex === 2 ? 'zoom'+this.activeZoom : 'idle'" />
+                <img v-if="this.activeIndex == 3" :src="primes[3]" :class="this.activeIndex === 3 ? 'zoom'+this.activeZoom : 'idle'" />
+                <img v-if="this.activeIndex == 4" :src="primes[4]" :class="this.activeIndex === 4 ? 'zoom'+this.activeZoom : 'idle'" />
+                <img v-if="this.activeIndex == 5" :src="primes[5]" :class="this.activeIndex === 5 ? 'zoom'+this.activeZoom : 'idle'" />
+                <img v-if="this.activeIndex == 6" :src="primes[6]" :class="this.activeIndex === 6 ? 'zoom'+this.activeZoom : 'idle'" />
+                <img v-if="this.activeIndex == 7" :src="primes[7]" :class="this.activeIndex === 7 ? 'zoom'+this.activeZoom : 'idle'" />
+                <img v-if="this.activeIndex == 8" :src="primes[8]" :class="this.activeIndex === 8 ? 'zoom'+this.activeZoom : 'idle'" />
+                <img v-if="this.activeIndex == 9" :src="primes[9]" :class="this.activeIndex === 9 ? 'zoom'+this.activeZoom : 'idle'" />
+                <img v-if="this.activeIndex == 10" :src="primes[10]" :class="this.activeIndex === 10 ? 'zoom'+this.activeZoom : 'idle'" />
         </div>
         <div class="spaceStatic"></div>
         <div v-for="index in 32" :key="index" >
@@ -68,7 +68,11 @@ export default {
             this.windowTop = window.top.scrollY;
         },
         calculateZoom() {
-            return parseInt(this.windowTop % this.scrollLengthForRerender / this.scrollLengthForZoom);
+            let zoom = parseInt(this.windowTop % this.scrollLengthForRerender / this.scrollLengthForZoom);
+            if(zoom != this.activeZoom){
+                this.activeZoom = zoom;
+            }
+            return zoom
         },
         calculateRerender() {
             let index = parseInt( this.windowTop / this.scrollLengthForRerender)
@@ -91,6 +95,7 @@ export default {
             scrollLengthForZoom: 120,
             windowTop: 0,
             activeIndex: 0,
+            activeZoom: 0,
         }
     },
 }
@@ -101,81 +106,97 @@ export default {
     width: 100%;
     height: 100vh;
     transform: scale(4);
+    z-index: 1;
 }
 .zoom1{
     width: 100%;
     height: 100vh;
     transform: scale(3.8);
+    z-index: 1;
 }
 .zoom2{
     width: 100%;
     height: 100vh;
     transform: scale(3.6);
+    z-index: 1;
 }
 .zoom3{
     width: 100%;
     height: 100vh;
     transform: scale(3.4);
+    z-index: 1;
 }
 .zoom4{
     width: 100%;
     height: 100vh;
     transform: scale(3.2);
+    z-index: 1;
 }
 .zoom5{
     width: 100%;
     height: 100vh;
     transform: scale(3.0);
+    z-index: 1;
 }
 .zoom6{
     width: 100%;
     height: 100vh;
     transform: scale(2.8);
+    z-index: 1;
 }
 .zoom7{
     width: 100%;
     height: 100vh;
     transform: scale(2.6);
+    z-index: 1;
 }
 .zoom8{
     width: 100%;
     height: 100vh;
     transform: scale(2.4);
+    z-index: 1;
 }
 .zoom9{
     width: 100%;
     height: 100vh;
     transform: scale(2.2);
+    z-index: 1;
 }
 .zoom10{
     width: 100%;
     height: 100vh;
     transform: scale(2.0);
+    z-index: 1;
 }
 .zoom11{
     width: 100%;
     height: 100vh;
     transform: scale(1.8);
+    z-index: 1;
 }
 .zoom12{
     width: 100%;
     height: 100vh;
     transform: scale(1.6);
+    z-index: 1;
 }
 .zoom13{
     width: 100%;
     height: 100vh;
     transform: scale(1.4);
+    z-index: 1;
 }
 .zoom14{
     width: 100%;
     height: 100vh;
     transform: scale(1.2);
+    z-index: 1;
 }
 .zoom15{
     width: 100%;
     height: 100vh;
     transform: scale(1.2);
+    z-index: 1;
 }
 
 .content{
@@ -209,6 +230,9 @@ export default {
 .v-leave-to {
   opacity: 0;
 }
+    .idle{
+        z-index: 0;
+    }
 
 @media only screen and (max-width: 768px) {
     .content{
@@ -219,6 +243,9 @@ export default {
     .sticky{
         width: 100vw;
         position: fixed;
+    }
+    .idle{
+        z-index: 0;
     }
     .spaceDynamic {
         width: 5px;
@@ -241,6 +268,7 @@ export default {
         position: relative;
         left: -75%;
         transform: scale(4.0);
+        z-index: 1;
     }
     .zoom1{
         transform: rotate(90deg);
@@ -249,6 +277,7 @@ export default {
         position: relative;
         left: -75%;
         transform: scale(3.8);
+        z-index: 1;
     }
     .zoom2{
         transform: rotate(90deg);
@@ -257,6 +286,7 @@ export default {
         position: relative;
         left: -75%;
         transform: scale(3.6);
+        z-index: 1;
     }
     .zoom3{
         transform: rotate(90deg);
@@ -265,6 +295,7 @@ export default {
         position: relative;
         left: -75%;
         transform: scale(3.4);
+        z-index: 1;
     }
     .zoom4{
         transform: rotate(90deg);
@@ -273,6 +304,7 @@ export default {
         position: relative;
         left: -75%;
         transform: scale(3.2);
+        z-index: 1;
     }
     .zoom5{
         transform: rotate(90deg);
@@ -281,6 +313,7 @@ export default {
         position: relative;
         left: -75%;
         transform: scale(3.0);
+        z-index: 1;
     }
     .zoom6{
         transform: rotate(90deg);
@@ -289,6 +322,7 @@ export default {
         position: relative;
         left: -75%;
         transform: scale(2.8);
+        z-index: 1;
     }
     .zoom7{
         transform: rotate(90deg);
@@ -297,6 +331,7 @@ export default {
         position: relative;
         left: -75%;
         transform: scale(2.6);
+        z-index: 1;
     }
     .zoom8{
         transform: rotate(90deg);
@@ -305,6 +340,7 @@ export default {
         position: relative;
         left: -75%;
         transform: scale(2.4);
+        z-index: 1;
     }
     .zoom9{
         transform: rotate(90deg);
@@ -313,6 +349,7 @@ export default {
         position: relative;
         left: -75%;
         transform: scale(2.2);
+        z-index: 1;
     }
     .zoom10{
         transform: rotate(90deg);
@@ -321,6 +358,7 @@ export default {
         position: relative;
         left: -75%;
         transform: scale(2.0);
+        z-index: 1;
     }
     .zoom11{
         transform: rotate(90deg);
@@ -329,6 +367,7 @@ export default {
         position: relative;
         left: -75%;
         transform: scale(1.8);
+        z-index: 1;
     }
     .zoom12{
         transform: rotate(90deg);
@@ -337,6 +376,7 @@ export default {
         position: relative;
         left: -75%;
         transform: scale(1.6);
+        z-index: 1;
     }
     .zoom13{
         transform: rotate(90deg);
@@ -345,6 +385,7 @@ export default {
         position: relative;
         left: -75%;
         transform: scale(1.4);
+        z-index: 1;
     }
     .zoom14{
         transform: rotate(90deg);
@@ -353,6 +394,7 @@ export default {
         position: relative;
         left: -75%;
         transform: scale(1.2);
+        z-index: 1;
     }
     .zoom15{
         transform: rotate(90deg);
@@ -360,6 +402,7 @@ export default {
         height: 100vh;
         position: relative;
         left: -75%;
+        z-index: 1;
     }
 }
 
