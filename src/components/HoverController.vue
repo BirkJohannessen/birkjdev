@@ -4,31 +4,31 @@
             <HoverText v-if="this.indexLevel == 0 && this.zoomLevel == 0" type="5" subText="" header="Scroll ned!" />
         </Transition>
         <Transition>
-            <HoverText v-if="this.indexLevel == 1 && this.zoomLevel > 0" type="3" subText="Av Birk Johannessen" header="PrimeSpiral" />
+            <HoverText v-if="this.indexLevel == 5 && this.zoomLevel > 0" type="3" subText="Av Birk Johannessen" header="PrimeSpiral" />
         </Transition>
         <Transition>
-            <HoverText v-if="this.indexLevel == 2 && this.zoomLevel > 4" type="1" subText=".. i polarkoordinater" header="Visualisering av Primtall" />
+            <HoverText v-if="this.indexLevel == 7 && this.zoomLevel > 0" type="1" subText=".. i polarkoordinater" header="Visualisering av Primtall" />
         </Transition>
         <Transition>
-            <HoverText v-if="this.indexLevel == 3 && this.zoomLevel > 4" type="2" subText="Hver prikk representerer et primtall" header="Hmm?" />
+            <HoverText v-if="this.indexLevel == 9 && this.zoomLevel > 0" type="2" subText="Hver prikk representerer et primtall" header="Hmm?" />
         </Transition>
         <Transition>
-            <HoverText v-if="this.indexLevel == 4 && this.zoomLevel > 4" type="1" subText=".. Som er primtallets lengde fra sentrum .." header="" />
+            <HoverText v-if="this.indexLevel == 11 && this.zoomLevel > 0" type="1" subText=".. Som er primtallets lengde fra sentrum .." header="" />
         </Transition>
         <Transition>
-            <HoverText v-if="this.indexLevel == 4 && this.zoomLevel > 4" type="2" subText=".. og vinklet i primtallets radian!" header="" />
+            <HoverText v-if="this.indexLevel == 13 && this.zoomLevel > 0" type="2" subText=".. og vinklet i primtallets radian!" header="" />
         </Transition>
         <Transition>
-            <HoverText v-if="this.indexLevel == 5 && this.zoomLevel > 4" type="4" subText="Det former dette kule mønsteret!!" header="1, 3, 5, 7, 9, 13" />
+            <HoverText v-if="this.indexLevel == 15 && this.zoomLevel > 0" type="4" subText="Det former dette kule mønsteret!!" header="1, 3, 5, 7, 9, 13" />
         </Transition>
         <Transition>
-            <HoverText v-if="this.indexLevel == 8 && this.zoomLevel > 4" type="1" subText="Er hvor mange primtall du ser akkurat nå! (høyeste primtallet her er 524.287)" header="43.390" />
+            <HoverText v-if="this.indexLevel == 17" type="1" subText="Er hvor mange primtall du ser akkurat nå! (høyeste primtallet her er 524.287)" header="43.390" />
         </Transition>
         <Transition>
-            <HoverText v-if="this.indexLevel == 9 && this.zoomLevel > 4" type="2" subText="Originalt et python script som bare laget bilde du ser .." header="" />
+            <HoverText v-if="this.indexLevel == 19 && this.zoomLevel > 0" type="2" subText="Originalt et python script som bare laget bilde du ser .." header="" />
         </Transition>
         <Transition>
-            <HoverText v-if="this.indexLevel == 10 && this.zoomLevel > 4 && this.zoomLevel < 10" type="3" subText=".. Omgjort til et webskaleringsprosjekt!" header="" />
+            <HoverText v-if="this.indexLevel == 20 && this.zoomLevel > 0" type="3" subText=".. Omgjort til et webskaleringsprosjekt!" header="" />
         </Transition>
     </div>
   
