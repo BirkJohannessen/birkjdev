@@ -1,16 +1,16 @@
 <template>
     <div class="wrapper">
-        <TerminalView/>
+        <BiSHkView/>
     </div>
 </template>
 
 <script>
 import PrimeView from './PrimeView.vue';
-import TerminalView from './TerminalView.vue'
+import BiSHkView from './BiSHkView.vue'
 export default {
     name: 'MainView',
     components: {
-       TerminalView 
+       BiSHkView 
     },
     methods: {
         bar() {
