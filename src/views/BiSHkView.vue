@@ -48,7 +48,7 @@ export default {
         font-family: monospace;
         font-size: 17px;
         background-color: black;
-        height: 100vh;
+        height: 100%;
         width: 100%;
         color: white;
     }

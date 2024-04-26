@@ -56,6 +56,8 @@ export default {
     .flex {
         width: 100%;
         display: flex;
+        height: 100%;
+        overflow: hidden;
     }
     input {
         font-family: monospace;
@@ -70,7 +72,7 @@ export default {
             outline: none;
         }
         width: 100%;
-        padding-bottom: 100%;
+        padding-bottom: calc(100vh - 21px);
     }
     .input-wrapper {
         flex-grow: 1;
