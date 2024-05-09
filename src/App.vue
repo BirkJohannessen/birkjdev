@@ -1,11 +1,16 @@
 <template>
-    <router-view />
+    <div class="app-wrapper">
+        <HeaderComponent />
+        <router-view />
+    </div>
 </template>
 
 <script>
+import HeaderComponent from './components/HeaderComponent'
 export default {
     name: 'App',
     components: {
+        HeaderComponent
     }
 }
 </script>
@@ -25,6 +30,10 @@ body {
 h1 {
     padding: 5px 0px 5px 0px;
     margin: 0;
+}
+.app-wrapper {
+    display: flex;
+    flex-direction: row;
 }
 
 </style>
