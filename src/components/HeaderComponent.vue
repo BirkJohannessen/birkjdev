@@ -1,15 +1,16 @@
 <template>
     <div class="wrapper">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <div class="logo-extender">
             <div class="logo-wrapper">
-                <img src="../assets/bjcom/birk_lgo.webp" />
+                <a @click="push('/projects/primes')">
+                    <img src="../assets/bjcom/birk_lgo.webp" />
+                </a>
             </div>
         </div>
         <div class="path-wrapper">
-            <div class="path"><span class="material-symbols-outlined">terminal</span></div>
-            <div class="path">b</div>
-            <div class="path">c</div>
+            <div v-for="path in paths" >
+                <a @click="push(path.path)" class="path"><span class="material-symbols-outlined">{{path.logo}}</span></a>
+            </div>
         </div>
     </div>
 </template>
@@ -20,7 +21,8 @@ export default {
     components: {
     },
     methods: {
-        bar() {
+        push(url) {
+            this.$router.push({ path: url });
         }
     },
     computed: {
@@ -29,7 +31,7 @@ export default {
     },
     data() {
         return {
-            paths: [{name: '', path: ''}],
+            paths: [{name: 'bishk', path: '/projects/bishk', logo: 'terminal'}, {name: 'primes', path: '/projects/primes', logo: 'blur_on'}],
         }
     },
 }
@@ -38,6 +40,10 @@ export default {
 <style scoped>
     img {
         width: 100%; height: 100%; 
+    }
+    a {
+        display: block;
+        cursor: pointer;
     }
     .wrapper {
         background-color: #000212;
@@ -66,11 +72,20 @@ export default {
     .path-wrapper {
         display: flex;
         flex-direction: column;
+        height: 90%;
+        justify-content: center;
+        overflow: hidden;
     }
 
     .path {
-        margin: 10px auto 10px auto;
-        backgrond-color: grey;
+        margin: 20px auto 20px auto;
+        color: white;
+        height: 40px;
+        width: 40px;
+    }
+
+    .material-symbols-outlined {
+        font-size: 2.5em;
     }
 </style>
 
