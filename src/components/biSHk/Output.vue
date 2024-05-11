@@ -5,11 +5,11 @@
         </div>
         <div class="padding-div"></div>
         <div>
-            {{command}}
+            {{command.input}}
         </div>
     </div>
     <div class="flex">
-        {{output}}
+        {{command.output}}
     </div>
 </template>
 
@@ -23,22 +23,10 @@ export default {
     props: {
         command: String
     },
-    mounted() {
-        if (this.command.startsWith('big ')) {
-            this.output = this.command.split(' ')[1].toUpperCase();
-        } else if (this.command !== '^C') {
-            this.output = `Command ${this.command} not found.` 
-        }
-    },
     methods: {
     },
     computed: {
     },
-    data() {
-        return {
-            output: ''
-        }
-    }
 }
 </script>
 

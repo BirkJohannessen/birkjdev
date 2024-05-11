@@ -12,6 +12,7 @@
 <script>
 import Prompt from '@/components/biSHk/Prompt'
 import Output from '@/components/biSHk/Output'
+import CommandProcessorFactory from '@/biSHk/commands/CommandProcessorFactory'
 export default {
     name: 'biSHkView',
     components: {
@@ -26,12 +27,15 @@ export default {
             let cmds;
             if (this.$store.state.commands) {
                 cmds = this.$store.state.commands.map(o=>o);
-                cmds.push(value);
             } else {
                 cmds = [];
             }
+            const command = {
+                input: value,
+                output: new CommandProcessorFactory().produce(value)
+            }
+            cmds.push(command);
             this.$store.commit('setCommands', cmds);
-            console.log(this.$store.state.commands);
         },
     },
     computed: {

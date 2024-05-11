@@ -5,7 +5,7 @@
         </div>
         <div class="padding-div"></div>
         <div class="input-wrapper">
-            <input @input="setValue" :value="value" type="text" />
+            <input id="input" @input="setValue" :value="value" type="text" />
         </div>
     </div>
 </template>
@@ -25,6 +25,9 @@ export default {
         onKeydown(e) {
             e.stopPropagation();
             if (e.key === 'Enter') {
+                var element = document.getElementById('input');
+                var event = new Event('input');
+                element.dispatchEvent(event);
                 this.$emit('execute-command', this.value)
                 this.value = '';
             }
