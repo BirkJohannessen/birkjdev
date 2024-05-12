@@ -1,16 +1,13 @@
 <template>
     <div class="wrapper">
-        <BiSHkView/>
+        asdf
     </div>
 </template>
 
 <script>
-import PrimeView from './PrimeView.vue';
-import BiSHkView from './BiSHkView.vue'
 export default {
     name: 'MainView',
     components: {
-       BiSHkView 
     },
     methods: {
         bar() {
@@ -30,6 +27,7 @@ export default {
 
 <style scoped>
     .wrapper {
+        color: white;
         height: 100%;
         width: 100%;
     }

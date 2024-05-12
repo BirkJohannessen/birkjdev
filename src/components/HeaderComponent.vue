@@ -1,10 +1,16 @@
 <template>
     <div class="wrapper">
-        <div class="logo-wrapper"></div>
+        <div class="logo-extender">
+            <div class="logo-wrapper">
+                <a @click="push('/projects/primes')">
+                    <img src="../assets/bjcom/birk_lgo.webp" />
+                </a>
+            </div>
+        </div>
         <div class="path-wrapper">
-            <div class="path">a</div>
-            <div class="path">b</div>
-            <div class="path">c</div>
+            <div v-for="path in paths" >
+                <a @click="push(path.path)" class="path"><span class="material-symbols-outlined">{{path.logo}}</span></a>
+            </div>
         </div>
     </div>
 </template>
@@ -15,7 +21,8 @@ export default {
     components: {
     },
     methods: {
-        bar() {
+        push(url) {
+            this.$router.push({ path: url });
         }
     },
     computed: {
@@ -24,34 +31,61 @@ export default {
     },
     data() {
         return {
-            paths: [{name: '', path: ''}],
+            paths: [{name: 'bishk', path: '/projects/bishk', logo: 'terminal'}, {name: 'primes', path: '/projects/primes', logo: 'blur_on'}],
         }
     },
 }
 </script>
 
 <style scoped>
-.wrapper {
-    width: 100%;
-    height: 50px;
-    background-color: green;
-    display: flex;
-}
+    img {
+        width: 100%; height: 100%; 
+    }
+    a {
+        display: block;
+        cursor: pointer;
+    }
+    .wrapper {
+        background-color: #000212;
+        height: 100vh;
+        width: 100px;
+        display: flex;
+        flex-direction: column;
+        transition: 0.35s;
+        &:hover {
+            width: 150px;
+            transition: 0.35s;
+        }
+        z-index: 999999999999;
+    }
 
-.logo-wrapper {
-    width: 20vw;
-    height: 100%;
-    background-color: blue;
-}
+    .logo-wrapper {
+        width: 100%;
+        height: auto;
+        margin: 15px auto 15px auto;
+    }
 
-.path-wrapper {
-    display: flex;
-    flex-direction: row;
-}
+    .logo-extender {
+        height: 150px;
+    }
 
-.path {
-    margin: auto 10px auto 10px;
-    backgrond-color: grey;
-}
+    .path-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 90%;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .path {
+        margin: 20px auto 20px auto;
+        color: white;
+        height: 40px;
+        width: 40px;
+    }
+
+    .material-symbols-outlined {
+        font-size: 2.5em;
+    }
 </style>
 
