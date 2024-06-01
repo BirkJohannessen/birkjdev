@@ -4,6 +4,6 @@ export default class BigCommandProcessor extends CommandProcessor {
         return 'big';
     }
     process() {
-        return super.getArgument(0).command.split(' ')[1].toUpperCase();
+        return super.getArgument(1).toUpperCase();
     }
 }

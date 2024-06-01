@@ -28,10 +28,11 @@ body {
     font-size: 1em;
 }
 
-h1 {
+h1, h2, h3, p {
     padding: 5px 0px 5px 0px;
     margin: 0;
 }
+
 .app-wrapper {
     display: flex;
     flex-direction: row;
