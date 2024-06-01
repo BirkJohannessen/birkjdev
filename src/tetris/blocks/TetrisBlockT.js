@@ -8,10 +8,10 @@ export default class TetrisBlockT extends TetrisBlock {
 
     init() {
         const controlMap = this.getEmptyControlMap();
-        controlMap[3][1].tileState = 1;
-        controlMap[3][2].tileState = 1;
-        controlMap[3][3].tileState = 1;
-        controlMap[2][2].tileState = 1;
+        this.setTileState(controlMap, 3, 1, 'purple');
+        this.setTileState(controlMap, 3, 2, 'purple');
+        this.setTileState(controlMap, 3, 3, 'purple');
+        this.setTileState(controlMap, 2, 2, 'purple');
         return controlMap;
     }
 }

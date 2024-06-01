@@ -17,6 +17,13 @@ export default class TetrisBlock {
         return controlMap;
     }
 
+    setTileState(matrix, x, y, color) {
+        matrix[x][y].tileState = 1;
+        if (color) {
+            matrix[x][y].color = color;
+        }
+    }
+
     rotate() {
         this.state = this._rotateMatrix(this.state);
     }

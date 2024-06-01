@@ -4,17 +4,17 @@ import TetrisControl from './TetrisControl'
 export default class TetrisEngine {
     constructor() {
         this.gameInfo = {
-            startTime: Date.now(),
             blockAge: Date.now(),
             gameTick: 600,
-            level: 1,
             blockLifetimeTicks: 0,
             paddingLifeTimeTicks: 0,
             pauseAge: 0,
+            level: 1,
             score: 0,
             reset: false,
             storedBlock: null,
-            stop: true
+            stop: true,
+            lastInputTime: Date.now()
         }
         this.input = {
             right: 0,
@@ -26,7 +26,7 @@ export default class TetrisEngine {
             pause: 0
         }
         this.tetrisControl = new TetrisControl();
-        this.map = new TetrisMap(8, 24, this.tetrisControl, this.gameInfo);
+        this.map = new TetrisMap(10, 20, this.tetrisControl, this.gameInfo);
     }
 
     start() {
@@ -52,37 +52,6 @@ export default class TetrisEngine {
         // calc gametickvalues
         this.gameInfo.blockLifetimeTicks = Math.floor((Date.now() - this.gameInfo.blockAge) / this.gameInfo.gameTick) + this.gameInfo.paddingLifeTimeTicks;
 
-        // recv input
-        if (this.input.left) {
-            if (this.tetrisControl.canLeftShiftX()) {
-                this.shiftLeftIfYouCan();
-            } else if (this.map.canLeftShiftX()) {
-                this.tetrisControl.xShift -= 1;
-            }
-            this.input.left = 0;
-        }
-
-        if (this.input.right) {
-            if (this.tetrisControl.canRightShiftX()) {
-                this.shiftRightIfYouCan();
-            } else if (this.map.canRightShiftX()) {
-                this.tetrisControl.xShift += 1;
-            }
-            this.input.right = 0;
-        }
-
-        if (this.input.up) {
-            if (this.canRotate(3)) {
-                this.tetrisControl.rotate();
-            }
-            this.input.up = 0;
-        }
-
-        if (this.input.down) {
-            this.gameInfo.paddingLifeTimeTicks += 1;
-            this.input.down = 0;
-        }
-
         if (this.input.commit) {
             for (let i = 0; i < this.map.height; i++) {
                 try {
@@ -98,13 +67,28 @@ export default class TetrisEngine {
                     }
                 }
             }
-            this.gameInfo.reset = true;
-        }
-
-        if (this.input.pause) {
-            // not implemented
+            this.tetrisControl.setNextBlock()
+            this.tetrisControl.blockSave = false;
+            this.input.commit = 0;
+            this.input.up = 0;
+            this.input.save = 0;
+            this.gameInfo.blockAge = Date.now();
+            this.gameInfo.pauseAge = 0;
+            this.gameInfo.paddingLifeTimeTicks = 0;
+            return;
         }
         
+        if (this.input.up) {
+            if (this.canRotate(3)) {
+                this.tetrisControl.rotate();
+            }
+            this.input.up = 0;
+        }
+
+        if (Date.now() - this.gameInfo.lastInputTime > 100) {
+            this.processSmoothInput();
+        }
+
         if (this.input.save && !this.tetrisControl.blockSave) {
             if (!this.gameInfo.storedBlock) {
                 this.gameInfo.storedBlock = this.tetrisControl.getCurrentBlock();
@@ -126,7 +110,7 @@ export default class TetrisEngine {
         // render the block on the map;
         try {
             this.map.putControl(0, 0, true, false);
-            this.renderTileReflection();
+            !this.input.commit && this.renderTileReflection();
         } catch (e) {
             this.map.commitMap();
             this.gameInfo.reset = true;
@@ -169,22 +153,22 @@ export default class TetrisEngine {
             {
                 level: 1,
                 score: 0,
-                gameTick: 500
+                gameTick: 1000
             },
             {
                 level: 2,
                 score: 150,
-                gameTick: 500
+                gameTick: 700
             },
             {
                 level: 3,
                 score: 250,
-                gameTick: 400
+                gameTick: 500
             },
             {
                 level: 4,
                 score: 500,
-                gameTick: 150
+                gameTick: 300
             },
             {
                 level: 6,
@@ -236,5 +220,30 @@ export default class TetrisEngine {
             return false;
         }
         return true;
+    }
+
+    processSmoothInput() {
+        if (this.input.left) {
+            if (this.tetrisControl.canLeftShiftX()) {
+                this.shiftLeftIfYouCan();
+            } else if (this.map.canLeftShiftX()) {
+                this.tetrisControl.xShift -= 1;
+            }
+            this.gameInfo.lastInputTime = Date.now();
+        }
+
+        if (this.input.right) {
+            if (this.tetrisControl.canRightShiftX()) {
+                this.shiftRightIfYouCan();
+            } else if (this.map.canRightShiftX()) {
+                this.tetrisControl.xShift += 1;
+            }
+            this.gameInfo.lastInputTime = Date.now();
+        }
+
+        if (this.input.down) {
+            this.gameInfo.paddingLifeTimeTicks += 1;
+            this.gameInfo.lastInputTime = Date.now();
+        }
     }
 }

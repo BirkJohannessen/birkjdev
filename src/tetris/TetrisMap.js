@@ -38,7 +38,6 @@ export default class TetrisMap {
                     if (block[i][j].tileState && !this._map[i + lifetimeTick][j + startIdxX].tileState) {
                         this._shadowMap[i + lifetimeTick][j + startIdxX].tileReflect = 1;
                     } else if (block[i][j].tileState && this._shadowMap[i + lifetimeTick][j + startIdxX].tileState) {
-                        console.log('2');
                         throw new Error(); // illegal state.
                     } else {
                     }

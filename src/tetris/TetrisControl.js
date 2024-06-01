@@ -29,7 +29,9 @@ export default class TetrisControl {
     setNextBlock() {
         this.currentBlock = this.blockStack[0];
         this.blockStack.splice(0, 1);
-        this.blockStack.push(this.getRandomBlock());
+        const queue = [...this.blockStack];
+        queue.push(this.getRandomBlock());
+        this.blockStack = queue;
         this.xShift = 0;
         return this.currentBlock;
     }
