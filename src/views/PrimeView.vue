@@ -155,7 +155,7 @@ export default {
 
 .content{
     background: black;
-    width: 100%;
+    width: 100vw;
     color:white;
 }
 .sticky{
