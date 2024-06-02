@@ -73,7 +73,7 @@ export default class TetrisMap {
 
     get map() {
         const map = this.deepModelCopy(this._renderMap);
-        map.splice(0, 4);
+        map.splice(0, 0);
         return map;
     }
     

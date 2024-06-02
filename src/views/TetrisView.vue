@@ -5,7 +5,15 @@
                 <h1>Level: {{this.level}}</h1>
                 <h1>Score: {{this.score}}</h1>
             </div>
-            <div class="tetris">
+            <div class="btns">
+                <span class="material-symbols-outlined">pause</span>
+                <span class="material-symbols-outlined">restart_alt</span>
+                <span class="material-symbols-outlined">leaderboard</span>
+            </div>
+            <div v-if="this.info" class="info-message">
+                <h1>{{info}}</h1>
+            </div>
+            <div :class="this.info ? 'tetris opacity' : 'tetris'">
                 <div class="main">
                     <TetrisMap  :map="this.tetris.gameInfo.storedBlock ? this.tetris.gameInfo.storedBlock.state : this.emptyBlockMap" :pxSize="15"/>
                 </div>
@@ -50,7 +58,7 @@ export default {
                     this.queue = this.tetris.tetrisControl.blockStack;
                     this.run();
                 } else {
-                    this.info = 'You lost'
+                    this.info = 'Game over'
                     this.tetris.run();
                 }
             },  15);
@@ -70,15 +78,27 @@ export default {
         onKeyDownPress(e) {
             e.stopPropagation();
             if (e.key === 'ArrowLeft') {
-                this.tetris.input.right = 0;
-                this.tetris.input.left = 1;
+                if (this.tetris.input.left === 0) {
+                    this.tetris.input.right = 0;
+                    this.tetris.input.left = 1;
+                    this.tetris.setKeyDownInputDelay();
+                } else {
+                    this.tetris.input.right = 0;
+                    this.tetris.input.left = 1;
+                }
             }
             if (e.code === 'Space') {
                 this.tetris.input.commit = 1;
             }
             if (e.key === 'ArrowRight') {
-                this.tetris.input.left = 0;
-                this.tetris.input.right = 1;
+                if (this.tetris.input.right === 0) {
+                    this.tetris.input.left = 0;
+                    this.tetris.input.right = 1;
+                    this.tetris.setKeyDownInputDelay();
+                } else {
+                    this.tetris.input.left = 0;
+                    this.tetris.input.right = 1;
+                }
             }
             if (e.key === 'ArrowUp') {
                 this.tetris.input.up = 1;
@@ -121,7 +141,7 @@ export default {
         margin: auto;
     }
     .center {
-        width: auto; height: 750px;
+        width: auto; height: auto;
         margin: auto;
         text-align: center;
         display: flex; flex-direction: column;
@@ -133,7 +153,31 @@ export default {
         margin: auto;
         width: 70%;
         justify-content: space-between;
-        margin-bottom: 24px;
+        margin-bottom: 12px;
         color: #52495d;
     }
+    .btns {
+        display: flex; flex-direction: row;
+        text-align: center;
+        font-family: monospace;
+        margin: auto;
+        justify-content: left;
+        margin-bottom: 16px;
+        color: #52495d;
+        span {
+            margin: 0 6px;
+        }
+    }
+    .info-message {
+        height: 0;
+        top: 250px;
+        position: relative;
+        color: white;
+        opacity: 1;
+        z-index: 1;
+    }
+    .opacity {
+        opacity: 0.3;
+    }
+
 </style>

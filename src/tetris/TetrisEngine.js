@@ -14,7 +14,10 @@ export default class TetrisEngine {
             reset: false,
             storedBlock: null,
             stop: true,
-            lastInputTime: Date.now()
+            lastInputTime: Date.now(),
+            lastKeyDownTime: Date.now(),
+            inputDelay: 30,
+            firstInputDelay: 300
         }
         this.input = {
             right: 0,
@@ -85,7 +88,7 @@ export default class TetrisEngine {
             this.input.up = 0;
         }
 
-        if (Date.now() - this.gameInfo.lastInputTime > 100) {
+        if (Date.now() - this.gameInfo.lastInputTime > this.gameInfo.inputDelay && (Date.now() -this.gameInfo.lastKeyDownTime) > this.gameInfo.firstInputDelay) {
             this.processSmoothInput();
         }
 
@@ -245,5 +248,10 @@ export default class TetrisEngine {
             this.gameInfo.paddingLifeTimeTicks += 1;
             this.gameInfo.lastInputTime = Date.now();
         }
+    }
+
+    setKeyDownInputDelay() {
+        this.gameInfo.lastKeyDownTime = Date.now();
+        this.processSmoothInput();
     }
 }
