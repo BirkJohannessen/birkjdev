@@ -4,6 +4,7 @@ export default class CommandProcessor {
         this.tileReflect = 0;
         this.color = '#000212'
         this.debug = 0;
+        this.outOfBounds = 0;
     }
 }
 

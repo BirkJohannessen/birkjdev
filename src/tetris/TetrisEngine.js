@@ -1,5 +1,6 @@
-import TetrisMap from './TetrisMap'
-import TetrisControl from './TetrisControl'
+import TetrisMap from './TetrisMap';
+import TetrisControl from './TetrisControl';
+import TetrisInputProcessor from './TetrisInputProcessor';
 
 export default class TetrisEngine {
     constructor() {
@@ -14,10 +15,6 @@ export default class TetrisEngine {
             reset: false,
             storedBlock: null,
             stop: true,
-            lastInputTime: Date.now(),
-            lastKeyDownTime: Date.now(),
-            inputDelay: 30,
-            firstInputDelay: 300
         }
         this.input = {
             right: 0,
@@ -30,6 +27,7 @@ export default class TetrisEngine {
         }
         this.tetrisControl = new TetrisControl();
         this.map = new TetrisMap(10, 20, this.tetrisControl, this.gameInfo);
+        this.inputProcessor = new TetrisInputProcessor(this, this.tetrisControl, this.map);
     }
 
     start() {
@@ -41,79 +39,15 @@ export default class TetrisEngine {
         this.map.removeFullLines();
         this.calculateLevel();
 
-        // game over
-        if (this.gameInfo.stop) {
-            return this.map.map;
-        }
-
-        // game pause
-        if (this.input.pause && !this.gameInfo.pauseAge) {
-            this.gameInfo.pauseAge = Date.now();
-            return; 
-        }
+        this.inputProcessor.process();
 
         // calc gametickvalues
         this.gameInfo.blockLifetimeTicks = Math.floor((Date.now() - this.gameInfo.blockAge) / this.gameInfo.gameTick) + this.gameInfo.paddingLifeTimeTicks;
 
-        if (this.input.commit) {
-            for (let i = 0; i < this.map.height; i++) {
-                try {
-                    this.map.putControl(i, 0, false, false);
-                } catch(e) {
-                    try {
-                        this.map.putControl(i - 1, 0, true, false);
-                        this.map.commitMap();
-                        break;
-                    } catch (e) {
-                        this.gameInfo.stop = true;
-                        break;
-                    }
-                }
-            }
-            this.tetrisControl.setNextBlock()
-            this.tetrisControl.blockSave = false;
-            this.input.commit = 0;
-            this.input.up = 0;
-            this.input.save = 0;
-            this.gameInfo.blockAge = Date.now();
-            this.gameInfo.pauseAge = 0;
-            this.gameInfo.paddingLifeTimeTicks = 0;
-            return;
-        }
-        
-        if (this.input.up) {
-            if (this.canRotate(3)) {
-                this.tetrisControl.rotate();
-            }
-            this.input.up = 0;
-        }
-
-        if (Date.now() - this.gameInfo.lastInputTime > this.gameInfo.inputDelay && (Date.now() -this.gameInfo.lastKeyDownTime) > this.gameInfo.firstInputDelay) {
-            this.processSmoothInput();
-        }
-
-        if (this.input.save && !this.tetrisControl.blockSave) {
-            if (!this.gameInfo.storedBlock) {
-                this.gameInfo.storedBlock = this.tetrisControl.getCurrentBlock();
-                this.tetrisControl.setNextBlock()
-            } else {
-                this.gameInfo.storedBlock.init();
-                const storedBlock = this.gameInfo.storedBlock;
-                this.gameInfo.storedBlock = this.tetrisControl.getCurrentBlock();
-                this.tetrisControl.setStoredBlock(storedBlock);
-            }
-            this.gameInfo.paddingLifeTimeTicks = 0;
-            this.gameInfo.blockLifetimeTicks = 0;
-            this.gameInfo.blockAge = Date.now();
-            this.input.save = 0;
-            this.tetrisControl.blockSave = true;
-            return;
-        }
-
         // render the block on the map;
         try {
             this.map.putControl(0, 0, true, false);
-            !this.input.commit && this.renderTileReflection();
+            !this.inputProcessor.input.commit && this.putTileReflection();
         } catch (e) {
             this.map.commitMap();
             this.gameInfo.reset = true;
@@ -124,19 +58,11 @@ export default class TetrisEngine {
 
         // time has come to set a new block in the control.
         if (this.gameInfo.reset) {
-            this.tetrisControl.setNextBlock()
-            this.tetrisControl.blockSave = false;
-            this.input.commit = 0;
-            this.input.up = 0;
-            this.input.save = 0;
-            this.gameInfo.blockAge = Date.now();
-            this.gameInfo.pauseAge = 0;
-            this.gameInfo.paddingLifeTimeTicks = 0;
-            this.gameInfo.reset = false;
+            this.reset();
         }
     }
 
-    renderTileReflection() {
+    putTileReflection() {
         for (let i = 0; i < this.map.height; i++) {
             try {
                 this.map.putControl(i, 0, false, false);
@@ -150,6 +76,19 @@ export default class TetrisEngine {
             }
         }
     }
+
+    reset() {
+        this.tetrisControl.setNextBlock()
+        this.tetrisControl.blockSave = false;
+        this.inputProcessor.input.commit = 0;
+        this.inputProcessor.input.up = 0;
+        this.inputProcessor.input.save = 0;
+        this.gameInfo.blockAge = Date.now();
+        this.gameInfo.pauseAge = 0;
+        this.gameInfo.paddingLifeTimeTicks = 0;
+        this.gameInfo.reset = false;
+    }
+
 
     calculateLevel() {
         const levelMap = [
@@ -223,35 +162,5 @@ export default class TetrisEngine {
             return false;
         }
         return true;
-    }
-
-    processSmoothInput() {
-        if (this.input.left) {
-            if (this.tetrisControl.canLeftShiftX()) {
-                this.shiftLeftIfYouCan();
-            } else if (this.map.canLeftShiftX()) {
-                this.tetrisControl.xShift -= 1;
-            }
-            this.gameInfo.lastInputTime = Date.now();
-        }
-
-        if (this.input.right) {
-            if (this.tetrisControl.canRightShiftX()) {
-                this.shiftRightIfYouCan();
-            } else if (this.map.canRightShiftX()) {
-                this.tetrisControl.xShift += 1;
-            }
-            this.gameInfo.lastInputTime = Date.now();
-        }
-
-        if (this.input.down) {
-            this.gameInfo.paddingLifeTimeTicks += 1;
-            this.gameInfo.lastInputTime = Date.now();
-        }
-    }
-
-    setKeyDownInputDelay() {
-        this.gameInfo.lastKeyDownTime = Date.now();
-        this.processSmoothInput();
     }
 }

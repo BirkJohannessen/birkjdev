@@ -20,15 +20,6 @@ export default {
         map: Array,
         pxSize: Number
     },
-    methods: {
-        foo() {
-        }
-    },
-    data() {
-        return {
-            bar: 1
-        }
-    },
 }
 </script>
 

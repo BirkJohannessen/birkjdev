@@ -24,6 +24,10 @@ export default class TetrisBlock {
         }
     }
 
+    resetToDefault() {
+        this.state = this.init();
+    }
+
     rotate() {
         this.state = this._rotateMatrix(this.state);
     }

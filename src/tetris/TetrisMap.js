@@ -73,7 +73,11 @@ export default class TetrisMap {
 
     get map() {
         const map = this.deepModelCopy(this._renderMap);
-        map.splice(0, 0);
+        for (let i = 0; i < 4; i++) {
+            map[i].forEach(tile => {
+                tile.outOfBounds = 1;
+            });
+        }
         return map;
     }
     

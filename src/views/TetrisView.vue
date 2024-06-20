@@ -15,7 +15,7 @@
             </div>
             <div :class="this.info ? 'tetris opacity' : 'tetris'">
                 <div class="main">
-                    <TetrisMap  :map="this.tetris.gameInfo.storedBlock ? this.tetris.gameInfo.storedBlock.state : this.emptyBlockMap" :pxSize="15"/>
+                    <TetrisMap  :map="this.holdBlock ? this.holdBlock.state : this.emptyBlockMap" :pxSize="15"/>
                 </div>
                 <div class="main">
                     <TetrisMap  :map="this.map" :pxSize="30"/>
@@ -29,8 +29,7 @@
 </template>
 
 <script>
-import TetrisEngine from '../tetris/TetrisEngine.js'
-import TetrisBlock from '../tetris/blocks/TetrisBlock.js'
+import TetrisClient from '../tetris/TetrisClient.js'
 import TetrisMap from '../components/tetris/MapComponent.vue'
 import TetrisQueue from '../components/tetris/QueueComponent.vue'
 
@@ -41,78 +40,17 @@ export default {
         TetrisQueue
     },
     beforeMount() {
-        this.tetris = new TetrisEngine();
-        this.tetris.start();
-        this.run();
+        this.tetris = new TetrisClient(this);
         document.addEventListener("keydown", this.onKeyDownPress);
         document.addEventListener("keyup", this.onKeyUpPress);
+        this.tetris.start();
     },
     methods: {
-        run() {
-            setTimeout(() => {
-                if (!this.tetris.gameInfo.stop) {
-                    this.tetris.run();
-                    this.level = this.tetris.gameInfo.level;
-                    this.score = this.tetris.gameInfo.score;
-                    this.map = this.tetris.map.map;
-                    this.queue = this.tetris.tetrisControl.blockStack;
-                    this.run();
-                } else {
-                    this.info = 'Game over'
-                    this.tetris.run();
-                }
-            },  15);
+        onKeyDownPress(e) {
+            this.tetris.onKeyDownPress(e);
         },
         onKeyUpPress(e) {
-            e.stopPropagation();
-            if (e.key === 'ArrowRight') {
-                this.tetris.input.right = 0;
-            }
-            if (e.key === 'ArrowLeft') {
-                this.tetris.input.left = 0;
-            }
-            if (e.key === 'ArrowDown') {
-                this.tetris.input.down = 0;
-            }
-        },
-        onKeyDownPress(e) {
-            e.stopPropagation();
-            if (e.key === 'ArrowLeft') {
-                if (this.tetris.input.left === 0) {
-                    this.tetris.input.right = 0;
-                    this.tetris.input.left = 1;
-                    this.tetris.setKeyDownInputDelay();
-                } else {
-                    this.tetris.input.right = 0;
-                    this.tetris.input.left = 1;
-                }
-            }
-            if (e.code === 'Space') {
-                this.tetris.input.commit = 1;
-            }
-            if (e.key === 'ArrowRight') {
-                if (this.tetris.input.right === 0) {
-                    this.tetris.input.left = 0;
-                    this.tetris.input.right = 1;
-                    this.tetris.setKeyDownInputDelay();
-                } else {
-                    this.tetris.input.left = 0;
-                    this.tetris.input.right = 1;
-                }
-            }
-            if (e.key === 'ArrowUp') {
-                this.tetris.input.up = 1;
-            }
-            if (e.key === 'ArrowDown') {
-                this.tetris.input.down = 1;
-            }
-            if (e.key === 'Shift') {
-                this.tetris.input.save = 1;
-            }
-        },
-    },
-    computed: {
-        foo(){
+            this.tetris.onKeyUpPress(e);
         }
     },
     data() {
@@ -122,7 +60,7 @@ export default {
             level: '',
             map: [],
             queue: [],
-            emptyBlockMap: new TetrisBlock().getEmptyControlMap()
+            emptyBlockMap: []
         }
     },
 }

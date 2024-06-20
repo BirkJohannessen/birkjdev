@@ -17,15 +17,6 @@ export default {
         tile: Object,
         pxSize: Number 
     },
-    methods: {
-        foo() {
-        }
-    },
-    data() {
-        return {
-            bar: 1
-        }
-    },
 }
 </script>
 
@@ -35,7 +26,6 @@ export default {
     }
     .one {
         width: 100%; height: 100%;
-        border: 0px;
     }
     .two {
         width: 100%; height: 100%;
