@@ -1,5 +1,5 @@
 <template>
-    <div :class="this.scrollY > 0 ? 'wrapper fade-out' : 'wrapper fade-in'">
+    <div :class="this.scrollY > 2000 ? 'hide' : this.scrollY > 0 ? 'wrapper' : 'wrapper'" >
         <div class="logo-extender">
             <div class="logo-wrapper">
                 <a @click="push({ path: '/' })">
@@ -65,13 +65,9 @@ export default {
         display: block;
         cursor: pointer;
     }
-    .fade-out {
-        opacity: 0;
-        transition: opacity 0.35s ease-out;
-    }
-    .fade-in {
-        opacity: 1;
-        transition: opacity 0.35s ease-in;
+    .hide {
+        width: 0px;
+        left: -2000px;
     }
     .wrapper {
         background-color: #000212;
@@ -79,7 +75,6 @@ export default {
         width: 100px;
         display: flex;
         flex-direction: column;
-        transition: 0.35s;
         &:hover {
             width: 150px;
             transition: 0.35s;
@@ -95,7 +90,7 @@ export default {
             }
         }
         border-right: 2px solid #52495d;
-        z-index: 999999999999;
+        z-index: 9;
     }
 
     .logo-wrapper {

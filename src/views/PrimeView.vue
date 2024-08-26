@@ -6,7 +6,7 @@
             <HoverController :zoomLevel="calculateZoom()" :indexLevel="calculateRerender()" />
         </div>
         <div v-for="(image, index) in primes" class="sticky" :key="index" >
-                <img :src="image" :class="this.activeIndex === index ? 'zoom'+this.activeZoom : 'idle'" draggable="false" />
+                <img :src="image" :class="this.activeIndex === index ? 'zoom z'+this.activeZoom : 'idle'" draggable="false" />
         </div>
         <div class="spaceStatic"></div>
         <div v-for="index in primes.length" :key="index" >
@@ -68,84 +68,58 @@ export default {
 </script>
 
 <style scoped>
-.zoom0{
+.zoom {
     position: relative;
     width: 100%;
     height: 100vh;
+    z-index: 3;
+}
+
+.z0 {
     transform: scale(2);
-    z-index: 3;
 }
-.zoom1{
-    width: 100%;
-    position: relative;
-    height: 100vh;
+
+.z1 {
     transform: scale(1.9);
-    z-index: 3;
 }
-.zoom2{
-    width: 100%;
-    position: relative;
-    height: 100vh;
+
+.z2 {
     transform: scale(1.8);
-    z-index: 3;
 }
-.zoom3{
-    position: relative;
-    width: 100%;
-    height: 100vh;
+
+.z3 {
     transform: scale(1.7);
-    z-index: 3;
 }
-.zoom4{
-    position: relative;
-    width: 100%;
-    height: 100vh;
+
+.z4 {
     transform: scale(1.6);
-    z-index: 3;
 }
-.zoom5{
-    position: relative;
-    width: 100%;
-    height: 100vh;
+
+.z5 {
     transform: scale(1.5);
-    z-index: 3;
 }
-.zoom6{
-    position: relative;
-    width: 100%;
-    height: 100vh;
+
+.z6 {
     transform: scale(1.4);
-    z-index: 3;
 }
-.zoom7{
-    position: relative;
-    width: 100%;
-    height: 100vh;
+
+.z7 {
     transform: scale(1.3);
-    z-index: 3;
 }
-.zoom8{
-    position: relative;
-    width: 100%;
-    height: 100vh;
+
+.z8 {
     transform: scale(1.2);
-    z-index: 3;
 }
-.zoom9{
-    position: relative;
-    width: 100%;
-    height: 100vh;
+
+.z9 {
     transform: scale(1.1);
-    z-index: 3;
 }
-.zoom10{
-    position: relative;
-    width: 100%;
-    height: 100vh;
+
+.z10 {
     transform: scale(1.0);
-    z-index: 3;
 }
-.idle{
+
+.idle {
     position: relative;
     left: 100vw;
     width: 10vw;
@@ -153,142 +127,69 @@ export default {
     z-index: -3;
 }
 
-.content{
+.content {
     background: black;
     width: 100vw;
-    color:white;
+    color: white;
 }
-.sticky{
+
+.sticky {
     width: 100%;
     position: fixed;
+    left: 0;
 }
+
 .spaceDynamic {
     width: 50px;
     height: 1200px;
 }
-.spaceStatic{
+
+.spaceStatic {
     width: 50px;
     height: 99vh;
 }
-.info{
-    color:white;
+
+.info {
+    color: white;
     position: fixed;
     z-index: 1;
+    left: 0;
 }
 
 @media only screen and (max-width: 768px) {
+    .zoom {
+        transform: rotate(90deg);
+        width: 250vw;
+        height: 100vh;
+        position: relative;
+        left: -75%;
+    }
+
     .content{
         background: black;
         width: 100vw;
-        color:white;
+        color: white;
     }
+
     .sticky{
         width: 100vw;
         position: fixed;
     }
+
     .spaceDynamic {
         width: 5px;
         height: 1200px;
     }
+
     .spaceStatic{
         width: 5px;
         height: 100vh;
     }
+
     .info{
-        color:white;
+        color: white;
         position: fixed;
         z-index: 2;
-    }
-
-    .zoom0{
-        transform: rotate(90deg);
-        width: 250vw;
-        height: 100vh;
-        position: relative;
-        left: -75%;
-        transform: scale(2.0);
-        z-index: 1;
-    }
-    .zoom1{
-        transform: rotate(90deg);
-        width: 250vw;
-        height: 100vh;
-        position: relative;
-        left: -75%;
-        transform: scale(1.9);
-        z-index: 1;
-    }
-    .zoom2{
-        transform: rotate(90deg);
-        width: 250vw;
-        height: 100vh;
-        position: relative;
-        left: -75%;
-        transform: scale(1.8);
-        z-index: 1;
-    }
-    .zoom3{
-        transform: rotate(90deg);
-        width: 250vw;
-        height: 100vh;
-        position: relative;
-        left: -75%;
-        transform: scale(1.7);
-        z-index: 1;
-    }
-    .zoom4{
-        transform: rotate(90deg);
-        width: 250vw;
-        height: 100vh;
-        position: relative;
-        left: -75%;
-        transform: scale(1.6);
-        z-index: 1;
-    }
-    .zoom5{
-        transform: rotate(90deg);
-        width: 250vw;
-        height: 100vh;
-        position: relative;
-        left: -75%;
-        transform: scale(1.5);
-        z-index: 1;
-    }
-    .zoom6{
-        transform: rotate(90deg);
-        width: 250vw;
-        height: 100vh;
-        position: relative;
-        left: -75%;
-        transform: scale(1.4);
-        z-index: 1;
-    }
-    .zoom7{
-        transform: rotate(90deg);
-        width: 250vw;
-        height: 100vh;
-        position: relative;
-        left: -75%;
-        transform: scale(1.3);
-        z-index: 1;
-    }
-    .zoom8{
-        transform: rotate(90deg);
-        width: 250vw;
-        height: 100vh;
-        position: relative;
-        left: -75%;
-        transform: scale(1.2);
-        z-index: 1;
-    }
-    .zoom9{
-        transform: rotate(90deg);
-        width: 250vw;
-        height: 100vh;
-        position: relative;
-        left: -75%;
-        transform: scale(1.1);
-        z-index: 1;
     }
 }
 

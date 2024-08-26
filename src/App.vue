@@ -26,6 +26,7 @@ body {
     padding: 0;
     font-family: 'Montserrat';
     font-size: 1em;
+    scroll-behavior: smooth;
 }
 
 h1, h2, h3, p {
