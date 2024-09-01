@@ -6,12 +6,14 @@
                 <h1>Score: {{this.score}}</h1>
             </div>
             <div class="btns">
-                <span class="material-symbols-outlined">pause</span>
-                <span class="material-symbols-outlined">restart_alt</span>
-                <span class="material-symbols-outlined">leaderboard</span>
+                <span v-if="this.tetris.isPaused()" class="material-symbols-outlined" @click="this.tetris.resume()">play_arrow</span>
+                <span v-if="!this.tetris.isPaused()" class="material-symbols-outlined" @click="this.tetris.pause()">pause</span>
+                <span class="material-symbols-outlined" @click="this.tetris.restart()">restart_alt</span>
+                <!--<span class="material-symbols-outlined">leaderboard</span>-->
             </div>
             <div v-if="this.info" class="info-message">
                 <h1>{{info}}</h1>
+                <span v-if="this.info === 'Ready?'" class="material-symbols-outlined play" @click="this.tetris.start()">play_arrow</span>
             </div>
             <div :class="this.info ? 'tetris opacity' : 'tetris'">
                 <div class="main">
@@ -43,7 +45,6 @@ export default {
         this.tetris = new TetrisClient(this);
         document.addEventListener("keydown", this.onKeyDownPress);
         document.addEventListener("keyup", this.onKeyUpPress);
-        this.tetris.start();
     },
     methods: {
         onKeyDownPress(e) {
@@ -104,6 +105,7 @@ export default {
         color: #52495d;
         span {
             margin: 0 6px;
+            cursor: pointer;
         }
     }
     .info-message {
@@ -116,6 +118,11 @@ export default {
     }
     .opacity {
         opacity: 0.3;
+    }
+    .play {
+        scale: 1.5;
+        margin-top: 12px;
+        cursor: pointer;
     }
 
 </style>

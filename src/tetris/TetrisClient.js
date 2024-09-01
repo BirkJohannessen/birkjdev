@@ -5,14 +5,68 @@ export default class TetrisClient {
     constructor(parent) {
         this.parent = parent;
 
+        this._initEngine();
+
+        this.runInterval = 15;
+        this.hasStarted = false; 
+        this._run();
+    }
+
+    _initEngine() {
         this.engine = new TetrisEngine();
         this.inputProcessor = this.engine.inputProcessor;
         this.map = this.engine.map.map;
-
-        this.runInterval = 15;
     }
 
-    setVariables() {
+    start() {
+        this.hasStarted = true; 
+        this.engine.start();
+    }
+
+    restart() {
+        this._initEngine();
+        this.start();
+    }
+
+    pause() {
+        if (!this.engine.gameInfo.stop) {
+            this.engine.gameInfo.pauseContext.pauseAge = Date.now();
+            this.engine.gameInfo.paused = 1;
+        }
+    }
+
+    isPaused() {
+        return this.engine.gameInfo.paused === 1;
+    }
+
+    resume() {
+        if (!this.engine.gameInfo.stop) {
+            this.engine.gameInfo.pauseContext.resumeAge = Date.now();
+            this.engine.gameInfo.pauseContext.excessPauseTime += this.engine.gameInfo.pauseContext.resumeAge - this.engine.gameInfo.pauseContext.pauseAge;
+            this.engine.gameInfo.paused = 0;
+        }
+    }
+
+    _run() {
+         setInterval(() => {
+             if (!this.hasStarted) {
+                this._setVariables()
+                this.info = 'Ready?'
+             } else if (this.engine.gameInfo.paused) {
+                this._setVariables()
+                this.info = 'Paused'
+            } else if (!this.engine.gameInfo.stop) {
+                this.info = ''
+                this._setVariables()
+                this.engine.run();
+            } else {
+                this.info = 'Game over'
+                this._setVariables()
+            }
+        },  this.runInterval);
+    }
+    
+    _setVariables() {
         this.parent.queue = this.engine.tetrisControl.blockStack;
         this.parent.map = this.engine.map.map;
         this.parent.info = this.info;
@@ -22,27 +76,14 @@ export default class TetrisClient {
         this.parent.emptyBlockMap = new TetrisBlock().getEmptyControlMap();
     }
 
-    start() {
-        this.engine.start();
-        this.run();
-    }
-
-    run() {
-        setTimeout(() => {
-            this.setVariables()
-            if (!this.engine.gameInfo.stop) {
-                this.engine.run();
-                this.run();
-            } else {
-                this.info = 'Game over'
-                this.engine.run();
-                this.setVariables()
-            }
-        },  this.runInterval);
-    }
 
     onKeyUpPress(e) {
         e.stopPropagation();
+
+        if (this.isPaused() || !this.hasStarted) {
+            return;
+        }
+
         if (e.key === 'ArrowRight') {
             this.getInput().right = 0;
         }
@@ -56,6 +97,17 @@ export default class TetrisClient {
 
     onKeyDownPress(e) {
         e.stopPropagation();
+        if (e.key === 'Enter') {
+            if (this.isPaused()) {
+                this.resume();
+            } else {
+                this.pause();
+            }
+        }
+        if (this.isPaused() || !this.hasStarted) {
+            return;
+        }
+
         if (e.key === 'ArrowLeft') {
             if (this.getInput().left === 0) {
                 this.getInput().right = 0;
@@ -87,6 +139,9 @@ export default class TetrisClient {
         }
         if (e.key === 'Shift') {
             this.getInput().save = 1;
+        }
+        if (e.key === 'Backspace') {
+            this.restart();
         }
     }
 

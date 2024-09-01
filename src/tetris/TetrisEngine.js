@@ -9,12 +9,17 @@ export default class TetrisEngine {
             gameTick: 600,
             blockLifetimeTicks: 0,
             paddingLifeTimeTicks: 0,
-            pauseAge: 0,
             level: 1,
             score: 0,
             reset: false,
             storedBlock: null,
             stop: true,
+            paused: false,
+            pauseContext: {
+                pauseAge: 0,
+                resumeAge: 0,
+                excessPauseTime: 0 // accumalated pauseAge from previous pauses during the same blocklifesycle.
+            }
         }
         this.input = {
             right: 0,
@@ -41,8 +46,10 @@ export default class TetrisEngine {
 
         this.inputProcessor.process();
 
+        // actual blockage for the game is not included pauseage.
+        const blockAge = this.gameInfo.blockAge + this.gameInfo.pauseContext.excessPauseTime
         // calc gametickvalues
-        this.gameInfo.blockLifetimeTicks = Math.floor((Date.now() - this.gameInfo.blockAge) / this.gameInfo.gameTick) + this.gameInfo.paddingLifeTimeTicks;
+        this.gameInfo.blockLifetimeTicks = Math.floor((Date.now() - blockAge) / this.gameInfo.gameTick) + this.gameInfo.paddingLifeTimeTicks;
 
         // render the block on the map;
         try {
@@ -84,7 +91,9 @@ export default class TetrisEngine {
         this.inputProcessor.input.up = 0;
         this.inputProcessor.input.save = 0;
         this.gameInfo.blockAge = Date.now();
-        this.gameInfo.pauseAge = 0;
+        this.gameInfo.pauseContext.pauseAge = 0;
+        this.gameInfo.pauseContext.resumeAge = 0;
+        this.gameInfo.pauseContext.excessPauseTime = 0;
         this.gameInfo.paddingLifeTimeTicks = 0;
         this.gameInfo.reset = false;
     }
