@@ -98,7 +98,9 @@ export default class TetrisClient {
     onKeyDownPress(e) {
         e.stopPropagation();
         if (e.key === 'Enter') {
-            if (this.isPaused()) {
+            if (!this.hasStarted) {
+                this.start();
+            } else if (this.isPaused()) {
                 this.resume();
             } else {
                 this.pause();
