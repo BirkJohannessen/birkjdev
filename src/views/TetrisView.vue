@@ -76,7 +76,7 @@ export default {
     }
     .tetris {
         display: flex; flex-direction: row;
-        width: auto; height: 500px;
+        width: auto;
         margin: auto;
     }
     .center {
@@ -84,6 +84,7 @@ export default {
         margin: auto;
         text-align: center;
         display: flex; flex-direction: column;
+        position: relative;
     }
     .info {
         display: flex; flex-direction: row;
@@ -110,8 +111,9 @@ export default {
     }
     .info-message {
         height: 0;
-        top: 250px;
-        position: relative;
+        top: 0; left: 0; right: 0; bottom: 0;
+        margin: auto;
+        position: absolute;
         color: white;
         opacity: 1;
         z-index: 1;
