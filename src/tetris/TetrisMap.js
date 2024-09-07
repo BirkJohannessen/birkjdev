@@ -3,6 +3,7 @@ import TetrisTile from './TetrisTile';
 export default class TetrisMap {
     constructor(width, height, tetrisControl, gameInfo) {
         this.height = height;
+        this.heightPadding = 4;
         this.width = width;
         this._map = this.initMap();
         this._shadowMap = this.initMap();
@@ -13,7 +14,7 @@ export default class TetrisMap {
 
     putControl(paddingTicks, xShiftPadding, autoCommit, reflection) {
         const block = this.tetrisControl.getCurrentBlock().state;
-        const lifetimeTick = this.gameInfo.blockLifetimeTicks + paddingTicks;
+        const lifetimeTick = this.gameInfo.blockLifetimeTicks + paddingTicks + this.heightPadding;
         const xShift = this.tetrisControl.xShift + xShiftPadding;
         // restart shadow map
         if (!reflection) {
@@ -25,26 +26,26 @@ export default class TetrisMap {
         // calc X value for TetrisControl Box (4x4)
         let startIdxX;
         if (this.width % 2 == 1) {
-            startIdxX = Math.floor((this.width / 2) - 3);
+            startIdxX = Math.floor((this.width / 2) - 1);
         } else {
-            startIdxX = Math.floor((this.width / 2) - 2);
+            startIdxX = Math.floor((this.width / 2) - 1);
         }
         startIdxX += xShift;
 
         // put
-        for (let i = 0; i < 4; i++) {
-            for (let j = 0; j < 4; j++) {
+        for (let i = 0; i < block.length ; i++) {
+            for (let j = 0; j < block[i].length; j++) {
                 if (reflection) {
-                    if (block[i][j].tileState && !this._map[i + lifetimeTick][j + startIdxX].tileState) {
-                        this._shadowMap[i + lifetimeTick][j + startIdxX].tileReflect = 1;
-                    } else if (block[i][j].tileState && this._shadowMap[i + lifetimeTick][j + startIdxX].tileState) {
+                    if (block[i][j].tileState && !this._map[lifetimeTick - i][j + startIdxX].tileState) {
+                        this._shadowMap[lifetimeTick - i][j + startIdxX].tileReflect = 1;
+                    } else if (block[i][j].tileState && this._shadowMap[lifetimeTick - i][j + startIdxX].tileState) {
                         throw new Error(); // illegal state.
                     } else {
                     }
                 } else {
-                    if (block[i][j].tileState && !this._shadowMap[i + lifetimeTick][j + startIdxX].tileState) {
-                        this._shadowMap[i + lifetimeTick][j + startIdxX] = block[i][j]
-                    } else if (block[i][j].tileState && this._shadowMap[i + lifetimeTick][j + startIdxX].tileState) {
+                    if (block[i][j].tileState && !this._shadowMap[lifetimeTick - i][j + startIdxX].tileState) {
+                        this._shadowMap[lifetimeTick - i][j + startIdxX] = block[i][j]
+                    } else if (block[i][j].tileState && this._shadowMap[lifetimeTick - i][j + startIdxX].tileState) {
                         throw new Error(); // illegal state.
                     } else {
                     }

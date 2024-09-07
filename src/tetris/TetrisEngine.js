@@ -18,7 +18,7 @@ export default class TetrisEngine {
             pauseContext: {
                 pauseAge: 0,
                 resumeAge: 0,
-                excessPauseTime: 0 // accumalated pauseAge from previous pauses during the same blocklifesycle.
+                excessPauseTime: 0 // accumalated (pauseAge-resumeAge) from previous pauses from the same blocklifesycle.
             }
         }
         this.input = {
@@ -27,11 +27,10 @@ export default class TetrisEngine {
             up: 0,
             down: 0,
             commit: 0,
-            save: 0,
-            pause: 0
+            save: 0
         }
         this.tetrisControl = new TetrisControl();
-        this.map = new TetrisMap(10, 20, this.tetrisControl, this.gameInfo);
+        this.map = new TetrisMap(10, 24, this.tetrisControl, this.gameInfo);
         this.inputProcessor = new TetrisInputProcessor(this, this.tetrisControl, this.map);
     }
 
@@ -136,19 +135,30 @@ export default class TetrisEngine {
         });
     }
 
-    canRotate(r) {
-        if (r === 0) {
-            this.tetrisControl.rotate();
-            return false;
+
+    rotate() {
+        const block = this.tetrisControl.getCurrentBlock().state;
+        const blockWidthHeighDiff = Math.abs(block.length - block[0].length);
+        for (let i = 0 ; i <= blockWidthHeighDiff ; i++) {
+            if (this._canRotate(-i)) {
+                this.tetrisControl.rotate();
+                this.tetrisControl.xShift -= i;
+                break;
+            }
         }
+    }
+
+    _canRotate(x) {
+        let maybe = true;
         try {
             this.tetrisControl.rotate();
-            this.map.putControl(0, 0, false, false);
+            this.map.putControl(0, x, false, false);
         } catch(e) {
-            return this.canRotate(r - 1);
+            maybe = false;
         }
+        let r = 3;
         for (; r > 0; r--) this.tetrisControl.rotate()
-        return true;
+        return maybe;
     }
 
     shiftLeftIfYouCan() {

@@ -23,18 +23,14 @@ export default class TetrisInputProcessor {
 
     processSmoothInput() {
         if (this.input.left) {
-            if (this.tetrisControl.canLeftShiftX()) {
-                this.engine.shiftLeftIfYouCan();
-            } else if (this.map.canLeftShiftX()) {
+            if (this.map.canLeftShiftX()) {
                 this.tetrisControl.xShift -= 1;
             }
             this.lastInputTime = Date.now();
         }
 
         if (this.input.right) {
-            if (this.tetrisControl.canRightShiftX()) {
-                this.engine.shiftRightIfYouCan();
-            } else if (this.map.canRightShiftX()) {
+            if (this.map.canRightShiftX()) {
                 this.tetrisControl.xShift += 1;
             }
             this.lastInputTime = Date.now();
@@ -77,9 +73,7 @@ export default class TetrisInputProcessor {
         }
         
         if (this.input.up) {
-            if (this.engine.canRotate(3)) {
-                this.tetrisControl.rotate();
-            }
+            this.engine.rotate();
             this.input.up = 0;
         }
 

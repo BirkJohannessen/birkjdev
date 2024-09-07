@@ -45,31 +45,5 @@ export default class TetrisControl {
     rotate() {
         this.currentBlock.rotate();
     }
-
-    canLeftShiftX() {
-        try {
-            this.currentBlock.adjustLeft();
-        } catch (e) {
-            return false;
-        }
-        return true;
-    }
-
-    canRightShiftX() {
-        try {
-            this.currentBlock.adjustRight();
-        } catch (e) {
-            return false;
-        }
-        return true;
-    }
-
-    shiftLeft() {
-        this.currentBlock.state = this.currentBlock.adjustLeft();
-    }
-
-    shiftRight() {
-        this.currentBlock.state = this.currentBlock.adjustRight();
-    }
 }
 

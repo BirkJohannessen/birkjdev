@@ -4,6 +4,7 @@ export default class TetrisBlockSquare extends TetrisBlock {
     constructor() {
         super();
         this.state = this.init();
+        this.cutLooseColumnsAndRows();
     }
 
     init() {

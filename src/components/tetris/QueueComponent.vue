@@ -2,7 +2,7 @@
     <div class="wrapper3">
         <div v-for="block in this.queue" class="column2">
             <div class="queue-item">
-                <Map :map="block.state" :pxSize="15" />
+                <Map :onlyBlock="true" :map="block.state" :pxSize="15" />
             </div>
         </div>
     </div>

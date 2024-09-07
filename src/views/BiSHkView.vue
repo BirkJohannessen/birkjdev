@@ -23,7 +23,6 @@ export default {
     },
     methods: {
         processCommand(value) {
-            console.log('pushing the val', value)
             let cmds;
             if (this.$store.state.commands) {
                 cmds = this.$store.state.commands.map(o=>o);

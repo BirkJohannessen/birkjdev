@@ -1,8 +1,10 @@
 <template>
-    <div class="wrapper2">
-        <div v-for="row in this.map" class="column">
-            <div v-for="tile in row" class="row">
-                <Tile :tile="tile" :pxSize="this.pxSize" />
+    <div :class="onlyBlock ? 'wrapper2' : 'wrapper22'">
+        <div class="inner-wrapper">
+            <div v-for="row in this.map" class="row">
+                <div v-if="rowOutOfBounds(row)" v-for="tile in row">
+                    <Tile :tile="tile" :pxSize="this.pxSize" :onlyBlock="this.onlyBlock" />
+                </div>
             </div>
         </div>
     </div>
@@ -18,21 +20,31 @@ export default {
     },
     props: {
         map: Array,
-        pxSize: Number
+        pxSize: Number,
+        onlyBlock: Boolean
     },
+    methods: {
+        rowOutOfBounds(row) {
+            return row.map(o => o.outOfBounds).includes(0);
+        }
+    }
 }
 </script>
 
 <style scoped>
-    .wrapper2 {
-        border: 2px solid #52495d; 
+    .wrapper22 {
         margin: 6px;
     }
-    .column {
-        display: flex; flex-direction: row;
+    .wrapper2 {
+        margin: 6px;
+    }
+    .inner-wrapper {
+        display: inline-block;
+        margin: auto;
     }
     .row {
         display: flex; flex-direction: row;
+        align-items: center;
     }
 </style>
 

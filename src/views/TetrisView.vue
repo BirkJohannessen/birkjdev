@@ -1,3 +1,4 @@
+G
 <template>
     <div class="wrapper">
         <div class="center">
@@ -16,11 +17,11 @@
                 <span v-if="this.info === 'Ready?'" class="material-symbols-outlined play" @click="this.tetris.start()">play_arrow</span>
             </div>
             <div :class="this.info ? 'tetris opacity' : 'tetris'">
-                <div class="main">
-                    <TetrisMap  :map="this.holdBlock ? this.holdBlock.state : this.emptyBlockMap" :pxSize="15"/>
+                <div class="hold">
+                    <TetrisMap :onlyBlock="true"  :map="this.holdBlock ? this.holdBlock.state : this.emptyBlockMap" :pxSize="15"/>
                 </div>
                 <div class="main">
-                    <TetrisMap  :map="this.map" :pxSize="30"/>
+                    <TetrisMap :onlyBlock="false" :map="this.map" :pxSize="30"/>
                 </div>
                 <div class="queue">
                     <TetrisQueue :queue="this.queue" />
@@ -125,6 +126,12 @@ export default {
         scale: 1.5;
         margin-top: 12px;
         cursor: pointer;
+    }
+    .queue {
+        min-width: 76px;
+    }
+    .hold {
+        min-width: 76px;
     }
 
 </style>
