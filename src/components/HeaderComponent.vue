@@ -75,9 +75,9 @@ export default {
         width: 100px;
         display: flex;
         flex-direction: column;
+        transition: width 0.35s;
         &:hover {
             width: 150px;
-            transition: 0.35s;
             .path-title {
                 color: white; display: block;
                 margin: 0 auto;
