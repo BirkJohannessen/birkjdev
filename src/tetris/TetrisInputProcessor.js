@@ -96,6 +96,9 @@ export default class TetrisInputProcessor {
             this.gameInfo.paddingLifeTimeTicks = 0;
             this.gameInfo.blockLifetimeTicks = 0;
             this.gameInfo.blockAge = Date.now();
+            this.gameInfo.pauseContext.pauseAge = 0;
+            this.gameInfo.pauseContext.resumeAge = 0;
+            this.gameInfo.pauseContext.excessPauseTime = 0;
             this.input.save = 0;
             this.tetrisControl.blockSave = true;
         }
