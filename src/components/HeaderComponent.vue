@@ -11,7 +11,7 @@
             <div v-for="path in paths" >
                 <div class="path" @click="push(path)" >
                     <a :class="isSelected(path) ? 'path-logo selected' : 'path-logo'"><span class="material-symbols-outlined">{{path.logo}}</span></a>
-                    <div :class="isSelected(path) ? 'path-title selected' : 'path-title'">{{path.name}}</div>
+                    <div :class="isSelected(path) ? 'path-title selected' : 'path-title'"> {{path.name}}</div>
                 </div>
             </div>
         </div>
@@ -49,7 +49,8 @@ export default {
                 { name: 'code', path: '/projects/code', logo: 'code' },
                 { name: 'biSHk', path: '/projects/bishk', logo: 'terminal' },
                 { name: 'prime_spiral', path: '/projects/primes', logo: 'blur_on'},
-                { name: 'tetris', path: '/projects/tetris', logo: 'grid_view' }
+                { name: 'tetris', path: '/projects/tetris', logo: 'grid_view' },
+                { name: 'typenigma', path: '/projects/typenigma', logo: 'keyboard' }
             ],
             scrollY: 0
         }
@@ -119,6 +120,10 @@ export default {
     }
 
     .path-title {
+        -webkit-user-select: none; /* Safari */        
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+/Edge */
+        user-select: none; /* Standard */
         opacity: 0;
         display: block;
         margin: 0 auto;

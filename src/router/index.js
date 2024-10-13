@@ -4,6 +4,7 @@ import MainView from '../views/MainView'
 import BiSHkView from '../views/BiSHkView.vue'
 import FallbackView from '../views/FallbackView.vue'
 import TetrisView from '../views/TetrisView.vue'
+import Typenigma from '../views/Typenigma.vue'
 
 
 
@@ -32,7 +33,13 @@ const routes = [
     path: '/:pathMatch(.*)*',
     name: 'FallbackView',
     component: FallbackView,
+  },
+  {
+    path: '/projects/typenigma',
+    name: 'Typenigma',
+    component: Typenigma,
   }
+
 ]
 const router = createRouter({
   history: createWebHistory(),
