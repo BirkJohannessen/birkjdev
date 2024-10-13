@@ -23,7 +23,7 @@
                     <h2>Fullstack utvikler</h2>
                     <p>- av yrke, men ikke eksklusivt. Sitter på en bred teknisk interrese. Spør meg om hjemmeserverene mine, Linux configen min eller hacking!</p>
                     <h2>Effetiv</h2>
-                    <p>Lidenskapelig opptatt av å være rask! Enten det er å redigere tekst med vim, scripte vekk kjedelige oppgaver, lære shortcuts til programvarer, utnytte tekstgenererende AI, meste touchtyping eller prøve å få over 115wpm på racetyping. </p>
+                    <p>Lidenskapelig opptatt av å være rask! Enten det er å redigere tekst med vim, scripte vekk kjedelige oppgaver, tillære shortcuts til programvarer, utnytte tekstgenererende AI, meste touchtyping eller prøve å få over 115wpm på racetyping. </p>
                 </div>
                 <div class ="infobox">
                     <h2>Dev miljø</h2>
@@ -113,6 +113,8 @@ export default {
         .infobox {
             padding: 12px;
             max-width: 480px;
+            word-break: break-all;
+                overflow-wrap: break-word;     /* Renamed property in CSS3 draft spec */
         }
     }
     .timeline {
