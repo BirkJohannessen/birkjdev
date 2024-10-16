@@ -3,7 +3,7 @@ export default class Letter {
     constructor(letter) {
         this.letter = letter;
         this.state = NOTTYPED;
-        this.cursorIsLeft = true;
+        this.cursorIsLeft = false;
         this.cursor = false;
     }
     setState(state) {

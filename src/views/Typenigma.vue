@@ -95,13 +95,12 @@ export default {
                 idxLastWordEdited++;
             }
 
-            const cursorStartNextWord = this.userInput[this.userInput.length] === ' ';
-            if (cursorStartNextWord) {
-                data[idxLastWordEdited + 1][0].setCursor(true, true);
+            
+            if (idxLastLetterEdited === 0) {
+                data[idxLastWordEdited][idxLastLetterEdited].setCursor(true, true);
             } else {
                 data[idxLastWordEdited][idxLastLetterEdited].setCursor(true, false);
             }
-
         },
         onKeyDownPress(e) {
             if (!this.getInputChar(e)) {
