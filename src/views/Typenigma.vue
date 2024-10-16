@@ -86,18 +86,17 @@ export default {
             const userInputAsList = this.userInput.split(' ');
 
             let idxLastWordEdited = userInputAsList.length - 1;
-            let idxLastLetterEdited = userInputAsList[idxLastWordEdited].length -1;
-            if (idxLastLetterEdited == -1) {
-                idxLastLetterEdited++;
-            }
+            const idxLastLetterEdited = userInputAsList[idxLastWordEdited].length -1;
 
             if(idxLastWordEdited == -1) {
                 idxLastWordEdited++;
             }
 
             
-            if (idxLastLetterEdited === 0) {
-                data[idxLastWordEdited][idxLastLetterEdited].setCursor(true, true);
+            if (idxLastLetterEdited === -1) {
+                data[idxLastWordEdited][0].setCursor(true, true);
+            } else if (idxLastLetterEdited === 0) {
+                data[idxLastWordEdited][idxLastLetterEdited].setCursor(true, false);
             } else {
                 data[idxLastWordEdited][idxLastLetterEdited].setCursor(true, false);
             }
@@ -191,10 +190,8 @@ export default {
     }
     .cursor {
         background-color: gold;
-        font-size: 26px;
-        font-weight: 900;
         width: 2px;
-        height: 20px;
+        height: 22px;
         display: inline-block;
     }
 </style>
