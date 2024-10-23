@@ -1,6 +1,18 @@
-# birkjohannessencom
+# birkj.dev
+
+ __UNDER CONSTRUCTION__
+
+## About
+
+My personal website featuring:
+ - About birk page
+ - Tetris engine and client
+ - Prime spiral project
+ - Web console ( under construction)
+ - WPM type detector.
 
 ## Project setup
+
 ```
 npm install
 ```
@@ -14,7 +26,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-# birkjohannessen.com
