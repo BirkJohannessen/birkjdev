@@ -110,7 +110,7 @@ export default {
     }
     .time {
         width: 3px;
-        background-color: #52495d;
+        background-color: gold;
     }
     .left {
         width: 50%;
@@ -124,13 +124,13 @@ export default {
         padding: 0 16px; margin: 20px 0;
         &.roright {
             p {
-                color: #52495d;
+                color: #77727D;
                 white-space: pre-wrap;
             }
         }
         &.roleft {
             p {
-                color: #52495d;
+                color: #77727D;
                 white-space: pre-wrap;
             }
         }
@@ -143,7 +143,7 @@ export default {
     .point {
         width: 11px; height: 11px;
         border-radius: 24px;
-        background-color: #52495d;
+        background-color: gold;
         &.pleft {
             position: relative;
             right: -23px; top: 12px;
