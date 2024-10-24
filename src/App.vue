@@ -43,11 +43,16 @@ h1, h2, h3, p {
     font-family: 'Material Icons';
     font-display: block;
     font-size: 36px;
+    user-select: none;
     font-variation-settings:
     'FILL' 0,
     'wght' 400,
     'GRAD' 0,
     'opsz' 24
+}
+
+.pointer {
+    cursor: pointer;
 }
 
 </style>

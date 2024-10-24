@@ -7,11 +7,11 @@
                 </a>
             </div>
         </div>
-        <div class="path-wrapper">
+        <div class="path-box">
             <div v-for="path in paths" >
                 <div class="path" @click="push(path)" >
                     <a :class="isSelected(path) ? 'path-logo selected' : 'path-logo'"><span class="material-symbols-outlined">{{path.logo}}</span></a>
-                    <div :class="isSelected(path) ? 'path-title selected' : 'path-title'"> {{path.name}}</div>
+                    <div :class="isSelected(path) ? 'path-title no-hl selected' : 'path-title'"> {{path.name}}</div>
                 </div>
             </div>
         </div>
@@ -58,20 +58,24 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import '@/assets/stylesheets/all.scss';
+
     img {
-        width: 100%; height: 100%; user-select: none
+        width: 100%; height: 100%;
     }
+
     a {
         display: block;
         cursor: pointer;
     }
+
     .hide {
         width: 0px;
         left: -2000px;
     }
     .wrapper {
-        background-color: #000212;
+        background-color: $secondary;
         height: 100vh;
         width: 100px;
         display: flex;
@@ -80,17 +84,17 @@ export default {
         &:hover {
             width: 150px;
             .path-title {
-                color: white; display: block;
+                display: block;
                 margin: 0 auto;
                 text-align: center;
                 transition: opacity 0.35s ease-in;
                 opacity: 1;
             }
             .selected {
-                color: gold;
+                color: $quaternary;
             }
         }
-        border-right: 2px solid #52495d;
+        border-right: 2px solid $tetriary;
         z-index: 9;
     }
 
@@ -104,7 +108,7 @@ export default {
         height: 150px;
     }
 
-    .path-wrapper {
+    .path-box {
         display: flex;
         flex-direction: column;
         height: 90%;
@@ -114,31 +118,26 @@ export default {
 
     .path-logo {
         margin: 20px auto 5px auto;
-        color: white;
         height: 40px;
         width: 40px;
     }
 
     .path-title {
-        -webkit-user-select: none; /* Safari */        
-        -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* IE10+/Edge */
-        user-select: none; /* Standard */
         opacity: 0;
         display: block;
         margin: 0 auto;
         transition: opacity 0.35s ease-out;
-        color: white;
         &.selected {
             opacity: 0;
             display: block;
             margin: 0 auto;
             transition: opacity 0.35s ease-out;
-            color: gold;
+            color: $quaternary;
         }
     }
+
     .selected {
-        color: gold;
+        color: $quaternary;
     }
 
 
@@ -147,11 +146,14 @@ export default {
         flex-direction: column;
         height: 100px;
         cursor: pointer;
+        color: $color-secondary;
+        &:hover {
+            color: $quaternary-offset;
+        }
     }
 
     .material-symbols-outlined {
-        font-size: 2.5em;
-        user-select: none
+        font-size: var(--step-3);
     }
 </style>
 
