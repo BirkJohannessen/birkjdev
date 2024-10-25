@@ -1,16 +1,14 @@
 <template>
-    <div :class="this.scrollY > 2000 ? 'hide' : this.scrollY > 0 ? 'wrapper' : 'wrapper'" >
-        <div class="logo-extender">
-            <div class="logo-wrapper">
-                <a @click="push({ path: '/' })">
-                    <img draggable="false" src="../assets/bjcom/birk_lgo.webp" />
-                </a>
-            </div>
+    <div :class="this.scrollY > 2000 ? 'hide' : 'wrapper'" >
+        <div class="logo-wrapper">
+            <a @click="push({ path: '/' })">
+                <img draggable="false" src="@/assets/images/birk_lgo.webp" />
+            </a>
         </div>
         <div class="path-box">
             <div v-for="path in paths" >
                 <div class="path" @click="push(path)" >
-                    <a :class="isSelected(path) ? 'path-logo selected' : 'path-logo'"><span class="material-symbols-outlined">{{path.logo}}</span></a>
+                    <a :class="isSelected(path) ? 'path-icon selected' : 'path-icon'"><span class="material-symbols-outlined">{{path.icon}}</span></a>
                     <div :class="isSelected(path) ? 'path-title no-hl selected' : 'path-title'"> {{path.name}}</div>
                 </div>
             </div>
@@ -25,7 +23,7 @@ export default {
         window.addEventListener('scroll', this.updateY);
     },
     unmounted () {
-            window.removeEventListener('scroll', this.updateY);
+        window.removeEventListener('scroll', this.updateY);
     },
     methods: {
         push(path) {
@@ -38,19 +36,15 @@ export default {
             this.scrollY = window.top.scrollY;
         }
     },
-    computed: {
-        foo(){
-        }
-    },
     data() {
         return {
             paths: [
-                { name: 'birk', path: '/', logo: 'person' },
-                { name: 'code', path: '/projects/code', logo: 'code' },
-                { name: 'biSHk', path: '/projects/bishk', logo: 'terminal' },
-                { name: 'prime_spiral', path: '/projects/primes', logo: 'blur_on'},
-                { name: 'tetris', path: '/projects/tetris', logo: 'grid_view' },
-                { name: 'typenigma', path: '/projects/typenigma', logo: 'keyboard' }
+                { name: 'birk', path: '/', icon: 'person' },
+                { name: 'code', path: '/projects/code', icon: 'code' },
+                { name: 'biSHk', path: '/projects/bishk', icon: 'terminal' },
+                { name: 'prime_spiral', path: '/projects/primes', icon: 'blur_on'},
+                { name: 'tetris', path: '/projects/tetris', icon: 'grid_view' },
+                { name: 'typenigma', path: '/projects/typenigma', icon: 'keyboard' }
             ],
             scrollY: 0
         }
@@ -71,52 +65,42 @@ export default {
     }
 
     .hide {
-        width: 0px;
-        left: -2000px;
+        display: none;
     }
+
     .wrapper {
         background-color: $secondary;
-        height: 100vh;
-        width: 100px;
-        display: flex;
-        flex-direction: column;
+        height: 100vh; width: 100px;
+        display: flex; flex-direction: column;
         transition: width 0.35s;
+        border-right: $spacing--1 solid $tetriary;
+        z-index: 9;
+
         &:hover {
-            width: 150px;
+            width: 100px;
             .path-title {
-                display: block;
-                margin: 0 auto;
-                text-align: center;
-                transition: opacity 0.35s ease-in;
+                transition: 0.35s ease-in;
                 opacity: 1;
             }
             .selected {
                 color: $quaternary;
             }
         }
-        border-right: 2px solid $tetriary;
-        z-index: 9;
     }
 
     .logo-wrapper {
+        height: 150px;
         width: 100%;
         height: auto;
         margin: 0 auto;
     }
 
-    .logo-extender {
-        height: 150px;
-    }
-
     .path-box {
-        display: flex;
-        flex-direction: column;
-        height: 90%;
-        justify-content: center;
-        overflow: hidden;
+        display: flex; flex-direction: column;
+        margin: auto auto;
     }
 
-    .path-logo {
+    .path-icon {
         margin: 20px auto 5px auto;
         height: 40px;
         width: 40px;
@@ -128,10 +112,6 @@ export default {
         margin: 0 auto;
         transition: opacity 0.35s ease-out;
         &.selected {
-            opacity: 0;
-            display: block;
-            margin: 0 auto;
-            transition: opacity 0.35s ease-out;
             color: $quaternary;
         }
     }
@@ -140,11 +120,8 @@ export default {
         color: $quaternary;
     }
 
-
     .path {
-        display: flex;
-        flex-direction: column;
-        height: 100px;
+        display: flex; flex-direction: column;
         cursor: pointer;
         color: $color-secondary;
         &:hover {

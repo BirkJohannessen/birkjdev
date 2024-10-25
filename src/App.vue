@@ -1,17 +1,17 @@
 <template>
     <div class="app-wrapper">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        <HeaderComponent />
+        <NavBarComponent />
         <router-view />
     </div>
 </template>
 
 <script>
-import HeaderComponent from './components/HeaderComponent'
+import NavBarComponent from './components/NavBarComponent'
 export default {
     name: 'App',
     components: {
-        HeaderComponent
+        NavBarComponent
     }
 }
 </script>

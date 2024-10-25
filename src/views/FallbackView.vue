@@ -4,9 +4,9 @@
             <h2>
                 418 - I'm a teapot 🫖
             </h2>
-            <h3>
+            <p>
                 The HTTP 418 I'm a teapot client error response code indicates that the server refuses to brew coffee because it is, permanently, a teapot. A combined coffee/tea pot that is temporarily out of coffee should instead return 503.
-            </h3>
+            </p>
         </div>
         <div class="padding"></div>
     </div>

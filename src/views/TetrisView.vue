@@ -3,8 +3,8 @@ G
     <div class="wrapper">
         <div class="center">
             <div class="info">
-                <h1>Level: {{this.level}}</h1>
-                <h1>Score: {{this.score}}</h1>
+                <h3>Level: {{this.level}}</h3>
+                <h3>Score: {{this.score}}</h3>
             </div>
             <div class="btns">
                 <span v-if="this.tetris.isPaused()" class="material-symbols-outlined" @click="this.tetris.resume()">play_arrow</span>
