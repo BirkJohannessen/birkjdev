@@ -52,7 +52,7 @@ export default {
     },
     computed: {
         primes(){
-            return Config.primeArray
+            return Config.prime2Array
         }
     },
     data() {
@@ -128,6 +128,7 @@ export default {
 }
 
 .content {
+    margin: 0;
     background: black;
     width: 100vw;
     color: white;
@@ -156,7 +157,7 @@ export default {
     left: 0;
 }
 
-@media only screen and (max-width: 768px) {
+@media (max-width: $mobile-size) {
     .zoom {
         transform: rotate(90deg);
         width: 250vw;
@@ -173,6 +174,7 @@ export default {
 
     .sticky{
         width: 100vw;
+        height: 100vh;
         position: fixed;
     }
 

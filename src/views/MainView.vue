@@ -161,4 +161,10 @@ export default {
         margin: var(--step--1) auto;
         margin: 0 $spacing-1;
     }
+
+    @media (max-width: $mobile-size) {
+        .about {
+            text-align: center;
+        }
+    }
 </style>

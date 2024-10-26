@@ -18,6 +18,7 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import '@/assets/stylesheets/all.scss';
 
 html,
 body {
@@ -25,18 +26,6 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Montserrat';
-    font-size: 1em;
-    scroll-behavior: smooth;
-}
-
-h1, h2, h3, p {
-    padding: 5px 0px 5px 0px;
-    margin: 0;
-}
-
-.app-wrapper {
-    display: flex;
-    flex-direction: row;
 }
 
 .material-symbols-outlined {
@@ -51,8 +40,14 @@ h1, h2, h3, p {
     'opsz' 24
 }
 
-.pointer {
-    cursor: pointer;
+.app-wrapper {
+    display: flex;
+    flex-direction: row;
 }
 
+@media (max-width: $mobile-size) {
+    .app-wrapper {
+        flex-direction: column;
+    }
+}
 </style>

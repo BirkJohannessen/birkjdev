@@ -1,5 +1,5 @@
 <template>
-    <div :class="this.scrollY > 2000 ? 'hide' : 'wrapper'" >
+    <div :class="this.scrollY > 0 ? 'hide-mb wrapper' : this.scrollY > 2000 ? 'hide' : 'wrapper'" >
         <div class="logo-wrapper">
             <a @click="push({ path: '/' })">
                 <img draggable="false" src="@/assets/images/birk_lgo.webp" />
@@ -43,6 +43,7 @@ export default {
                 { name: 'code', path: '/projects/code', icon: 'code' },
                 { name: 'biSHk', path: '/projects/bishk', icon: 'terminal' },
                 { name: 'prime_spiral', path: '/projects/primes', icon: 'blur_on'},
+                { name: 'prime_spiral2', path: '/projects/primes2', icon: 'blur_off'},
                 { name: 'tetris', path: '/projects/tetris', icon: 'grid_view' },
                 { name: 'typenigma', path: '/projects/typenigma', icon: 'keyboard' }
             ],
@@ -64,28 +65,13 @@ export default {
         cursor: pointer;
     }
 
-    .hide {
-        display: none;
-    }
-
     .wrapper {
         background-color: $secondary;
         height: 100vh; width: 100px;
         display: flex; flex-direction: column;
-        transition: width 0.35s;
         border-right: $spacing--1 solid $tetriary;
         z-index: 9;
 
-        &:hover {
-            width: 100px;
-            .path-title {
-                transition: 0.35s ease-in;
-                opacity: 1;
-            }
-            .selected {
-                color: $quaternary;
-            }
-        }
     }
 
     .logo-wrapper {
@@ -107,10 +93,8 @@ export default {
     }
 
     .path-title {
-        opacity: 0;
-        display: block;
+        display: none;
         margin: 0 auto;
-        transition: opacity 0.35s ease-out;
         &.selected {
             color: $quaternary;
         }
@@ -130,7 +114,43 @@ export default {
     }
 
     .material-symbols-outlined {
-        font-size: var(--step-3);
+        font-size: 35px;
+    }
+
+    @media (max-width: $mobile-size) {
+        .wrapper {
+            width: 100vw; height: 80px;
+            flex-direction: row;
+            transition: display 0.35s ease-in;
+            border-right: 0;
+            border-bottom: $spacing--1 solid $tetriary;
+        }
+
+        .logo-wrapper {
+            margin: auto;
+            width: 90px;
+        }
+
+        .path-box {
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-around;
+
+        }
+
+        .path-icon {
+            margin: auto;
+            height: 40px;
+            width: 40px;
+        }
+        
+        .path-title {
+            display: none;
+        }
+
+        .hide-mb.wrapper {
+            display: none;
+        }
     }
 </style>
 

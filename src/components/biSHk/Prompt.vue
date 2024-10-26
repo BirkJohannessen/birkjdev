@@ -26,6 +26,7 @@ export default {
             e.stopPropagation();
             if (e.key === 'Enter') {
                 var element = document.getElementById('input');
+                if (element == null) return;
                 var event = new Event('input');
                 element.dispatchEvent(event);
                 this.$emit('execute-command', this.value)
@@ -44,14 +45,7 @@ export default {
         setValue(e) {
             this.value = e.target.value
         }
-    },
-    computed: {
-    },
-    data() {
-        return {
-            value: '',
-        }
-    },
+    }
 }
 </script>
 

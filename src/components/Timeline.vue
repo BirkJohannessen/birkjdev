@@ -102,7 +102,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import '@/assets/stylesheets/all.scss';
+
     .timeline-wrapper {
         width: 100%;
         padding: 16px 0;
@@ -124,7 +126,7 @@ export default {
         padding: 0 16px; margin: 20px 0;
         &.roright {
             p {
-                color: #77727D;
+                color: $color-primary;
                 white-space: pre-wrap;
             }
         }
@@ -153,6 +155,12 @@ export default {
             position: relative;
             left: -23px; top: 12px;
             float: left;
+        }
+    }
+
+    @media (max-width: $mobile-size) {
+        .time-object-reflect {
+            display: none;
         }
     }
 </style>
