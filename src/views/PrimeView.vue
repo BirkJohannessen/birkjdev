@@ -67,10 +67,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/stylesheets/all.scss';
 .zoom {
     position: relative;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     z-index: 3;
 }

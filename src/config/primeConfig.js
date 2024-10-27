@@ -27,12 +27,12 @@ import a17 from '../assets/PRIME_8388608.png'
 
 
 
-import svg10 from '@/assets/primesvg/PRIME_65536.svg'
+import svg10 from '../assets/primesvg/PRIME_65536.svg'
 
 export default {
     //primeArray: [a,a0,a1,a3,a5,a7,a9,a11,a13,a15,a17],
     //           0   1   2   3 4  5  6  7  8  9  10 11 12 13 14  15  16  17  18  19  20   21
     primeArray: [am3,am2,am1,a,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17],
-    prime2Array: [svg10,svg10,svg10,svg10,svg10,svg10,svg10,svg10,svg10,svg10,svg10,svg10,svg10,],
+    prime2Array: [svg10],
 
 }

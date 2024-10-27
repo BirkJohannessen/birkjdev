@@ -1,9 +1,6 @@
 <template>
     <div class="content">
-        <svg version="1.1" position="relative">
-          <circle cx="1" cy="1" r="2" fill="#c1b2f7" stroke="#ffffff"/>
-          <circle cx="10" cy="10" r="2" fill="#c1b2f7" stroke="#ffffff"/>
-        </svg>
+        <img src="@/assets/primesvg/PRIME_65536.svg" />
     </div>
 </template>
 
@@ -23,13 +20,23 @@ export default {
         handleScroll() {
         }
     },
+    computed: {
+        primes(){
+            return Config.prime2Array
+        }
+    },
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/stylesheets/all.scss';
+img {
+    object-fit: contain;
+    width: 100%; height: 100%
+}
 .content {
     margin: 0;
-    background-color: black;
+    background-color: $primary;
     width: 100vw;
     height: 100vh;
     color: white;

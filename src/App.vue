@@ -43,6 +43,7 @@ body {
 .app-wrapper {
     display: flex;
     flex-direction: row;
+    background-color: black;
 }
 
 @media (max-width: $mobile-size) {

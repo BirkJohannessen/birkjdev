@@ -1,7 +1,6 @@
 $primary: #292736;
 $secondary: #000212;
 $tetriary: #52495d;
-
 $quaternary: #FFD700;
 
 $primary-offset: #292736;
@@ -123,7 +122,6 @@ img {
     0% { opacity: 0; }
     100% { opacity: 1; }
 }
-
 
 @media (max-width: $mobile-size) {
     .wrapper {
