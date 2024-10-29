@@ -82,13 +82,8 @@ export default {
 
     .path-box {
         display: flex; flex-direction: column;
+        gap: $spacing-4;
         margin: auto auto;
-    }
-
-    .path-icon {
-        margin: 20px auto 5px auto;
-        height: 40px;
-        width: 40px;
     }
 
     .path-title {
@@ -138,9 +133,7 @@ export default {
         }
 
         .path-icon {
-            margin: auto;
-            height: 40px;
-            width: 40px;
+            margin: 0 $spacing-1 0 $spacing-1;
         }
         
         .path-title {
