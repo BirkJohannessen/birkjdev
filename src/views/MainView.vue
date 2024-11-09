@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div class ="timeline">
-                <h3>Highlights</h3>
+                <h1>Highlights</h1>
                 <Timeline/>
             </div>
         </div>
@@ -141,7 +141,10 @@ export default {
 
     .timeline {
         margin: 400px 0;
-        h3 { text-align: center; }
+        h1 { 
+            text-align: center;
+            margin-bottom: $spacing-4;
+        }
     }
 
     .icons {
