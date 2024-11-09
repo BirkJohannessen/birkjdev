@@ -52,7 +52,7 @@ export default {
     },
     computed: {
         primes(){
-            return Config.prime2Array
+            return Config.primeArray
         }
     },
     data() {

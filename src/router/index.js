@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import PrimeView from '../views/PrimeView'
-import PrimeView2 from '../views/PrimeView2'
 import MainView from '../views/MainView'
 import BiSHkView from '../views/BiSHkView.vue'
 import FallbackView from '../views/FallbackView.vue'
@@ -24,11 +23,6 @@ const routes = [
     path: '/projects/primes',
     name: 'PrimeView',
     component: PrimeView,
-  },
-  {
-    path: '/projects/primes2',
-    name: 'PrimeView2',
-    component: PrimeView2,
   },
   {
     path: '/projects/tetris',
