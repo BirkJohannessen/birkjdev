@@ -26,7 +26,7 @@ export default {
     @import '@/assets/stylesheets/all.scss';
     .word {
         padding: 0 6px 0 6px;
-        font-size: 26px;
+        font-size: 34px;
         font-weight: 900;
     }
     .miss {
@@ -41,15 +41,16 @@ export default {
         display: inline-block;
     }
     .cursor {
-        background-color: gold;
-        width: 2px;
-        height: 22px;
+        width: 0px;
+        outline: solid 1px gold;
+        border: 1px gold;
+        height: 30px;
         display: inline-block;
     }
     #sentence {
         width: 70vw;
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: left;
     }
 </style>

@@ -2,16 +2,26 @@ import { NOTTYPED, MISS, HIT, OVERFLOW } from '@/typenigma/LetterStateEnum.js';
 import Letter from '@/typenigma/Letter.js';
 export default class TypenigmaInputProcessor {
     constructor() {
-        this.sentence = 'Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident',
-        this.charMap = { 32:" ", 48:"0", 49:"1", 50:"2", 51:"3", 52:"4", 53:"5", 54:"6", 55:"7", 56:"8", 57:"9", 65:"a", 66:"b", 67:"c", 68:"d", 69:"e", 70:"f", 71:"g", 72:"h", 73:"i", 74:"j", 75:"k", 76:"l", 77:"m", 78:"n", 79:"o", 80:"p", 81:"q", 82:"r", 83:"s", 84:"t", 85:"u", 86:"v", 87:"w", 88:"x", 89:"y", 90:"z", 96:"0", 97:"1", 98:"2", 99:"3", 100:"4", 101:"5", 102:"6", 103:"7", 104:"8", 105:"9", 106:"*", 107:"+", 109:"-", 110:".", 111:"/", 186:";", 187:"=", 188:",", 189:"-", 190:".", 191:"/", 192:"`", 219:"[", 220:"\\", 221:"]", 222:"'" },
+        this.sentence = this.aliceFix("Alice went on talking at ever was! Good-bye, feet!” (for when he sneezed occasionally; and if there’s nothing before.” “Well, perhaps he can _ever_ happen next. “It’s—it’s a very interesting dance to be an old crab, _he_ was.” “Two lines!” cried Alice: “allow me to him,” said to think you might do very curious to know. Let me alone with the game.” “Nothing of little_—’” and she squeaking them about, reminding it was exactly as if not, I’ll be jury,’ Said cunning out altogether figure!” said the Caterpillar. “No,” said the Hatter began shrinking a minute, while finish his story. All the tide rises and your story!” Alice was only too glad to fall a long breath.’ nothing to be no sorrow, you know.” “What I was gone, if it pleases!” Soon her eyes were live hedgehog just now, I suppose it would have any pepper that,” she said very glad to go on. “And so she felt quite a commotion and of long as all references to Project Gutenberg-tm and furrow in "),
         this.inputData = {
             userInput: ''
         }
     }
 
-    onInput(e) {
-        this.userInput = e;
+    aliceFix(alicetxt) {
+        let str = alicetxt
+            .replace(/[!()”’“—]+/g, '')
+            .replace(/[,._:;]+/g, '')
+            .replace(/[-]+/g, ' ')
+            .split('  ').join(' ')
+            .toLowerCase();
+        return str; 
     }
+
+    reset() {
+        this.inputData.userInput = '';
+    }
+
     enstructSentence() {
         return this.sentence.split(' ').map(word => word.split(''));
     }
@@ -73,27 +83,7 @@ export default class TypenigmaInputProcessor {
             data[idxLastWordEdited][idxLastLetterEdited].setCursor(true, false);
         }
     }
-    onKeyDownPress(e) {
-        if (!this.getInputChar(e)) {
-            if (e.ctrlKey && e.which === 8) {
-                const inputSplit =  this.inputData.userInput.split(' ');
-                this.inputData.userInput = inputSplit.slice(0, inputSplit.length - 1).join(' ') + " ";
-
-                return;
-            }
-            if (e.which === 8) {
-                this.inputData.userInput = this.inputData.userInput.slice(0, this.inputData.userInput.length - 1);
-                return;
-            }
-            return;
-        }
-        this.inputData.userInput = this.inputData.userInput += this.getInputChar(e);
-    }
-    getInputChar(e) {
-        if (this.charMap[e.which]) {
-            e.stopPropagation();
-            return e.key;
-        }
-        return null;
+    onInput(e) {
+        this.inputData.userInput = e.target.value;
     }
 }
