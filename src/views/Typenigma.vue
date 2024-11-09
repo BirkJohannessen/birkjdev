@@ -36,23 +36,26 @@ export default {
         const input = document.getElementById('input');
         const sentenceblur = document.getElementById('sentenceblur');
 
-        input.addEventListener('focus', () => {
+        const unblur = () => {
             sentenceblur.classList.add('hide');
             sentenceblur.classList.remove('blur');
-        });
+        };
 
-        input.addEventListener('focusout', () => {
+        const blur = () => {
             sentenceblur.classList.add('blur');
             sentenceblur.classList.remove('hide');
-        });
+        };
 
-        sentenceblur.addEventListener('click', () => {
+        const focus = () => {
             input.focus();
-        });
+        };
 
-        sentenceblur.addEventListener('focus', () => {
-            input.focus();
-        });
+        this.listenTo(input, 'focusout', blur);
+        this.listenTo(input, 'focus', unblur);
+        this.listenTo(sentenceblur, 'click', focus);
+        this.listenTo(sentenceblur, 'focus', focus);
+        this.listenTo(sentence, 'click', focus);
+        this.listenTo(sentence, 'focus', focus);
     },
     components: {
         Sentence
@@ -65,6 +68,9 @@ export default {
             input.focus();
             input.value = '';
             this.sentence = this.engine.inputProcessor.enstructData();
+        },
+        listenTo(htmlElement, e, callback) {
+            htmlElement.addEventListener(e, callback);
         },
         onInput(e) {
             this.engine.onInput(e);
