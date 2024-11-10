@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="center">
-            <div id="timer">
+            <div id="timer" v-if="[0,1].includes(this.gameState)">
                 {{ timeDisplay }}
             </div>
             <Sentence id="sentence" :engine="this.engine" ref="sentence" v-if="[0,1].includes(this.gameState)" />
