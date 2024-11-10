@@ -4,13 +4,7 @@
             <div id="timer">
                 {{ timeDisplay }}
             </div>
-            <div class="sentence-wrapper">
-                <Sentence id="sentence" :sentence="this.sentence" />
-                <div id="sentenceblur" class="blur">
-                    <p class="msg">Click here focus.</p>
-                </div>
-            </div>
-            <input id="input" class="no-hl" @input="onInput" />
+            <Sentence id="sentence" :engine="this.engine" ref="sentence" />
             <div class="btns">
                 <button class="material-symbols-outlined" id="reset" @click="this.reset()">restart_alt</button>
             </div>
@@ -26,36 +20,9 @@ export default {
     name: 'Typenigma',
     beforeMount() {
         this.engine = new TypenigmaEngine();
-        this.sentence = this.engine.inputProcessor.enstructData();
         setInterval(() => {
             this.timeDisplay = this.engine.gameInfo.timeDisplay;
         }, 100);
-    },
-    mounted() {
-        const div = document.getElementById('sentenceblur');
-        const input = document.getElementById('input');
-        const sentenceblur = document.getElementById('sentenceblur');
-
-        const unblur = () => {
-            sentenceblur.classList.add('hide');
-            sentenceblur.classList.remove('blur');
-        };
-
-        const blur = () => {
-            sentenceblur.classList.add('blur');
-            sentenceblur.classList.remove('hide');
-        };
-
-        const focus = () => {
-            input.focus();
-        };
-
-        this.listenTo(input, 'focusout', blur);
-        this.listenTo(input, 'focus', unblur);
-        this.listenTo(sentenceblur, 'click', focus);
-        this.listenTo(sentenceblur, 'focus', focus);
-        this.listenTo(sentence, 'click', focus);
-        this.listenTo(sentence, 'focus', focus);
     },
     components: {
         Sentence
@@ -64,22 +31,11 @@ export default {
         reset() {
             this.engine.reset();
             document.getElementById("reset").blur();
-            const input = document.getElementById("input");
-            input.focus();
-            input.value = '';
-            this.sentence = this.engine.inputProcessor.enstructData();
-        },
-        listenTo(htmlElement, e, callback) {
-            htmlElement.addEventListener(e, callback);
-        },
-        onInput(e) {
-            this.engine.onInput(e);
-            this.sentence = this.engine.inputProcessor.enstructData();
+            this.$refs.sentence.reset();
         },
     },    
     data() {
         return {
-            sentence: [],
             timeDisplay: ''
         }
     }
@@ -121,41 +77,5 @@ export default {
                 outline: 3px solid grey;
             }
         }
-    }
-    #input {
-        position: absolute;
-        color: transparent;
-        background-color: transparent;
-        outline: 0;
-        border: 0;
-        height: 0;
-        margin: 0; padding: 0;
-        &:focus {
-            outline: 0;
-            border: 0;
-        }
-    }
-    .blur {
-        position: absolute;
-        display: flex; flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        backdrop-filter: blur(4px);
-        width: 100%;
-        height: 100%;
-        .msg {
-            height: 32px;
-            color: $color-secondary;
-        }
-    }
-    #sentence {
-        color: $color-primary;
-        position: relative;
-        height: 125px;
-        overflow: hidden;
-    }
-    .sentence-wrapper {
-        display: flex; flex-direction: column;
-        position: relative;
     }
 </style>

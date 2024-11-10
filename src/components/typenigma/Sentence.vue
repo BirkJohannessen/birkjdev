@@ -1,15 +1,21 @@
 <template>
-    <div id="sentence">
-        <span v-for="word in sentence" class="word">
-            <div v-for="letter in word" class="letter">
-                <span v-if="letter.isCursor() && letter.isCursorLeft()" class="cursor"></span>
-                <span v-if="letter.getState() === 0" class="default">{{ letter.getLetter() }}</span>
-                <span v-if="letter.getState() === 1" class="miss">{{ letter.getLetter() }}</span>
-                <span v-if="letter.getState() === 2" class="hit">{{ letter.getLetter() }}</span>
-                <span v-if="letter.getState() === 3" class="miss">{{ letter.getLetter() }}</span>
-                <span v-if="letter.isCursor() && !letter.isCursorLeft()" class="cursor"></span>
-            </div>
-        </span>
+    <div class="sentence-wrapper">
+        <input id="input" class="no-hl" @input="onInput" />
+        <div id="sentence">
+            <span v-for="word in sentence" class="word">
+                <div v-for="letter in word" class="letter">
+                    <span v-if="letter.isCursor() && letter.isCursorLeft()" class="cursor"></span>
+                    <span v-if="letter.getState() === 0" class="default">{{ letter.getLetter() }}</span>
+                    <span v-if="letter.getState() === 1" class="miss">{{ letter.getLetter() }}</span>
+                    <span v-if="letter.getState() === 2" class="hit">{{ letter.getLetter() }}</span>
+                    <span v-if="letter.getState() === 3" class="miss">{{ letter.getLetter() }}</span>
+                    <span v-if="letter.isCursor() && !letter.isCursorLeft()" class="cursor"></span>
+                </div>
+            </span>
+        </div>
+        <div id="sentenceblur" class="blur">
+            <p class="msg">Click here focus.</p>
+        </div>
     </div>
 </template>
 
@@ -17,7 +23,54 @@
 export default {
     name: 'SentenceComponent',
     props: {
-        sentence: Array,
+        engine: Object
+    },
+    mounted() {
+        this.sentence = this.engine.inputProcessor.enstructData();
+        const div = document.getElementById('sentenceblur');
+        const input = document.getElementById('input');
+        const sentenceblur = document.getElementById('sentenceblur');
+
+        const unblur = () => {
+            sentenceblur.classList.add('hide');
+            sentenceblur.classList.remove('blur');
+        };
+
+        const blur = () => {
+            sentenceblur.classList.add('blur');
+            sentenceblur.classList.remove('hide');
+        };
+
+        const focus = () => {
+            input.focus();
+        };
+
+        this.listenTo(input, 'focusout', blur);
+        this.listenTo(input, 'focus', unblur);
+        this.listenTo(sentenceblur, 'click', focus);
+        this.listenTo(sentenceblur, 'focus', focus);
+        this.listenTo(sentence, 'click', focus);
+        this.listenTo(sentence, 'focus', focus);
+    },
+    methods: {
+        onInput(e) {
+            this.engine.onInput(e);
+            this.sentence = this.engine.inputProcessor.enstructData();
+        },
+        listenTo(htmlElement, e, callback) {
+            htmlElement.addEventListener(e, callback);
+        },
+        reset() {
+            const input = document.getElementById("input");
+            input.focus();
+            input.value = '';
+            this.sentence = this.engine.inputProcessor.enstructData();
+        }
+    },
+    data() {
+        return {
+            sentence: [],
+        }
     }
 }
 </script>
@@ -52,5 +105,41 @@ export default {
         display: flex;
         flex-wrap: wrap;
         justify-content: left;
+    }
+    #input {
+        position: absolute;
+        color: transparent;
+        background-color: transparent;
+        outline: 0;
+        border: 0;
+        height: 0;
+        margin: 0; padding: 0;
+        &:focus {
+            outline: 0;
+            border: 0;
+        }
+    }
+    #sentence {
+        color: $color-primary;
+        position: relative;
+        height: 125px;
+        overflow: hidden;
+    }
+    .sentence-wrapper {
+        display: flex; flex-direction: column;
+        position: relative;
+    }
+    .blur {
+        position: absolute;
+        display: flex; flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(4px);
+        width: 100%;
+        height: 100%;
+        .msg {
+            height: 32px;
+            color: $color-secondary;
+        }
     }
 </style>
