@@ -1,19 +1,21 @@
 <template>
     <div class="sentence-wrapper">
         <input id="input" class="no-hl" @input="onInput" />
-        <div id="sentence">
-            <span v-for="word in sentence" class="word">
-                <div v-for="letter in word" class="letter">
-                    <span v-if="letter.isCursor() && letter.isCursorLeft()" class="cursor"></span>
-                    <span v-if="letter.getState() === 0" class="default">{{ letter.getLetter() }}</span>
-                    <span v-if="letter.getState() === 1" class="miss">{{ letter.getLetter() }}</span>
-                    <span v-if="letter.getState() === 2" class="hit">{{ letter.getLetter() }}</span>
-                    <span v-if="letter.getState() === 3" class="miss">{{ letter.getLetter() }}</span>
-                    <span v-if="letter.isCursor() && !letter.isCursorLeft()" class="cursor"></span>
-                </div>
-            </span>
+        <div class="sentence-hide">
+            <div id="sentence" :style="calculateTop()">
+                <span v-for="word in sentence" class="word">
+                    <div v-for="letter in word" class="letter">
+                        <span v-if="letter.isCursor() && letter.isCursorLeft()" id="cursor" class="cursor"></span>
+                        <span v-if="letter.getState() === 0" class="default">{{ letter.getLetter() }}</span>
+                        <span v-if="letter.getState() === 1" class="miss">{{ letter.getLetter() }}</span>
+                        <span v-if="letter.getState() === 2" class="hit">{{ letter.getLetter() }}</span>
+                        <span v-if="letter.getState() === 3" class="miss">{{ letter.getLetter() }}</span>
+                        <span v-if="letter.isCursor() && !letter.isCursorLeft()" id="cursor" class="cursor"></span>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div id="sentenceblur" class="">
+        <div id="sentenceblur" class="hide">
             <p class="msg">Click here focus.</p>
         </div>
     </div>
@@ -71,6 +73,24 @@ export default {
             input.focus();
             input.value = '';
             this.sentence = this.engine.inputProcessor.enstructData();
+        },
+        calculateTop() {
+            return `top: -${this.calculateSentenceOffset()}px`;
+        },
+        calculateSentenceOffset() {
+            const firstPaddingOffset = 0;
+            const sentenceOffset = 42;
+            const sentence = document.getElementById('sentence');
+            const cursor  = document.getElementById('cursor');
+            if (!sentence || !cursor) {
+                return firstPaddingOffset;
+            }
+            const parentPos = sentence.getBoundingClientRect();
+            const childPos  = cursor.getBoundingClientRect();
+            console.log(parentPos.top, childPos.top)
+            const cursorY = childPos.top - parentPos.top - firstPaddingOffset;
+            const returnValue = (parseInt(cursorY / sentenceOffset) * sentenceOffset) + firstPaddingOffset;
+            return returnValue;
         }
     },
     data() {
@@ -108,9 +128,15 @@ export default {
     }
     #sentence {
         width: 70vw;
-        display: flex;
-        flex-wrap: wrap;
+        display: flex; flex-wrap: wrap;
         justify-content: left;
+        color: $color-primary;
+        position: relative;
+    }
+    .sentence-hide {
+        overflow: hidden;
+        height: 129px;
+        position: relative;
     }
     #input {
         position: absolute;
@@ -124,12 +150,6 @@ export default {
             outline: 0;
             border: 0;
         }
-    }
-    #sentence {
-        color: $color-primary;
-        position: relative;
-        height: 125px;
-        overflow: hidden;
     }
     .sentence-wrapper {
         display: flex; flex-direction: column;

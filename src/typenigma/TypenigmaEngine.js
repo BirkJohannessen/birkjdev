@@ -7,7 +7,7 @@ export default class TypenigmaEngine {
             wpmHistory: [],
             gameState: 0,
             startTime: 0,
-            interval: 5,
+            interval: 30,
             input: this.inputProcessor,
             timeDisplay: '',
             wpm: 0,
