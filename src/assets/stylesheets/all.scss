@@ -123,6 +123,12 @@ img {
     100% { opacity: 1; }
 }
 
+@keyframes blurIn {
+    0% { backdrop-filter: blur(1px); }
+    100% { backdrop-filter: blur(4px); }
+}
+        
+
 @media (max-width: $mobile-size) {
     .wrapper {
         width: 100vw; height: 100%;

@@ -7,10 +7,11 @@ export default class TypenigmaEngine {
             wpmHistory: [],
             gameState: 0,
             startTime: 0,
-            interval: 30,
+            interval: 5,
             input: this.inputProcessor,
             timeDisplay: '',
-            wpm: 0
+            wpm: 0,
+            wpmHistory: [88, 100, 110, 105, 107, 106, 100, 98, 99, 92]
         }
         setInterval(() => {
             timeDisplay = this.timeDisplay;

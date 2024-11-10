@@ -13,7 +13,7 @@
                 </div>
             </span>
         </div>
-        <div id="sentenceblur" class="blur">
+        <div id="sentenceblur" class="">
             <p class="msg">Click here focus.</p>
         </div>
     </div>
@@ -30,6 +30,12 @@ export default {
         const div = document.getElementById('sentenceblur');
         const input = document.getElementById('input');
         const sentenceblur = document.getElementById('sentenceblur');
+
+        setTimeout(() => {
+            if (document.activeElement != input)  {
+                sentenceblur.classList.add('blur');
+            }
+        }, 1000);
 
         const unblur = () => {
             sentenceblur.classList.add('hide');
@@ -128,13 +134,15 @@ export default {
     .sentence-wrapper {
         display: flex; flex-direction: column;
         position: relative;
+        animation: fadeIn 1s;
     }
     .blur {
         position: absolute;
         display: flex; flex-direction: row;
         justify-content: center;
         align-items: center;
-        backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px); 
+        animation: blurIn 1s;
         width: 100%;
         height: 100%;
         .msg {

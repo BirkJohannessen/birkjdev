@@ -4,7 +4,8 @@
             <div id="timer">
                 {{ timeDisplay }}
             </div>
-            <Sentence id="sentence" :engine="this.engine" ref="sentence" />
+            <Sentence id="sentence" :engine="this.engine" ref="sentence" v-if="[0,1].includes(this.gameState)" />
+            <Result :engine="this.engine" v-if="this.gameState == 2"/>
             <div class="btns">
                 <button class="material-symbols-outlined" id="reset" @click="this.reset()">restart_alt</button>
             </div>
@@ -14,29 +15,37 @@
 
 <script>
 import Sentence from '@/components/typenigma/Sentence.vue';
+import Result from '@/components/typenigma/TypeResult.vue';
 import TypenigmaEngine from '@/typenigma/TypenigmaEngine.js';
 
 export default {
     name: 'Typenigma',
     beforeMount() {
-        this.engine = new TypenigmaEngine();
-        setInterval(() => {
-            this.timeDisplay = this.engine.gameInfo.timeDisplay;
-        }, 100);
+        if (!this.engine) {
+            this.engine = new TypenigmaEngine();
+            setInterval(() => {
+                this.timeDisplay = this.engine.gameInfo.timeDisplay;
+                this.gameState = this.engine.gameInfo.gameState
+            }, 100);
+        }
     },
     components: {
-        Sentence
+        Sentence,
+        Result
     },
     methods: {
         reset() {
             this.engine.reset();
             document.getElementById("reset").blur();
-            this.$refs.sentence.reset();
+            setTimeout(() => {
+                this.$refs.sentence.reset();
+            }, 100);
         },
     },    
     data() {
         return {
-            timeDisplay: ''
+            timeDisplay: '',
+            gameState: 0
         }
     }
 }
