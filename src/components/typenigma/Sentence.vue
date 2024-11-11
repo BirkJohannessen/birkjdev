@@ -2,7 +2,7 @@
     <div class="sentence-wrapper">
         <input id="input" class="no-hl" @input="onInput" />
         <div class="sentence-hide">
-            <div id="sentence" :style="calculateTop()">
+            <div id="sentence" :style="this.top">
                 <span v-for="word in sentence" class="word">
                     <div v-for="letter in word" class="letter">
                         <span v-if="letter.isCursor() && letter.isCursorLeft()" id="cursor" class="cursor"></span>
@@ -32,6 +32,10 @@ export default {
         const div = document.getElementById('sentenceblur');
         const input = document.getElementById('input');
         const sentenceblur = document.getElementById('sentenceblur');
+
+        setInterval(() => {
+            this.calculateTop();
+        }, 10);
 
         setTimeout(() => {
             if (document.activeElement != input)  {
@@ -75,27 +79,28 @@ export default {
             this.sentence = this.engine.inputProcessor.enstructData();
         },
         calculateTop() {
-            return `top: -${this.calculateSentenceOffset()}px`;
+            this.top = `top: -${this.calculateSentenceOffset()}px`;
         },
         calculateSentenceOffset() {
-            const firstPaddingOffset = 0;
+            const firstPaddingOffset = 3;
             const sentenceOffset = 42;
             const sentence = document.getElementById('sentence');
             const cursor  = document.getElementById('cursor');
             if (!sentence || !cursor) {
-                return firstPaddingOffset;
+                return 0;
             }
-            const parentPos = sentence.getBoundingClientRect();
-            const childPos  = cursor.getBoundingClientRect();
-            console.log(parentPos.top, childPos.top)
-            const cursorY = childPos.top - parentPos.top - firstPaddingOffset;
-            const returnValue = (parseInt(cursorY / sentenceOffset) * sentenceOffset) + firstPaddingOffset;
-            return returnValue;
+            const cursorY = cursor.offsetTop;
+            const returnValue = (parseInt(cursorY / sentenceOffset) * sentenceOffset);
+            if (returnValue === 0 || returnValue === sentenceOffset + firstPaddingOffset) {
+                return returnValue;
+            }
+            return returnValue - sentenceOffset;
         }
     },
     data() {
         return {
             sentence: [],
+            top: ''
         }
     }
 }
