@@ -1,4 +1,14 @@
 <template>
+    <div class="header">
+        <div class="wpm item">
+            <h1>{{this.engine.calculateFinalWPM()}}</h1>
+            <h3>wpm</h3>
+        </div>
+        <div class="percent item">
+            <h1>{{this.engine.calculateCorrectPercentage()}}%</h1>
+            <h3>accuracy</h3>
+        </div>
+    </div>
     <div class="result-wrapper">
         <Line :data="data" :options="options" class="chart" />
     </div>
@@ -30,13 +40,13 @@ export default {
     data() {
         return {
             data: {
-                labels: ['1', '6', '11', '16', '21', '26', '29'],
+                labels: this.engine.gameInfo.timeIntervals,
                 datasets: [
                     {
                         label: 'WPM',
                         backgroundColor: 'gold',
                         borderColor: 'gold',
-                        data: this.engine.gameInfo.wpmHistory
+                        data: this.engine.gameInfo.wpmIntervals
                     }
                 ]
             },
@@ -50,6 +60,7 @@ export default {
                 },
                 scales: {
                     y: {
+                        min: 0,
                         ticks: {
                             maxTicksLimit: 4
                         }
@@ -69,5 +80,22 @@ export default {
     }
     .result-wrapper {
         animation: fadeIn 2s;
+    }
+    .header {
+        margin: auto; display: flex; gap: $spacing-4;
+        .item {
+            display: flex; align-item: bottom;
+            gap: $spacing-1;
+            h1, h3 { color: inherit }
+        }
+    }
+    .wpm {
+        color: $color-secondary;
+    }
+    .percent {
+        color: $color-primary;
+    }
+    .miss {
+        color: red;
     }
 </style>

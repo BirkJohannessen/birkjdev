@@ -2,10 +2,37 @@ import { NOTTYPED, MISS, HIT, OVERFLOW } from '@/typenigma/LetterStateEnum.js';
 import Letter from '@/typenigma/Letter.js';
 export default class TypenigmaInputProcessor {
     constructor() {
-        this.sentence = this.aliceFix("Alice went on talking at ever was! Good-bye, feet!” (for when he sneezed occasionally; and if there’s nothing before.” “Well, perhaps he can _ever_ happen next. “It’s—it’s a very interesting dance to be an old crab, _he_ was.” “Two lines!” cried Alice: “allow me to him,” said to think you might do very curious to know. Let me alone with the game.” “Nothing of little_—’” and she squeaking them about, reminding it was exactly as if not, I’ll be jury,’ Said cunning out altogether figure!” said the Caterpillar. “No,” said the Hatter began shrinking a minute, while finish his story. All the tide rises and your story!” Alice was only too glad to fall a long breath.’ nothing to be no sorrow, you know.” “What I was gone, if it pleases!” Soon her eyes were live hedgehog just now, I suppose it would have any pepper that,” she said very glad to go on. “And so she felt quite a commotion and of long as all references to Project Gutenberg-tm and furrow in "),
+        this.sentence = this.aliceFix("Alice went on in the air off at once in her brother’s Latin Grammar, “A mouse—to a mouse—O mouse!”) The Mouse dear! Do come up: if not, I’ll tell its age, there stood near the very deep, hollow the soldiers, or corrupt data, transcription errors, a copyright in the second thought she had got its head. “Very uncommon way. “Hold you think I must go and get ready to play croquet she was a little thing you like to be talking. “It _began_ with us!’” “Yes,” said the Caterpillar contemptuously. “I dare say that Alice, the name “W. RABBIT,” engraved upon it.) “Here! Come and join the trees as well enough hatching out laughing: and while finished quite agree to come, so she began, in a solemnly. Alice dear!” cried Alice did not dare to disagree with his head impatient tone: “explanation; “I’ve tried the poor Alice, and she ran across the garden door. “Well, I’d hardly room for a dunce? Go on!” “Hold you like!” then that did they wouldn’t keep the same thing about as "),
         this.inputData = {
             userInput: ''
         }
+    }
+
+    calculateCorrectLetters() {
+        const fact = this.sentence.split(' ');
+        const input = this.inputData.userInput.split(' ');
+        let correct = 0;
+        for (let i = 0; i < input.length; i++) {
+            if (fact[i] === input[i]) {
+                correct += fact[i].length;
+                if (i + 1 < input.length) {
+                    correct += 1; // space
+                }
+            }
+        }
+        return correct;
+    }
+
+    calculateCorrectPercentage() {
+        const fact = this.sentence.split(' ');
+        const input = this.inputData.userInput.split(' ');
+        let correct = 0;
+        for (let i = 0; i < input.length; i++) {
+            if (fact[i] === input[i]) {
+                correct += 1;
+            }
+        }
+        return parseFloat(correct / input.length).toFixed(2);
     }
 
     aliceFix(alicetxt) {
