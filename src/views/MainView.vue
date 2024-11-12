@@ -5,7 +5,7 @@
                 <div class ="top">
                     <div class ="image-wrapper">
                         <div class ="image-circle">
-                            <img src="../assets/birk.jpg" />
+                            <img alt="" src="../assets/birk.jpg" />
                         </div>
                     </div>
                     <div class ="about">
@@ -19,25 +19,25 @@
                     <div class ="infobox">
                         <h3>Techstack<span class="material-symbols-outlined pointer" @click="console.log(';)')">help</span></h3>
                         <div class="icons">
-                            <img class="icon" src="../assets/icons/java.svg" />
-                            <img class="icon" src="../assets/icons/js.svg" />
-                            <img class="icon" src="../assets/icons/ts.svg" />
-                            <img class="icon" src="../assets/icons/bash.svg" />
-                            <img class="icon" src="../assets/icons/csharp.svg" />
-                            <img class="icon" src="../assets/icons/py.svg" />
-                            <img class="icon" src="../assets/icons/php.svg" />
-                            <img class="icon" src="../assets/icons/css.svg" />
-                            <img class="icon" src="../assets/icons/html.svg" />
-                            <img class="icon" src="../assets/icons/psql.svg" />
-                            <img class="icon" src="../assets/icons/mariadb.svg" />
-                            <img class="icon" src="../assets/icons/jquery.svg" />
-                            <img class="icon" src="../assets/icons/backbonejs.svg" />
-                            <img class="icon" src="../assets/icons/react.svg" />
-                            <img class="icon" src="../assets/icons/vue.svg" />
-                            <img class="icon" src="../assets/icons/git.svg" />
-                            <img class="icon" src="../assets/icons/linux.svg" />
-                            <img class="icon" src="../assets/icons/nvim.svg" />
-                            <img class="icon" src="../assets/icons/vim.svg" />
+                            <img class="icon" alt="Java" src="../assets/icons/java.svg" />
+                            <img class="icon" alt="Javascript" src="../assets/icons/js.svg" />
+                            <img class="icon" alt="Typescript" src="../assets/icons/ts.svg" />
+                            <img class="icon" alt="Bash" src="../assets/icons/bash.svg" />
+                            <img class="icon" alt="C#" src="../assets/icons/csharp.svg" />
+                            <img class="icon" alt="Python" src="../assets/icons/py.svg" />
+                            <img class="icon" alt="Php" src="../assets/icons/php.svg" />
+                            <img class="icon" alt="CSS" src="../assets/icons/css.svg" />
+                            <img class="icon" alt="HTML" src="../assets/icons/html.svg" />
+                            <img class="icon" alt="PostgreSQL" src="../assets/icons/psql.svg" />
+                            <img class="icon" alt="MariaDB" src="../assets/icons/mariadb.svg" />
+                            <img class="icon" alt="Jquery" src="../assets/icons/jquery.svg" />
+                            <img class="icon" alt="Backbone" src="../assets/icons/backbonejs.svg" />
+                            <img class="icon" alt="React" src="../assets/icons/react.svg" />
+                            <img class="icon" alt="Vue" src="../assets/icons/vue.svg" />
+                            <img class="icon" alt="Git" src="../assets/icons/git.svg" />
+                            <img class="icon" alt="Linux" src="../assets/icons/linux.svg" />
+                            <img class="icon" alt="Neovim" src="../assets/icons/nvim.svg" />
+                            <img class="icon" alt="Vim" src="../assets/icons/vim.svg" />
                         </div>
                     </div>
                     <div class ="infobox">

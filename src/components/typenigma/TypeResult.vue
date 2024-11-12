@@ -75,10 +75,11 @@ export default {
 <style lang="scss" scoped>
     @import '@/assets/stylesheets/all.scss';
     .chart {
-        width: 80vw;
         height: 300px;
     }
     .result-wrapper {
+        min-width: 450px;
+        width: 80vw;
         animation: fadeIn 2s;
     }
     .header {
@@ -97,5 +98,10 @@ export default {
     }
     .miss {
         color: red;
+    }
+    @media (max-width: $mobile-size) {
+        .result-wrapper {
+            height: 200px;
+        }
     }
 </style>

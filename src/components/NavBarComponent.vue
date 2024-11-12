@@ -2,7 +2,7 @@
     <div :class="this.scrollY > 0 ? 'hide-mb wrapper' : this.scrollY > 2000 ? 'hide' : 'wrapper'" >
         <div class="logo-wrapper">
             <a @click="push({ path: '/' })">
-                <img draggable="false" src="@/assets/images/birk_lgo.webp" />
+                <img draggable="false" alt="Website logo" src="@/assets/images/birk_lgo.webp" />
             </a>
         </div>
         <div class="path-box">

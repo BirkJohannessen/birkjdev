@@ -6,7 +6,7 @@
             <HoverController :zoomLevel="calculateZoom()" :indexLevel="calculateRerender()" />
         </div>
         <div v-for="(image, index) in primes" class="sticky" :key="index" >
-                <img :src="image" :class="this.activeIndex === index ? 'zoom z'+this.activeZoom : 'idle'" draggable="false" />
+                <img :src="image" :class="this.activeIndex === index ? 'zoom z'+this.activeZoom : 'idle'" alt="" draggable="false" />
         </div>
         <div class="spaceStatic"></div>
         <div v-for="index in primes.length" :key="index" >
