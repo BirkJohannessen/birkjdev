@@ -1,0 +1,86 @@
+@import '@/assets/stylesheets/vars.scss';
+
+.tooltip-holder {
+    position: relative;
+}
+
+a,button {
+    .tooltip {
+        display: none;
+    }
+    &:hover {
+        .tooltip {
+            all: unset;
+            display: inline-block;
+            position: absolute; z-index: 3;
+            color: $color-secondary;
+            background-color: $secondary-offset;
+            padding: $spacing-2;
+            border-radius: $spacing-1;
+            -webkit-user-select: none; /* Safari */        
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+/Edge */
+            user-select: none;
+            &::after {
+                content: " ";
+                position: absolute;
+                margin-top: -$spacing-2;
+                border-width: $spacing-2;
+                border-style: solid;
+            }
+        }
+        .tright {
+            left: 125%;
+            transform: translate(0, -50%);
+            top: 50%;
+            &::after {
+                top: 50%;
+                right: 100%;
+                border-color: transparent $secondary-offset transparent transparent;
+            }
+        }
+        .tleft {
+            right: 125%;
+            transform: translate(0, -50%);
+            top: 50%;
+            &::after {
+                top: 50%;
+                left: 100%;
+                border-color: transparent transparent transparent $secondary-offset;
+            }
+        }
+        .tbottom {
+            top: 125%;
+            transform: translate(-50%, 0);
+            left: 50%;
+            &::after {
+                left: calc(50% - 12px);
+                bottom: 100%;
+                border-color: transparent transparent $secondary-offset transparent;
+            }
+        }
+        .ttop {
+            bottom: 75%;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            &::after {
+                left: calc(50% - 12px);
+                top: 120%;
+                border-color: $secondary-offset transparent transparent transparent
+            }
+        }
+    }
+}
+
+@media (max-width: $mobile-size) {
+
+    // no tooltips
+    a,button {
+        .tooltip {
+            display: none;
+        }
+        &:hover {
+            display: none;
+        }
+    }
+}
