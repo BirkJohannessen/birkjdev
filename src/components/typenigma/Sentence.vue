@@ -109,7 +109,7 @@ export default {
 <style lang="scss" scoped>
     @import '@/assets/stylesheets/all.scss';
     .word {
-        padding: 0 6px 0 6px;
+        padding: 0 $spacing-1 0 $spacing-1;
         font-size: 34px;
         font-weight: 900;
     }
@@ -117,7 +117,7 @@ export default {
         color: red;
     }
     .hit {
-        color: white;
+        color: $color-primary;
     }
     .letter {
         padding: 0;
@@ -126,8 +126,8 @@ export default {
     }
     .cursor {
         width: 0px;
-        outline: solid 1px gold;
-        border: 1px gold;
+        outline: solid 1px $tetriary;
+        border: 1px $tetriary;
         height: 30px;
         display: inline-block;
     }

@@ -68,10 +68,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/stylesheets/all.scss';
     .wrapper {
         width: 100%; height: 100vh;
-        background-color: #292736; color: white;
+        background-color: $primary; color: $color-secondary;
         display: flex; justify-content: right;
         overflow-y: scroll;
     }
@@ -90,12 +91,11 @@ export default {
     .info {
         display: flex; flex-direction: row;
         text-align: center;
-        font-family: monospace;
         margin: auto;
         width: 70%;
         justify-content: space-between;
-        margin-bottom: 12px;
-        color: #52495d;
+        margin-bottom: $spacing-2;
+        color: $color-secondary;
     }
     .btns {
         display: flex; flex-direction: row;
@@ -103,8 +103,8 @@ export default {
         font-family: monospace;
         margin: auto;
         justify-content: left;
-        margin-bottom: 16px;
-        color: #52495d;
+        margin-bottom: $spacing-3;
+        color: $color-primary;
         span {
             margin: 0 6px;
             cursor: pointer;
@@ -115,7 +115,7 @@ export default {
         top: 0; left: 0; right: 0; bottom: 0;
         margin: auto;
         position: absolute;
-        color: white;
+        color: $color-secondary;
         opacity: 1;
         z-index: 1;
     }
@@ -124,7 +124,7 @@ export default {
     }
     .play {
         scale: 1.5;
-        margin-top: 12px;
+        margin-top: $spacing-2;
         cursor: pointer;
     }
     .queue {

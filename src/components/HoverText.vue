@@ -22,12 +22,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/stylesheets/all.scss';
 .textBody1{
     position: absolute;
     padding: 1em;
     background-color: transparent;
-    color: white;
+    color: $color-secondary;
     left: 20vw;
     top: 40vh;
     border-radius: 10px;
@@ -39,7 +40,7 @@ export default {
     position: absolute;
     padding: 1em;
     background-color: transparent;
-    color: white;
+    color: $color-secondary;
     left: 75vw;
     top: 55vh;
     border-radius: 10px;
@@ -51,7 +52,7 @@ export default {
     position: absolute;
     padding: 1em;
     background-color: transparent;
-    color: white;
+    color: $color-secondary;
     left: 50vw;
     top: 30vh;
     border-radius: 10px;
@@ -64,7 +65,7 @@ export default {
     position: absolute;
     padding: 1em;
     background-color: transparent;
-    color: white;
+    color: $color-secondary;
     left: 50vw;
     top: 30vh;
     border-radius: 10px;
@@ -76,7 +77,7 @@ export default {
     position: absolute;
     padding: 1em;
     background-color: transparent;
-    color: white;
+    color: $color-secondary;
     left: 50vw;
     top: 40vh;
     border-radius: 10px;
@@ -91,7 +92,7 @@ export default {
         position: absolute;
         padding: 1em;
         background-color: transparent;
-        color: white;
+        color: $color-secondary;
         left: 10vw;
         top: 20vh;
         border-radius: 10px;
@@ -103,7 +104,7 @@ export default {
         position: absolute;
         padding: 1em;
         background-color: transparent;
-        color: white;
+        color: $color-secondary;
         left: 10vw;
         top: 60vh;
         border-radius: 10px;
@@ -115,7 +116,7 @@ export default {
         position: absolute;
         padding: 1em;
         background-color: transparent;
-        color: white;
+        color: $color-secondary;
         left: center;
         top: center;
         border-radius: 10px;
@@ -130,7 +131,7 @@ export default {
         position: absolute;
         padding: 1em;
         background-color: transparent;
-        color: white;
+        color: $color-secondary;
         left: center;
         top: center;
         border-radius: 10px;
@@ -144,7 +145,7 @@ export default {
         position: absolute;
         padding: 1em;
         background-color: transparent;
-        color: white;
+        color: $color-secondary;
         left: center;
         top: center;
         border-radius: 10px;

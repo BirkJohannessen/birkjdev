@@ -30,7 +30,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/stylesheets/all.scss';
     .flex {
         width: 100%;
         display: flex;
@@ -39,7 +40,7 @@ export default {
         font-family: monospace;
         font-size: 17px;
         background-color: transparent;
-        color: white;
+        color: $color-secondary;
         margin: 0;
         padding: 0;
         border: none;

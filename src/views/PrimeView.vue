@@ -132,7 +132,7 @@ export default {
     margin: 0;
     background: black;
     width: 100vw;
-    color: white;
+    color: $color-secondary;
 }
 
 .sticky {
@@ -152,7 +152,7 @@ export default {
 }
 
 .info {
-    color: white;
+    color: $color-secondary;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -167,30 +167,30 @@ export default {
         left: -75%;
     }
 
-    .content{
+    .content {
         background: black;
         width: 100vw;
-        color: white;
+        color: $color-secondary;
     }
 
-    .sticky{
+    .sticky {
         width: 100vw;
         height: 100vh;
         position: fixed;
     }
 
     .spaceDynamic {
-        width: 5px;
+        width: $spacing-1;
         height: 1200px;
     }
 
-    .spaceStatic{
-        width: 5px;
+    .spaceStatic {
+        width: $spacing-1;
         height: 100vh;
     }
 
-    .info{
-        color: white;
+    .info {
+        color: $color-secondary;
         position: fixed;
         z-index: 2;
     }

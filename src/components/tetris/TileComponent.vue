@@ -21,22 +21,21 @@ export default {
 }
 </script>
 
-<style scoped>
-    .wrapper4 {
-    }
+<style lang="scss" scoped>
+@import '@/assets/stylesheets/all.scss';
     .one {
-        border: 1px solid #52495d;
+        border: 1px solid $color-primary;
         width: 100%; height: 100%;
     }
     .two {
-        border: 1px solid #52495d;
+        border: 1px solid $color-primary;
         width: 100%; height: 100%;
         opacity: 0.15;
     }
     .three {
-        border: 1px solid #52495d;
+        border: 1px solid $color-primary;
         width: 100%; height: 100%;
-        background-color: #000212;
+        background-color: $secondary;
     }
     .d-none {
         width: 0%; height: 0%;

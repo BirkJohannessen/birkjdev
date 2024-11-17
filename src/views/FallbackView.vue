@@ -18,17 +18,18 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import '@/assets/stylesheets/all.scss';
     .wrapper {
         width: 100%; height: 100vh;
         display: flex; justify-content: right; overflow-y: scroll;
-        background-color: #292736; color: white;
+        background-color: $primary; color: $color-secondary;
     }
 
-    .miss-content{
+    .miss-content {
         width: 400px;
-        padding: 50px; margin: auto 0;
-        background-color: #000212; border-radius: 12px; border: 2px solid #52495d; text-align: center;
+        padding: $spacing-6; margin: auto 0;
+        background-color: $secondary; border-radius: $spacing-2; text-align: center;
     }
 
     .padding {
