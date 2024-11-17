@@ -1,15 +1,15 @@
 $primary: #292736;
 $secondary: #000212;
-$tetriary: #52495d;
-$quaternary: #FFD700;
+$tetriary: #F2C57C;
+$quaternary: #72E1D1;
 
-$primary-offset: #292736;
-$secondary-offset: blue;
-$tetriary-offset: blue;
-$quaternary-offset: #FFD799;
+$primary-offset: rgba($primary, 0.7);
+$secondary-offset: rgba($secondary, 0.7);
+$tetriary-offset: rgba($tetriary, 0.7);
+$quaternary-offset: rgba($quaternary, 0.7);
 
 $color-primary: #77727D;
-$color-secondary: #FFFFFF;
+$color-secondary: #F1EAEB;
 
 $spacing--1: 1.5px;
 $spacing-0: 3px;
@@ -106,6 +106,73 @@ img {
     display: none;
 }
 
+.tooltip-holder {
+    position: relative;
+}
+
+a,button {
+    .tooltip {
+        display: none;
+    }
+    &:hover {
+        .tooltip {
+            all: unset;
+            display: inline-block;
+            position: absolute; z-index: 3;
+            color: $color-secondary;
+            background-color: $secondary-offset;
+            padding: $spacing-2;
+            border-radius: $spacing-1;
+            &::after {
+                content: " ";
+                position: absolute;
+                margin-top: -$spacing-2;
+                border-width: $spacing-2;
+                border-style: solid;
+            }
+        }
+        .tright {
+            left: 125%;
+            transform: translate(0, -50%);
+            top: 50%;
+            &::after {
+                top: 50%;
+                right: 100%;
+                border-color: transparent $secondary-offset transparent transparent;
+            }
+        }
+        .tleft {
+            right: 125%;
+            transform: translate(0, -50%);
+            top: 50%;
+            &::after {
+                top: 50%;
+                left: 100%;
+                border-color: transparent transparent transparent $secondary-offset;
+            }
+        }
+        .tbottom {
+            top: 125%;
+            transform: translate(-50%, 0);
+            left: 50%;
+            &::after {
+                left: calc(50% - 12px);
+                bottom: 100%;
+                border-color: transparent transparent $secondary-offset transparent;
+            }
+        }
+        .ttop {
+            bottom: 75%;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            &::after {
+                left: calc(50% - 12px);
+                top: 120%;
+                border-color: $secondary-offset transparent transparent transparent
+            }
+        }
+    }
+}
 
 @keyframes fadeInDelay {
     0% { opacity: 0; }
@@ -119,8 +186,8 @@ img {
 }
 
 @keyframes fadeOut {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    0% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 @keyframes blurIn {
@@ -136,6 +203,16 @@ img {
 
     .app-wrapper {
         flex-direction: column;
+    }
+
+    // no tooltips
+    a,button {
+        .tooltip {
+            display: none;
+        }
+        &:hover {
+            display: none;
+        }
     }
 }
 

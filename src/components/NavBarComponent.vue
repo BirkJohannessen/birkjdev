@@ -5,12 +5,12 @@
                 <img draggable="false" alt="Website logo" src="@/assets/images/birk_lgo.webp" />
             </a>
         </div>
-        <div class="path-box">
+        <div class="path-wrapper">
             <div v-for="path in paths" >
-                <div class="path" @click="push(path)" >
-                    <a :class="isSelected(path) ? 'path-icon selected' : 'path-icon'"><span class="material-symbols-outlined">{{path.icon}}</span></a>
-                    <div :class="isSelected(path) ? 'path-title no-hl selected' : 'path-title'"> {{path.name}}</div>
-                </div>
+                <a class="tooltip-holder" @click="push(path)">
+                    <span class="material-symbols-outlined" :class="isSelected(path) ? 'selected' : ''">{{path.icon}}</span>
+                    <div class="tooltip tright">{{path.name}}</div>
+                </a>
             </div>
         </div>
     </div>
@@ -60,62 +60,53 @@ export default {
     }
 
     a {
-        display: block;
         cursor: pointer;
+        display: flex; flex-direction: column;
+        cursor: pointer;
+        color: $color-secondary;
+        padding: 0 $spacing-1;
+        &:hover {
+            color: $tetriary-offset;
+        }
+    }
+
+    .selected {
+        color: $tetriary;
     }
 
     .wrapper {
+        overflow: visible;
         background-color: $secondary;
-        height: 100vh; width: 100px;
+        height: 100vh; min-width: 100px; max-width: 100px;
         display: flex; flex-direction: column;
-        border-right: $spacing--1 solid $tetriary;
+        border-right: 1px solid $secondary-offset;
         z-index: 9;
-
     }
 
     .logo-wrapper {
-        height: 150px;
-        width: 100%;
         height: auto;
         margin: 0 auto;
     }
 
-    .path-box {
+    .path-wrapper {
         display: flex; flex-direction: column;
         gap: $spacing-4;
         margin: auto auto;
     }
 
-    .path-title {
-        display: none;
-        margin: 0 auto;
-        &.selected {
-            color: $quaternary;
-        }
-    }
-
-    .selected {
-        color: $quaternary;
-    }
-
-    .path {
-        display: flex; flex-direction: column;
-        cursor: pointer;
-        color: $color-secondary;
-        &:hover {
-            color: $quaternary-offset;
-        }
-    }
-
     .material-symbols-outlined {
-        font-size: 35px;
+        font-size: var(--step-3);
     }
 
     @media (max-width: $mobile-size) {
+        a {
+            display: block; 
+            margin: 0 $spacing-1 0 $spacing-1;
+        }
+
         .wrapper {
-            width: 100vw; height: 80px;
+            min-width: 100vw; height: 80px; max-width: 100vw;
             flex-direction: row;
-            transition: display 0.35s ease-in;
             border-right: 0;
             border-bottom: $spacing--1 solid $tetriary;
         }
@@ -125,21 +116,13 @@ export default {
             width: 90px;
         }
 
-        .path-box {
+        .path-wrapper {
             flex-direction: row;
             width: 100%;
             justify-content: space-around;
 
         }
-
-        .path-icon {
-            margin: 0 $spacing-1 0 $spacing-1;
-        }
         
-        .path-title {
-            display: none;
-        }
-
         .hide-mb.wrapper {
             display: none;
         }

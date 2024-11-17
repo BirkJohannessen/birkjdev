@@ -17,7 +17,13 @@
                 </div>
                 <div class ="info">
                     <div class ="infobox">
-                        <h3>Techstack<span class="material-symbols-outlined pointer" @click="console.log(';)')">help</span></h3>
+                        <h3>
+                            Techstack
+                            <button class="tooltip-holder">
+                                <span class="material-symbols-outlined pointer" @click="console.log(';)')">help</span>
+                                <span class="tooltip ttop">Om ikonene</span>
+                            </button>
+                        </h3>
                         <div class="icons">
                             <img class="icon" alt="Java" src="../assets/icons/java.svg" />
                             <img class="icon" alt="Javascript" src="../assets/icons/js.svg" />

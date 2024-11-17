@@ -1,9 +1,11 @@
 <template>
     <b>
-        <span class="green">
+        <h3 class="green">
             {{user}}@{{domain}}
-        </span>
+        </h3>
+        <h3>
         :{{path}} $
+        </h3>
     </b>
 </template>
 
@@ -41,4 +43,5 @@ export default {
         color: green;
         padding: 0 0 0 5px;
     }
+    h3 { display: inline-block; }
 </style>

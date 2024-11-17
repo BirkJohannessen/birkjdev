@@ -4,13 +4,13 @@
             <Ps1/>
         </div>
         <div class="padding-div"></div>
-        <div>
+        <h3>
             {{command.input}}
-        </div>
+        </h3>
     </div>
-    <div class="flex">
+    <h3 class="flex">
         {{command.output}}
-    </div>
+    </h3>
 </template>
 
 <script>

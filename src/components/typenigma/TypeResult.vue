@@ -1,8 +1,8 @@
 <template>
     <div class="header">
         <div class="wpm item">
-            <h1>{{this.engine.calculateFinalWPM()}}</h1>
             <h3>wpm</h3>
+            <h1>{{this.engine.calculateFinalWPM()}}</h1>
         </div>
         <div class="percent item">
             <h1>{{this.engine.calculateCorrectPercentage()}}%</h1>
@@ -83,15 +83,15 @@ export default {
         animation: fadeIn 2s;
     }
     .header {
-        margin: auto; display: flex; gap: $spacing-4;
+        display: flex; gap: $spacing-4; justify-content: center;
         .item {
-            display: flex; align-item: bottom;
+            display: flex; align-item: bottom; width: 250px;
             gap: $spacing-1;
             h1, h3 { color: inherit }
         }
     }
     .wpm {
-        color: $color-secondary;
+        color: $color-secondary; justify-content: right;
     }
     .percent {
         color: $color-primary;

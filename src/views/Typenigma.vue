@@ -7,7 +7,10 @@
             <Sentence id="sentence" :engine="this.engine" ref="sentence" v-if="[0,1].includes(this.gameState)" />
             <Result :engine="this.engine" v-if="this.gameState == 2"/>
             <div class="btns">
-                <button class="material-symbols-outlined" id="reset" @click="this.reset()">restart_alt</button>
+                <button id="reset" class="tooltip-holder" @click="this.reset()">
+                    <span class="material-symbols-outlined">restart_alt</span>
+                    <div class="tooltip tbottom">Restart</div>
+                </button>
             </div>
         </div>
     </div>
@@ -81,7 +84,7 @@ export default {
             width: auto;
             color: $color-primary;
             cursor: pointer;
-            padding: 4px;
+            padding: $spacing-2;
             &:focus {
                 outline: 3px solid grey;
             }
