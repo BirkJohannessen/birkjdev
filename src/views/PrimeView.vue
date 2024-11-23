@@ -1,53 +1,39 @@
 <template>
-    <div class="content">
+    <div>
         <div class="info">
-            {{ calculateRerender() }}
-            {{ calculateZoom() }}
-            <HoverController :zoomLevel="calculateZoom()" :indexLevel="calculateRerender()" />
+            {{ scrollLevel }}
+            {{ zoomLevel }}
+            <HoverController :zoomLevel="zoomLevel" :indexLevel="scrollLevel" />
         </div>
-        <div v-for="(image, index) in primes" class="sticky" :key="index" >
-                <img :src="image" :class="this.activeIndex === index ? 'zoom z'+this.activeZoom : 'idle'" alt="" draggable="false" />
+        <div v-for="(image, index) in primes" class="img-holder" :key="index" >
+                <img :src="image" :class="this.scrollLevel === index ? 'zoom z'+this.zoomLevel : 'idle'" alt="" draggable="false" />
         </div>
-        <div class="spaceStatic"></div>
-        <div v-for="index in primes.length" :key="index" >
+        <div v-for="index in primes.length - 1" :key="index" >
             <div class="spaceDynamic"></div>
         </div>
+        <div class="spaceDynamicLast"></div>
     </div>
 </template>
 
 <script>
 import HoverController from '@/components/HoverController.vue'
-import Config from '../config/primeConfig'
-// <img v-if="this.activeIndex == index" :src="image" :class="this.activeIndex === index ? 'zoom'+this.activeZoom : 'idle'" />
+import Config from '@/config/primeConfig'
 export default {
     name: 'PrimeView',
     components: {
         HoverController
     },
-    created () {
-        window.addEventListener('scroll', this.handleScroll);
+    mounted() {
+        window.addEventListener('scroll', this.onScroll);
     },
-    unmounted () {
-            window.removeEventListener('scroll', this.handleScroll);
+    unmounted() {
+        window.removeEventListener('scroll', this.onScroll);
     },
     methods: {
-        handleScroll() {
-            this.windowTop = window.top.scrollY;
-        },
-        calculateZoom() {
-            let zoom = parseInt(this.windowTop % this.scrollLengthForRerender / this.scrollLengthForZoom);
-            if(zoom != this.activeZoom){
-                this.activeZoom = zoom;
-            }
-            return zoom
-        },
-        calculateRerender() {
-            let index = parseInt( this.windowTop / this.scrollLengthForRerender)
-            if(index != this.activeIndex){
-                this.activeIndex = index;
-            }
-            return index;
-            
+        onScroll() {
+            const topY = window.top.scrollY;
+            this.zoomLevel = parseInt(topY % this.scrollLengthForRerender / this.scrollLengthForZoom);
+            this.scrollLevel = parseInt(topY / this.scrollLengthForRerender);
         }
     },
     computed: {
@@ -59,16 +45,42 @@ export default {
         return {
             scrollLengthForRerender: 1200,
             scrollLengthForZoom: 120,
-            windowTop: 0,
-            activeIndex: 0,
-            activeZoom: 0,
+            scrollLevel: 0,
+            zoomLevel: 0
         }
-    },
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/stylesheets/all.scss';
+.idle {
+    position: relative;
+    left: 100vw;
+    z-index: -3;
+}
+
+.img-holder {
+    width: 100%;
+    position: fixed;
+    left: 0;
+}
+
+.spaceDynamic {
+    height: 1200px;
+}
+
+.spaceDynamicLast {
+    height: calc(120px * 9);
+}
+
+.info {
+    color: $color-secondary;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+}
+
 .zoom {
     position: relative;
     width: 100vw;
@@ -120,79 +132,16 @@ export default {
     transform: scale(1.0);
 }
 
-.idle {
-    position: relative;
-    left: 100vw;
-    width: 10vw;
-    height: 10vh;
-    z-index: -3;
-}
-
-.content {
-    margin: 0;
-    background: black;
-    width: 100vw;
-    color: $color-secondary;
-}
-
-.sticky {
-    width: 100%;
-    position: fixed;
-    left: 0;
-}
-
-.spaceDynamic {
-    width: 50px;
-    height: 1200px;
-}
-
-.spaceStatic {
-    width: 50px;
-    height: 99vh;
-}
-
-.info {
-    color: $color-secondary;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-}
 
 @media (max-width: $mobile-size) {
     .zoom {
         transform: rotate(90deg);
         width: 250vw;
-        height: 100vh;
-        position: relative;
         left: -75%;
     }
 
-    .content {
-        background: black;
-        width: 100vw;
-        color: $color-secondary;
-    }
-
-    .sticky {
-        width: 100vw;
+    .img-holder {
         height: 100vh;
-        position: fixed;
-    }
-
-    .spaceDynamic {
-        width: $spacing-1;
-        height: 1200px;
-    }
-
-    .spaceStatic {
-        width: $spacing-1;
-        height: 100vh;
-    }
-
-    .info {
-        color: $color-secondary;
-        position: fixed;
-        z-index: 2;
     }
 }
 

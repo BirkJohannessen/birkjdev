@@ -4,7 +4,7 @@
     position: relative;
 }
 
-a,button {
+a,button, figure {
     .tooltip {
         display: none;
         animation: fadeIn 3s;
@@ -22,6 +22,7 @@ a,button {
             -moz-user-select: none; /* Firefox */
             -ms-user-select: none; /* IE10+/Edge */
             user-select: none;
+            font-size: var(--step-0);
             &::after {
                 content: " ";
                 position: absolute;
@@ -61,12 +62,13 @@ a,button {
             }
         }
         .ttop {
-            bottom: 75%;
+            bottom: 100%;
             transform: translate(-50%, -50%);
             left: 50%;
             &::after {
                 left: calc(50% - 12px);
-                top: 120%;
+                top: 100%;
+                transform: translate(0, 50%);
                 border-color: $tetriary-offset transparent transparent transparent
             }
         }
@@ -76,7 +78,7 @@ a,button {
 @media (max-width: $mobile-size) {
 
     // no tooltips
-    a,button {
+    a, button, figure {
         .tooltip {
             display: none;
         }

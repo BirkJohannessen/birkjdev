@@ -19,31 +19,84 @@
                     <div class ="infobox">
                         <h3>
                             Techstack
-                            <button class="tooltip-holder">
-                                <span class="material-symbols-outlined pointer" @click="console.log(';)')">help</span>
-                                <span class="tooltip ttop">Om ikonene</span>
-                            </button>
                         </h3>
                         <div class="icons">
-                            <img class="icon" alt="Java" src="../assets/icons/java.svg" />
-                            <img class="icon" alt="Javascript" src="../assets/icons/js.svg" />
-                            <img class="icon" alt="Typescript" src="../assets/icons/ts.svg" />
-                            <img class="icon" alt="Bash" src="../assets/icons/bash.svg" />
-                            <img class="icon" alt="C#" src="../assets/icons/csharp.svg" />
-                            <img class="icon" alt="Python" src="../assets/icons/py.svg" />
-                            <img class="icon" alt="Php" src="../assets/icons/php.svg" />
-                            <img class="icon" alt="CSS" src="../assets/icons/css.svg" />
-                            <img class="icon" alt="HTML" src="../assets/icons/html.svg" />
-                            <img class="icon" alt="PostgreSQL" src="../assets/icons/psql.svg" />
-                            <img class="icon" alt="MariaDB" src="../assets/icons/mariadb.svg" />
-                            <img class="icon" alt="Jquery" src="../assets/icons/jquery.svg" />
-                            <img class="icon" alt="Backbone" src="../assets/icons/backbonejs.svg" />
-                            <img class="icon" alt="React" src="../assets/icons/react.svg" />
-                            <img class="icon" alt="Vue" src="../assets/icons/vue.svg" />
-                            <img class="icon" alt="Git" src="../assets/icons/git.svg" />
-                            <img class="icon" alt="Linux" src="../assets/icons/linux.svg" />
-                            <img class="icon" alt="Neovim" src="../assets/icons/nvim.svg" />
-                            <img class="icon" alt="Vim" src="../assets/icons/vim.svg" />
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="Java" src="../assets/icons/java.svg" />
+                                <span class="tooltip ttop">Java</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="Javascript" src="../assets/icons/js.svg" />
+                                <span class="tooltip ttop">Javascript</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="Typescript" src="../assets/icons/ts.svg" />
+                                <span class="tooltip ttop">Typescript</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="Bash" src="../assets/icons/bash.svg" />
+                                <span class="tooltip ttop">Bash</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="C#" src="../assets/icons/csharp.svg" />
+                                <span class="tooltip ttop">C#</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="Python" src="../assets/icons/py.svg" />
+                                <span class="tooltip ttop">Python</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="Php" src="../assets/icons/php.svg" />
+                                <span class="tooltip ttop">Php</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="CSS" src="../assets/icons/css.svg" />
+                                <span class="tooltip ttop">CSS</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="HTML" src="../assets/icons/html.svg" />
+                                <span class="tooltip ttop">HTML</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="PostgreSQL" src="../assets/icons/psql.svg" />
+                                <span class="tooltip ttop">PostgreSQL</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="MariaDB" src="../assets/icons/mariadb.svg" />
+                                <span class="tooltip ttop">MariaDB</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="Jquery" src="../assets/icons/jquery.svg" />
+                                <span class="tooltip ttop">Jquery</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="Backbone" src="../assets/icons/backbonejs.svg" />
+                                <span class="tooltip ttop">Backbone</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="React" src="../assets/icons/react.svg" />
+                                <span class="tooltip ttop">React</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="Vue" src="../assets/icons/vue.svg" />
+                                <span class="tooltip ttop">Vue</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="Git" src="../assets/icons/git.svg" />
+                                <span class="tooltip ttop">Git</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="Linux" src="../assets/icons/linux.svg" />
+                                <span class="tooltip ttop">Linux</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="Neovim" src="../assets/icons/nvim.svg" />
+                                <span class="tooltip ttop">Neovim</span>
+                            </figure>
+                            <figure class="tooltip-holder">
+                                <img class="icon" alt="Vim" src="../assets/icons/vim.svg" />
+                                <span class="tooltip ttop">Vim</span>
+                            </figure>
                         </div>
                     </div>
                     <div class ="infobox">

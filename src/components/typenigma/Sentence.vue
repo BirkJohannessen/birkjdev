@@ -117,7 +117,7 @@ export default {
         color: red;
     }
     .hit {
-        color: $color-primary;
+        color: $color-secondary
     }
     .letter {
         padding: 0;
