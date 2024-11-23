@@ -9,7 +9,7 @@
                 <img :src="image" :class="this.scrollLevel === index ? 'zoom z'+this.zoomLevel : 'idle'" alt="" draggable="false" />
         </div>
         <!-- spacing -->
-        <div v-for="index in primes.length - 1" :key="index">
+        <div v-for="index in primes.length" :key="index">
             <div class="spaceDynamic"></div>
         </div>
         <div class="spaceDynamicLast"></div>

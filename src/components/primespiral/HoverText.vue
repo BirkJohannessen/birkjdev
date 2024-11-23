@@ -21,7 +21,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/stylesheets/all.scss';
-
 .body {
     position: absolute;
     padding: $spacing-0;
