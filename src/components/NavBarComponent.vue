@@ -1,5 +1,5 @@
 <template>
-    <div :class="this.scrollY > 0 ? 'hide-mb wrapper' : this.scrollY > 2000 ? 'hide' : 'wrapper'" >
+    <div class="wrapper" :class="this.scrollY > 0 ? 'hide-mb' : this.scrollY > 2000 ? 'hide' : ''" >
         <div class="logo-wrapper">
             <a @click="push({ path: '/' })">
                 <img draggable="false" alt="Website logo" src="@/assets/images/birk_lgo.webp" />
@@ -121,10 +121,6 @@ export default {
             width: 100%;
             justify-content: space-around;
 
-        }
-        
-        .hide-mb.wrapper {
-            display: none;
         }
     }
 </style>

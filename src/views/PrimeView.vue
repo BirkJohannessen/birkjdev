@@ -5,10 +5,10 @@
             {{ zoomLevel }}
             <HoverController :zoomLevel="zoomLevel" :indexLevel="scrollLevel" />
         </div>
-        <div v-for="(image, index) in primes" class="img-holder" :key="index" >
+        <div v-for="(image, index) in primes" class="img-holder" :key="index">
                 <img :src="image" :class="this.scrollLevel === index ? 'zoom z'+this.zoomLevel : 'idle'" alt="" draggable="false" />
         </div>
-        <div v-for="index in primes.length - 1" :key="index" >
+        <div v-for="index in primes.length - 1" :key="index">
             <div class="spaceDynamic"></div>
         </div>
         <div class="spaceDynamicLast"></div>
