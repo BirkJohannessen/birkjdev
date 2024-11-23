@@ -8,6 +8,7 @@
         <div v-for="(image, index) in primes" class="img-holder" :key="index">
                 <img :src="image" :class="this.scrollLevel === index ? 'zoom z'+this.zoomLevel : 'idle'" alt="" draggable="false" />
         </div>
+        <!-- spacing -->
         <div v-for="index in primes.length - 1" :key="index">
             <div class="spaceDynamic"></div>
         </div>
@@ -16,7 +17,7 @@
 </template>
 
 <script>
-import HoverController from '@/components/HoverController.vue'
+import HoverController from '@/components/primespiral/HoverController.vue'
 import Config from '@/config/primeConfig'
 export default {
     name: 'PrimeView',
