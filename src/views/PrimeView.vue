@@ -72,7 +72,7 @@ export default {
 }
 
 .spaceDynamicLast {
-    height: calc(120px * 9);
+    height: calc(120px * 8);
 }
 
 .info {

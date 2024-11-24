@@ -13,7 +13,7 @@ G
                 <!--<span class="material-symbols-outlined">leaderboard</span>-->
             </div>
             <div v-if="this.info" class="info-message">
-                <h1>{{info}}</h1>
+                <h2>{{info}}</h2>
                 <span v-if="this.info === 'Ready?'" class="material-symbols-outlined play" @click="this.tetris.start()">play_arrow</span>
             </div>
             <div :class="this.info ? 'tetris opacity' : 'tetris'">

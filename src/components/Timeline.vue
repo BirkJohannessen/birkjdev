@@ -1,30 +1,15 @@
 <template>
     <div class="timeline-wrapper">
-        <div class="left">
-            <div v-for="(timeobj, idx) in timeline">
-                <div v-if="idx % 2 === 0" class="time-object">
-                    <div class="point pleft"></div>
-                    <h2 v-if="timeobj.title">{{timeobj.title}}</h2>
-                    <h3>{{timeobj.time}}</h3>
-                    <p>{{timeobj.description}}</p>
-                </div>
-                <div class="time-object-reflect roleft" v-if="idx % 2 === 1">
-                    <p>{{timeobj.ghostcription}}</p>
-                </div>
-            </div>
-        </div>
+        <div class="center-padding"></div>
         <div class="time">
         </div>
-        <div class="right">
+        <div class="time-object-wrapper">
             <div v-for="(timeobj, idx) in timeline">
-                <div v-if="idx % 2 === 1" class="time-object">
-                    <div class="point pright"></div>
-                    <h2 v-if="timeobj.title">{{timeobj.title}}</h2>
+                <div :class="idx % 2 === 1 ? 'left' : ''" class="time-object">
+                    <div class="point" :class="idx % 2 === 1 ? 'pleft' : 'pright'"></div>
+                    <h3 v-if="timeobj.title">{{timeobj.title}}</h3>
                     <h3>{{timeobj.time}}</h3>
                     <p>{{timeobj.description}}</p>
-                </div>
-                <div class="time-object-reflect roright" v-if="idx % 2 === 0">
-                    <p>{{timeobj.ghostcription}}</p>
                 </div>
             </div>
         </div>
@@ -32,21 +17,10 @@
 </template>
 
 <script>
-export default {
+    export default {
     name: 'Timeline',
-    components: {
-    },
-    methods: {
-        bar() {
-        }
-    },
-    computed: {
-        foo(){
-        }
-    },
     data() {
         return {
-            baz: 0,
             timeline: [
                 {
                     time: '2020 / August',
@@ -96,7 +70,25 @@ export default {
                     description: 'Betalingsløsning for FBT knyttet Machinas løsning for dem.\nIntegrasjon mot NETS.',
                     ghostcription: '{\n    project: "NETS integration",     \ntags: ["Integration", "API", "NETS"]     \n}'
                 },
-            ]
+                {
+                    time: '2024/August',
+                    title: '',
+                    description: 'Utviklet Ny kilde til å generere smarte dokumenter',
+                    ghostcription: '{\n    project: "Docengine",     \ntags: ["Backend", "Java", "Documents", "Engine"]     \n}'
+                },
+                {
+                    time: '2024/November',
+                    title: '',
+                    description: 'Dokumentmotor for å håndtere tilstanden til dokumenter i ulike faser',
+                    ghostcription: '{\n    project: "Docengine",     \ntags: ["Backend", "Java", "Documents", "Engine"]     \n}'
+                },
+                {
+                    time: '2024/Desember',
+                    title: '',
+                    description: 'Godkjennings fase knyttet til dokumenter (Bakgrunn for dokumentmotor)',
+                    ghostcription: '{\n    project: "Docengine",     \ntags: ["Fullstack", "Documents", "Approval"]     \n}'
+                },
+            ].reverse()
         }
     },
 }
@@ -106,60 +98,70 @@ export default {
     @import '@/assets/stylesheets/all.scss';
 
     .timeline-wrapper {
-        width: 100%;
-        padding: 16px 0;
         display: flex; flex-direction: row;
+        justify-content: center;
     }
+
     .time {
-        width: 3px;
-        background-color: gold;
+        width: $spacing-0;
+        background-color: $tetriary;
     }
+
     .left {
-        width: 50%;
         text-align: right;
+        transform: translateX(-100%);
     }
-    .right {
+
+    .time-object-wrapper {
+        position: relative;
         width: 50%;
     }
-    .time-object-reflect {
-        height: 110px;
-        padding: 0 16px; margin: 20px 0;
-        &.roright {
-            p {
-                color: $color-primary;
-                white-space: pre-wrap;
-            }
-        }
-        &.roleft {
-            p {
-                color: #77727D;
-                white-space: pre-wrap;
-            }
-        }
+
+    .center-padding {
+        width: 50%;
     }
+
     .time-object {
-        height: 110px;
-        padding: 0 16px; margin: 20px 0;
+        padding: 0 $spacing-3; margin: $spacing-4 0;
+        max-width: 650px;
         white-space: pre-wrap;
+        position: relative;
     }
+
     .point {
         width: 11px; height: 11px;
+        position: absolute;
         border-radius: 24px;
-        background-color: gold;
+        background-color: $tetriary;
         &.pleft {
-            position: relative;
-            right: -23px; top: 12px;
-            float: right;
+            right: -4px; top: 16px;
         }
         &.pright {
-            position: relative;
-            left: -23px; top: 12px;
-            float: left;
+            left: -7px; top: 16px;
         }
     }
 
     @media (max-width: $mobile-size) {
-        .time-object-reflect {
+        .point {
+            &.pleft {
+                left: -7px; top: 16px;
+            }
+        }
+
+        .time-object-wrapper {
+            width: 80vw;
+        }
+
+        .time-object {
+            width: 100%;
+        }
+
+        .left {
+            text-align: inherit;
+            transform: inherit;
+        }
+
+        .center-padding {
             display: none;
         }
     }

@@ -1,26 +1,74 @@
 <template>
-    <div class="wrapper">
-        <div class="content">
-            <div class ="main">
-                <div class ="top">
-                    <div class ="image-wrapper">
-                        <div class ="image-circle">
-                            <img alt="" src="../assets/birk.jpg" />
-                        </div>
+    <div class="wrapper" id="wrapper">
+        <section class="flex intro">
+            <div class="flex">
+                <div class ="image-wrapper">
+                    <div class ="image-circle">
+                        <img alt="" src="../assets/birk.jpg" />
                     </div>
-                    <div class ="about">
-                        <h1>Birk Johannessen</h1>
-                        <p>Effektiviserer saksbehandling og tilskuddsløsninger for flere titalls kunder hos Machina. Daglig arbeid med de fremste featurene i produktet inklusivt flere integrasjoner. Som regel ansvarlig for hele funksjonaliteter, fra spec til master merge.</p>
+                </div>
+                <div class ="about">
+                    <p class="introduction">$ whoami</p>
+                    <h1>Birk Johannessen</h1>
+                    <h3>Utvikler, hacker, nerd</h3>
+                    <p>... generelt over gjennomsnittet interessert i programvare.</p>
+                </div>
+            </div>
+        </section>
+        <section class="flex">
+            <div v-if="this.cards">
+                <p class="introduction">$ more</p>
+                <div class="flex cards">
+                    <div class ="card">
+                        <div class="header">
+                            <h3>Fullstack utvikler</h3>
+                        </div>
+                        <p>- av yrke, men ikke eksklusivt. Sitter på en bred teknisk interrese. Spør meg om hjemmeserverene mine, Linux configen min eller hacking!</p>
                         <p>Elsker faget, og elsker jobben som lar meg praktisere det hver dag.</p>
                         <p>Interessert å utvide vertøykassa samtidig som jeg spisser de skarpeste redskapene der. Samarbeider godt i lag og er veldig mottakelig til diskusjon. Sier meningen min, og spør når jeg lurer på noe.</p>
                     </div>
-                </div>
-                <div class ="info">
-                    <div class ="infobox">
-                        <h3>
-                            Techstack
-                        </h3>
-                        <div class="icons">
+                    <div class ="card">
+                        <div class="header">
+                            <h3>Machina</h3>
+                        </div>
+                        <p>Effektiviserer saksbehandling og tilskuddsløsninger for flere titalls kunder hos Machina. Daglig arbeid med de fremste featurene i produktet inklusivt flere integrasjoner. Som regel ansvarlig for hele funksjonaliteter, fra spec til master merge.</p>
+                    </div>
+                    <div class ="card">
+                        <div class="header">
+                            <h3>Effektiv</h3>
+                        </div>
+                        <p>Lidenskapelig opptatt av å være rask! Enten det er å redigere tekst med vim, scripte vekk kjedelige oppgaver, tillære shortcuts til programvarer, utnytte tekstgenererende AI, meste touchtyping eller prøve å få over 115wpm på racetyping. </p>
+                    </div>
+                    <div class ="card">
+                        <div class="header">
+                            <h3>Kvalifikasjoner</h3>
+                        </div>
+                        <ul>
+                            <li><span class="material-symbols-outlined">school</span> Dataingeniør bachelor</li>
+                            <li><span class="material-symbols-outlined">public</span> 2 år fartstid i bransjen</li>
+                            <li><span class="material-symbols-outlined">psychology</span> 5 år med konstant læring</li>
+                        </ul>
+                    </div>
+                    <div class ="card">
+                        <div class="header">
+                            <h3>Dev miljø</h3>
+                        </div>
+                            <ul>
+                                <li><span class="material-symbols-outlined">developer_board</span>Linux / ubuntu 22.04 LTS</li>
+                                <li><span class="material-symbols-outlined">tile_large</span>i3 window manager</li>
+                                <li><span class="material-symbols-outlined">terminal</span>kitty + tmux</li>
+                                <li><span class="material-symbols-outlined">code</span>NeoVim / IntelliJ + Ideavim</li>
+                                <li><span class="material-symbols-outlined">keyboard</span>ISO 105 NO qwerty TKL keyboard</li>
+                                <li><span class="material-symbols-outlined">laptop_windows</span>Lenovo Thinkpad E14 G5</li>
+                            </ul>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h3>
+                                Techstack
+                            </h3>
+                        </div>
+                        <div class="icons flex">
                             <figure class="tooltip-holder">
                                 <img class="icon" alt="Java" src="../assets/icons/java.svg" />
                                 <span class="tooltip ttop">Java</span>
@@ -99,35 +147,13 @@
                             </figure>
                         </div>
                     </div>
-                    <div class ="infobox">
-                        <h3>Fullstack utvikler</h3>
-                        <p>- av yrke, men ikke eksklusivt. Sitter på en bred teknisk interrese. Spør meg om hjemmeserverene mine, Linux configen min eller hacking!</p>
-                        <h3>Effektiv</h3>
-                        <p>Lidenskapelig opptatt av å være rask! Enten det er å redigere tekst med vim, scripte vekk kjedelige oppgaver, tillære shortcuts til programvarer, utnytte tekstgenererende AI, meste touchtyping eller prøve å få over 115wpm på racetyping. </p>
-                    </div>
-                    <div class ="infobox">
-                        <h3>Dev miljø</h3>
-                            <ul>
-                                <li>Linux / ubuntu 22.04 LTS</li>
-                                <li>i3 window manager</li>
-                                <li>kitty + tmux</li>
-                                <li>NeoVim / IntelliJ + Ideavim</li>
-                                <li>ISO 105 NO qwerty TKL keyboard</li>
-                                <li>Lenovo Thinkpad E14 G5</li>
-                            </ul>
-                        <h3>Kvalifikasjoner</h3>
-                        <ul>
-                            <li>Utdannet Dataingeniør fra HVL</li>
-                            <li>1 år i bransjen</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
-            <div class ="timeline">
-                <h1>Highlights</h1>
-                <Timeline/>
-            </div>
-        </div>
+        </section>
+        <section class ="timeline" v-if="this.timeline">
+            <p class="introduction">$ timeline</p>
+            <Timeline class="tl" />
+        </section>
     </div>
 </template>
 
@@ -138,95 +164,130 @@ export default {
     components: {
         Timeline
     },
-    methods: {
-        bar() {
-        }
+    mounted() {
+        const wrapper = document.getElementById("wrapper");
+        wrapper.addEventListener('scroll', this.onObserve);
     },
-    computed: {
-        foo(){
+    unmounted() {
+        window.removeEventListener('scroll', this.onObserve);
+    },
+    methods: {
+        onObserve() {
+            const wrapper = document.getElementById("wrapper");
+            if (wrapper.scrollTop > 500) {
+                this.cards = true;
+            }
+            if (wrapper.scrollTop > 1700) {
+                this.timeline = true;
+            }
         }
     },
     data() {
         return {
-            baz: 0,
+            cards: false,
+            timeline: false
         }
-    },
+    }
 }
 </script>
 
 <style lang="scss" scoped>
     @import '@/assets/stylesheets/all.scss';
 
-    img { width: 360px; filter: grayscale(1) contrast(1) brightness(.9); }
+    section {
+        height: 100vh;
+        margin-bottom: 30vh;
+    }
 
     .image-wrapper {
-        animation: fadeInDelay 2s;
-        min-height: 372px; min-width: 372px; margin: auto 0;
-        border-radius: 1500vw; border: 2px solid white;
-            .image-circle {
-                height: 360px; width: 360px;
-                position: relative; top: $spacing-1;
-                margin: auto;
-                overflow: hidden;
-                border-radius: 1500vw;
-            }
-    }
-
-    .main {
-        max-width: 1500px; height: auto;
-        margin: auto;
-    }
-
-    .top {
-        width: 100%;
-        margin: 50px 0;
-        display: flex; flex-direction: row; gap: 50px; justify-content: center; flex-wrap: wrap;
-        .about {
-            animation: fadeInDelay 1s;
-            width: 650px; height: auto; margin: auto 0;
+        img { width: 360px; filter: grayscale(1) contrast(1) brightness(.9); }
+        animation: fadeInDelay 7s;
+        min-height: 372px; min-width: 372px;
+        border-radius: 1500vw; border: 2px solid $tetriary;
+        .image-circle {
+            height: 360px; width: 360px;
+            position: relative; top: $spacing-1;
+            margin: auto;
+            overflow: hidden;
+            border-radius: 1500vw;
         }
     }
 
-    .info {
-        padding: $spacing-3 0;
-        height: auto; width: 100%;
-        display: flex; flex-direction: row; gap: $spacing-2; justify-content: center; flex-wrap: wrap;
-        .infobox {
-            padding: $spacing-2;
-            max-width: 480px;
-            animation: fadeInDelay 3s;
+    .flex {
+        display: flex; flex-direction: row; justify-content: center; flex-wrap: wrap; align-items: center;
+        gap: $spacing-3;
+        &.intro { gap: $spacing-5; }
+        &.cards { gap: $spacing-3; }
+    }
+
+    .about {
+        h1 { padding: 0; animation: fadeInDelay 2s; }
+        h3 { animation: fadeInDelay 4s; }
+        p { animation: fadeInDelay 4s; }
+        .introduction {
+            clip-path: inset(0 0 0 0);
+            animation: write 1s ease-in-out forwards;
+            color: $tetriary;
+            max-width: auto;
+            margin-left: 0;
+            margin-bottom: 0;
+        }
+    }
+
+    .introduction {
+        clip-path: inset(0 0 0 0);
+        animation: write 1s ease-in-out forwards;
+        color: $tetriary;
+        max-width: 150px;
+        margin-left: 17%;
+        margin-bottom: $spacing-3;
+    }
+
+    .cards {  
+        clip-path: inset(0 0 0 0);
+        animation: writeDelay 2.4s;
+        .card {
+            background-color: $primary-offset;
+            padding: $spacing-5; 
+            width: 400px; height: 400px;
+            .material-symbols-outlined {
+                font-size: var(--step-2);
+                position: relative;
+                top: $spacing-1;
+                margin-right: $spacing-1;
+                color: $tetriary;
+            }
+            .header, ul, p {
+                text-align: center;
+            }
+        }
+    }
+
+    .icons {
+        gap: $spacing-3 $spacing-4;
+        .icon {
+            filter: grayscale(1) contrast(1) brightness(1);
+            width: 40px;
         }
     }
 
     .timeline {
         margin: 400px 0;
-        h1 { 
+        .introduction {
             text-align: center;
-            margin-bottom: $spacing-4;
+            margin: $spacing-4 auto;
         }
-    }
-
-    .icons {
-        width: 300px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: $spacing-3 $spacing-4;
-    }
-    .icon {
-        filter: grayscale(1) contrast(1) brightness(1);
-        width: 40px;
-    }
-
-    .material-symbols-outlined {
-        font-size: var(--step--1);
-        display: inline-block;
-        margin: var(--step--1) auto;
-        margin: 0 $spacing-1;
+        .tl {
+            clip-path: inset(0 0 0 0);
+            animation: writeDownDelay 3s ease-in-out forwards;
+        }
     }
 
     @media (max-width: $mobile-size) {
         .about {
             text-align: center;
         }
+
+        h1, h2, h3, h4, p, li { text-align: center; margin: $spacing-2 0; }
     }
 </style>

@@ -40,8 +40,8 @@ export default {
         return {
             paths: [
                 { name: 'birk', path: '/', icon: 'person' },
-                { name: 'code', path: '/projects/code', icon: 'code' },
-                { name: 'biSHk', path: '/projects/bishk', icon: 'terminal' },
+                // { name: 'code', path: '/projects/code', icon: 'code' },
+                // { name: 'biSHk', path: '/projects/bishk', icon: 'terminal' },
                 { name: 'prime_spiral', path: '/projects/primes', icon: 'blur_on'},
                 { name: 'tetris', path: '/projects/tetris', icon: 'grid_view' },
                 { name: 'typenigma', path: '/projects/typenigma', icon: 'keyboard' }

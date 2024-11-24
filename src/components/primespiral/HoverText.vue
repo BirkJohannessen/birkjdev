@@ -1,9 +1,11 @@
 <template>
         <div class="body" :class="this.type ? 'textBody'+this.type : ''">
-            <h1>
+            <h2>
                 {{ this.header}}
-            </h1>
-            {{ this.subText }}
+            </h2>
+            <p>
+                {{ this.subText }}
+            </p>
         </div>
   
 </template>
@@ -21,6 +23,9 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/stylesheets/all.scss';
+
+p { color: $color-secondary; }
+
 .body {
     position: absolute;
     padding: $spacing-0;
@@ -28,6 +33,7 @@ export default {
     color: $color-secondary;
     z-index: 999;
     text-align: center;
+    width: 300px;
     max-width: 30vw;
 }
 
