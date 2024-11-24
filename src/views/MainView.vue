@@ -19,7 +19,7 @@
             </div>
         </section>
         <section class ="timeline" v-if="this.timeline">
-            <p class="introduction">$ timeline --reversed</p>
+            <p class="introduction">$ timeline --short</p>
             <Timeline class="tl" />
         </section>
         <section class="flex">
@@ -30,21 +30,21 @@
                         <div class="header">
                             <h3>Fullstack utvikler</h3>
                         </div>
-                        <p>- av yrke, men ikke eksklusivt. Sitter på en bred teknisk interrese. Spør meg om hjemmeserverene mine, Linux configen min eller hacking!</p>
-                        <p>Elsker faget, og elsker jobben som lar meg praktisere det hver dag.</p>
+                        <!-- <p>- av yrke, men ikke eksklusivt. Sitter på en bred teknisk interrese. Spør meg om hjemmeserverene mine, Linux configen min eller hacking!</p> -->
+                        <p><span class="hl">Elsker faget</span>, og jobben som lar meg praktisere det hver dag.</p>
                         <p>Interessert å utvide vertøykassa samtidig som jeg spisser de skarpeste redskapene der. Samarbeider godt i lag og er veldig mottakelig til diskusjon. Sier meningen min, og spør når jeg lurer på noe.</p>
                     </div>
                     <div class ="card">
                         <div class="header">
                             <h3>Machina</h3>
                         </div>
-                        <p>Effektiviserer saksbehandling og tilskuddsløsninger for flere titalls kunder hos Machina. Daglig arbeid med de fremste featurene i produktet inklusivt flere integrasjoner. Som regel ansvarlig for hele funksjonaliteter, fra spec til master merge.</p>
+                        <p>Effektiviserer saksbehandling og tilskuddsløsninger for flere titalls kunder hos Machina. Daglig arbeid med de <span class="hl">fremste featurene</span> i produktet inklusivt flere integrasjoner. Som regel ansvarlig for hele funksjonaliteter, fra spec til master merge.</p>
                     </div>
                     <div class ="card">
                         <div class="header">
                             <h3>Effektiv</h3>
                         </div>
-                        <p>Lidenskapelig opptatt av å være rask! Enten det er å redigere tekst med vim, scripte vekk kjedelige oppgaver, tillære shortcuts til programvarer, utnytte tekstgenererende AI, meste touchtyping eller prøve å få over 115wpm på racetyping. </p>
+                        <p>Lidenskapelig opptatt av å være rask! Enten det er å redigere tekst med <span class="hl">vim</span>, scripte vekk kjedelige oppgaver, tillære shortcuts til programvarer, utnytte tekstgenererende AI, meste touchtyping eller prøve å få over 115wpm på racetyping. </p>
                     </div>
                     <div class ="card">
                         <div class="header">
@@ -263,7 +263,7 @@ export default {
         .card {
             background-color: $primary-offset;
             padding: $spacing-5; 
-            width: 400px; height: 400px;
+            width: 400px; height: 300px;
             .material-symbols-outlined {
                 font-size: var(--step-2);
                 position: relative;
@@ -295,6 +295,10 @@ export default {
             clip-path: inset(0 0 0 0);
             animation: writeDownDelay 3s ease-in-out forwards;
         }
+    }
+
+    .hl {
+        color: $tetriary;
     }
 
     @media (max-width: $mobile-size) {

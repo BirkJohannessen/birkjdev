@@ -4,7 +4,7 @@
     position: relative;
 }
 
-a,button, figure {
+a, button, figure {
     .tooltip {
         display: none;
         animation: fadeIn 3s;
@@ -82,7 +82,9 @@ a,button, figure {
             display: none;
         }
         &:hover {
-            display: none;
+            .tooltip {
+                display: none;
+            }
         }
     }
 }

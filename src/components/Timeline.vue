@@ -45,13 +45,13 @@
                 {
                     time: '2022/Desember',
                     title: '',
-                    description: 'Fullført internship @ Link utvikling',
+                    description: 'Fullført internship @Link utvikling',
                     ghostcription: ''
                 },
                 {
                     time: '2023/April',
                     title: '',
-                    description: 'Prosjekt Kodeplattform for utviklerkandidater.\n (Lignende leetcode).',
+                    description: 'Bachelorprosjekt - utviklet leetcode lignende applikasjon @wa.works fra scratch.',
                     ghostcription: '{\nbackend: ["C#", ".ASP.NET", "SignalR", "Hangfire", "Entity framework", "PostGreSQL"],     \nfrontend: ["React.js"]     \n}'
                 },
                 {
@@ -104,7 +104,7 @@
                     ghostcription: '{\n    project: "Docengine",     \ntags: ["Fullstack", "Documents", "Approval"]     \n}'
                 },
                 */
-            ].reverse()
+            ]
         }
     },
 }
