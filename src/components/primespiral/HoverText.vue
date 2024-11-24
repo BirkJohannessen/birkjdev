@@ -59,33 +59,39 @@ p { color: $color-secondary; }
 
 .textBody5 {
     left: 50vw;
-    top: 40vh;
+    top: 50vh;
+    transform: translate(-50%, -50%)
 }
 
 @media only screen and (max-width: $mobile-size) {
     .textBody1 {
-        left: center;
-        top: center;
+        left: 50vw;
+        top: 20vh;
+        transform: translate(-50%, -50%)
     }
 
     .textBody2 {
-        left: center;
-        top: center;
+        left: 50vw;
+        top: 20vh;
+        transform: translate(-50%, -50%)
     }
 
     .textBody3 {
-        left: center;
-        top: center;
+        left: 50vw;
+        top: 20vh;
+        transform: translate(-50%, -50%)
     }
 
     .textBody4 {
-        left: center;
-        top: center;
+        left: 50vw;
+        top: 20vh;
+        transform: translate(-50%, -50%)
     }
 
     .textBody5 {
-        left: center;
-        top: center;
+        left: 50vw;
+        top: 20vh;
+        transform: translate(-50%, -50%)
     }
 }
 </style>

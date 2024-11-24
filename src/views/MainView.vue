@@ -1,10 +1,13 @@
 <template>
     <div class="wrapper" id="wrapper">
-        <section class="flex intro">
-            <div class="flex">
-                <div class ="image-wrapper">
-                    <div class ="image-circle">
-                        <img alt="" src="../assets/birk.jpg" />
+        <section>
+            <div class="flex intro">
+                <div class="headshot">
+                    <div class ="image-wrapper">
+                        <div class="border"></div>
+                        <div class ="image-circle">
+                            <img alt="" src="../assets/birk.jpg" />
+                        </div>
                     </div>
                 </div>
                 <div class ="about">
@@ -14,6 +17,10 @@
                     <p>... generelt over gjennomsnittet interessert i programvare.</p>
                 </div>
             </div>
+        </section>
+        <section class ="timeline" v-if="this.timeline">
+            <p class="introduction">$ timeline --reversed</p>
+            <Timeline class="tl" />
         </section>
         <section class="flex">
             <div v-if="this.cards">
@@ -150,10 +157,6 @@
                 </div>
             </div>
         </section>
-        <section class ="timeline" v-if="this.timeline">
-            <p class="introduction">$ timeline</p>
-            <Timeline class="tl" />
-        </section>
     </div>
 </template>
 
@@ -174,10 +177,12 @@ export default {
     methods: {
         onObserve() {
             const wrapper = document.getElementById("wrapper");
-            if (wrapper.scrollTop > 500) {
+            const vh = window.innerHeight + (window.innerHeight * 0.4);
+            const scrolled = wrapper.scrollTop + vh/2;
+            if (scrolled > vh * 1.5) {
                 this.cards = true;
             }
-            if (wrapper.scrollTop > 1700) {
+            if (scrolled > vh) {
                 this.timeline = true;
             }
         }
@@ -195,42 +200,51 @@ export default {
     @import '@/assets/stylesheets/all.scss';
 
     section {
-        height: 100vh;
-        margin-bottom: 30vh;
+        height: 100dvh;
+        margin-bottom: 30dvh;
+        padding: 0 $spacing-2;
     }
 
     .image-wrapper {
-        img { width: 360px; filter: grayscale(1) contrast(1) brightness(.9); }
         animation: fadeInDelay 7s;
-        min-height: 372px; min-width: 372px;
-        border-radius: 1500vw; border: 2px solid $tetriary;
+        min-width: 250px; width: 100%; max-width: 360px; aspect-ratio: 1;
+        position: relative;
+        .border {
+            position: absolute; top: -7px; left: -7px;
+            width: calc(100% + 10px); height: calc(100% + 10px);
+            border-radius: 1500vw; border: 2px solid $tetriary;
+        }
         .image-circle {
-            height: 360px; width: 360px;
-            position: relative; top: $spacing-1;
-            margin: auto;
+            img { width: 100%; filter: grayscale(1) contrast(1) brightness(.9); }
+            aspect-ratio: 1;
+            position: absolute; top: 1px;
             overflow: hidden;
             border-radius: 1500vw;
         }
     }
 
+    .headshot {
+        flex: 0 1 360px;
+    }
+
+    .intro {
+        position: relative; top: 50%;
+        transform: translateY(-50%)
+    }
+
     .flex {
-        display: flex; flex-direction: row; justify-content: center; flex-wrap: wrap; align-items: center;
-        gap: $spacing-3;
-        &.intro { gap: $spacing-5; }
-        &.cards { gap: $spacing-3; }
+        display: flex; flex-direction: row; justify-content: center; align-items: center; gap: $spacing-3; flex-wrap: wrap; 
     }
 
     .about {
+        min-width: 300px;
+        padding: 0 $spacing-2;
         h1 { padding: 0; animation: fadeInDelay 2s; }
         h3 { animation: fadeInDelay 4s; }
         p { animation: fadeInDelay 4s; }
         .introduction {
-            clip-path: inset(0 0 0 0);
             animation: write 1s ease-in-out forwards;
-            color: $tetriary;
-            max-width: auto;
-            margin-left: 0;
-            margin-bottom: 0;
+            margin: 0;
         }
     }
 
@@ -238,7 +252,7 @@ export default {
         clip-path: inset(0 0 0 0);
         animation: write 1s ease-in-out forwards;
         color: $tetriary;
-        max-width: 150px;
+        max-width: 250px;
         margin-left: 17%;
         margin-bottom: $spacing-3;
     }
@@ -286,6 +300,18 @@ export default {
     @media (max-width: $mobile-size) {
         .about {
             text-align: center;
+        }
+        
+        .about {
+            .introduction {
+                max-width: 100%;
+                width: 150px;
+                margin: auto;
+            }
+        }
+
+        .flex {
+            &.intro { flex-wrap: wrap-reverse; }
         }
 
         h1, h2, h3, h4, p, li { text-align: center; margin: $spacing-2 0; }

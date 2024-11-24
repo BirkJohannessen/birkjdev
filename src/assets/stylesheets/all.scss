@@ -74,10 +74,6 @@ figure {
     display: none;
 }
 
-.hide-mb {
-    display: none;
-}
-
 @keyframes fadeInDelay {
     0% { opacity: 0; }
     50% { opacity: 0; }
@@ -118,11 +114,15 @@ figure {
 
 @media (max-width: $mobile-size) {
     .wrapper {
-        width: 100vw; height: 100%;
+        width: 100vw; height: 100dvh;
     }
 
     .app-wrapper {
         flex-direction: column;
+    }
+
+    .hide-mb {
+        display: none;
     }
 }
 

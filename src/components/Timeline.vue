@@ -28,17 +28,25 @@
                     description: 'Første Hello world program.',
                     ghostcription: 'public static void Main(String Args[]) {\n     System.out.println("Hello World!");\n}'
                 },
+                /*
                 {
                     time: '2022/Januar',
                     title: '',
                     description: 'Første sideprosjekt, ROOMBOT, et python program for å automatisk booke grupperom på høyskolen',
                     ghostcription: '{\nbackend: ["php", "MySql", "nginx", "Python", "Crontab", "Ubuntu server"],    \nfrontend: ["php"]    \n}'
                 },
+                */
                 {
                     time: '2022/November',
                     title: '',
                     description: 'Ansatt som Systemutvikler @Machina, deltid',
                     ghostcription: '{\n    backend: ["Java", "PostGreSQL"],    \n    frontend: ["Backbone.js"]    \n}'
+                },
+                {
+                    time: '2022/Desember',
+                    title: '',
+                    description: 'Fullført internship @ Link utvikling',
+                    ghostcription: ''
                 },
                 {
                     time: '2023/April',
@@ -58,11 +66,18 @@
                     description: 'Uteksaminert fra HVL som Dataingeniør',
                     ghostcription: '{\nnull: "🎓"    \n}'
                 },
+                /*
                 {
                     time: '2023/2024',
                     title: '',
                     description: 'Synkronisere serverstate med utgående meldinger\n som epost, SMS og andre forsendelser som SvarUt.',
                     ghostcription: '{\n    project: "Meldingskø",\n    omfang: "Stor refactor for ny kodesti for samtlige forsendelser for 29~ kunder"\n    tags: ["legacy", "refactor", "mimemessage", "FIFO queue"]\n}'
+                },
+                {
+                    time: '2024',
+                    title: '',
+                    description: 'Utviklet nytt beslutningssystem på saker, og dokumenter.',
+                    ghostcription: '{\n    project: "Decision",     \ntags: ["backend"]     \n}'
                 },
                 {
                     time: '2024/Mai',
@@ -88,6 +103,7 @@
                     description: 'Godkjennings fase knyttet til dokumenter (Bakgrunn for dokumentmotor)',
                     ghostcription: '{\n    project: "Docengine",     \ntags: ["Fullstack", "Documents", "Approval"]     \n}'
                 },
+                */
             ].reverse()
         }
     },

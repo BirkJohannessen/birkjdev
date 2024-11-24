@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper" :class="this.scrollY > 0 ? 'hide-mb' : this.scrollY > 2000 ? 'hide' : ''" >
+    <div class="wrapper" :class="this.scrollY > 100 ? 'hide-mb' : this.scrollY > 2000 ? 'hide' : ''" >
         <div class="logo-wrapper">
             <a @click="push({ path: '/' })">
                 <img draggable="false" alt="Website logo" src="@/assets/images/birk_lgo.webp" />
@@ -66,7 +66,7 @@ export default {
         color: $color-secondary;
         padding: 0 $spacing-1;
         &:hover {
-            color: $tetriary-offset;
+            color: $tetriary;
         }
     }
 
@@ -79,7 +79,6 @@ export default {
         background-color: $secondary;
         height: 100vh; min-width: 100px; max-width: 100px;
         display: flex; flex-direction: column;
-        border-right: 1px solid $secondary-offset;
         z-index: 9;
     }
 
@@ -99,16 +98,14 @@ export default {
     }
 
     @media (max-width: $mobile-size) {
-        a {
-            display: block; 
-            margin: 0 $spacing-1 0 $spacing-1;
-        }
-
         .wrapper {
+            display: sticky;
             min-width: 100vw; height: 80px; max-width: 100vw;
             flex-direction: row;
-            border-right: 0;
-            border-bottom: $spacing--1 solid $tetriary;
+        }
+
+        a {
+            display: block; 
         }
 
         .logo-wrapper {
@@ -120,7 +117,6 @@ export default {
             flex-direction: row;
             width: 100%;
             justify-content: space-around;
-
         }
     }
 </style>

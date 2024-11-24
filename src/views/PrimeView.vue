@@ -33,8 +33,11 @@ export default {
     methods: {
         onScroll() {
             const topY = window.top.scrollY;
-            this.zoomLevel = parseInt(topY % this.scrollLengthForRerender / this.scrollLengthForZoom);
-            this.scrollLevel = parseInt(topY / this.scrollLengthForRerender);
+            console.log(window.innerHeight);
+            const scrollLengthForZoom = this.scrollLengthForZoom;
+            const scrollLengthForRerender = scrollLengthForZoom * 10;
+            this.zoomLevel = parseInt(topY % scrollLengthForRerender / scrollLengthForZoom);
+            this.scrollLevel = parseInt(topY / scrollLengthForRerender);
         }
     },
     computed: {
@@ -86,6 +89,7 @@ export default {
     position: relative;
     width: 100vw;
     height: 100vh;
+    object-fit: cover;
     z-index: 3;
 }
 
@@ -136,7 +140,7 @@ export default {
 
 @media (max-width: $mobile-size) {
     .zoom {
-        transform: rotate(90deg);
+        top: -100px;
         width: 250vw;
         left: -75%;
     }
@@ -144,6 +148,49 @@ export default {
     .img-holder {
         height: 100vh;
     }
-}
 
+    .z0 {
+        transform: scale(2) rotate(90deg);
+    }
+
+    .z1 {
+        transform: scale(1.9) rotate(90deg);
+    }
+
+    .z2 {
+        transform: scale(1.8) rotate(90deg);
+    }
+
+    .z3 {
+        transform: scale(1.7) rotate(90deg);
+    }
+
+    .z4 {
+        transform: scale(1.6) rotate(90deg);
+    }
+
+    .z5 {
+        transform: scale(1.5) rotate(90deg);
+    }
+
+    .z6 {
+        transform: scale(1.4) rotate(90deg);
+    }
+
+    .z7 {
+        transform: scale(1.3) rotate(90deg);
+    }
+
+    .z8 {
+        transform: scale(1.2) rotate(90deg);
+    }
+
+    .z9 {
+        transform: scale(1.1) rotate(90deg);
+    }
+
+    .z10 {
+        transform: scale(1.0) rotate(90deg)
+    }
+}
 </style>
