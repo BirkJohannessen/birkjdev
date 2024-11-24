@@ -77,7 +77,6 @@ a,button, figure {
 
 @media (max-width: $mobile-size) {
 
-    // no tooltips
     a, button, figure {
         .tooltip {
             display: none;
