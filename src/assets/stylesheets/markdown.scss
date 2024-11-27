@@ -1,0 +1,62 @@
+@import '@/assets/stylesheets/vars.scss';
+
+#md-content {
+    max-width: 1000px;
+    margin: auto;
+    h1 {
+        margin: $spacing-5 0;
+    }
+
+    h2 {
+        margin: $spacing-4 0;
+    }
+
+    h3 {
+        margin: $spacing-3 0;
+    }
+
+    p { 
+        margin: $spacing-2 0;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    a {
+        color: $tetriary;
+        &:visited {
+            color: $quaternary-offset;
+        }
+        &:not([href]) {
+            color: $color-primary;
+        }
+    }
+
+    li {
+        font-size: var(--step-0);
+        color: $color-primary;
+        list-style-type: "📖 ";
+    }
+
+    pre {
+        background-color: $secondary;
+        overflow-x: scroll;
+        padding: $spacing-5;
+        code {
+            font-size: var(--step-0);
+            color: $color-secondary;
+            background-color: $secondary;
+        }
+    }
+}
+
+@media (max-width: $mobile-size) {
+    #md-content {
+        max-width: 100%;
+    }
+
+    pre {
+        padding: $spacing-1;
+    }
+}

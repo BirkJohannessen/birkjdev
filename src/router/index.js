@@ -5,8 +5,9 @@ import BiSHkView from '../views/BiSHkView.vue'
 import FallbackView from '../views/FallbackView.vue'
 import TetrisView from '../views/TetrisView.vue'
 import Typenigma from '../views/Typenigma.vue'
-
-
+import BlogView from '../views/BlogView.vue'
+import BlogsView from '../views/BlogsView.vue'
+import blogs from '@/assets/blogs/BlogConfig.js'
 
 const routes = [
   {
@@ -38,6 +39,20 @@ const routes = [
     path: '/projects/typenigma',
     name: 'Typenigma',
     component: Typenigma,
+  },
+  {
+    path: '/blogs',
+    name: 'Blogs',
+    component: BlogsView,
+  },
+  {
+    path: '/blog/:id?',
+    name: 'Blog',
+    component: BlogView,
+    props: route => {
+      const blog = blogs.find(o => o.id === parseInt(route.params.id)) || blogs[0];
+      return { blog };
+    },
   }
 
 ]
