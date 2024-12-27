@@ -26,6 +26,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Montserrat';
+    background: black;
 }
 
 .material-symbols-outlined {

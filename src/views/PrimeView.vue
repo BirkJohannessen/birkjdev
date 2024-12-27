@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wrapper">
         <div class="info">
             {{ scrollLevel }}
             {{ zoomLevel }}
@@ -57,6 +57,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/stylesheets/all.scss';
+.wrapper {
+    overflow: visible;
+}
+
 .idle {
     position: relative;
     left: 100vw;
@@ -139,9 +143,14 @@ export default {
 
 @media (max-width: $mobile-size) {
     .zoom {
-        top: -100px;
+        top: 0;
         width: 250vw;
         left: -75%;
+    }
+
+    .info {
+        z-index: 1;
+        left: 0;
     }
 
     .img-holder {

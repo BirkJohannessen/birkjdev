@@ -89,7 +89,6 @@ export default {
     }
 
     .nav-wrapper {
-        overflow: visible;
         background-color: $secondary;
         height: 100vh; min-width: 100px; max-width: 100px;
         display: flex; flex-direction: column;
@@ -113,9 +112,10 @@ export default {
 
     @media (max-width: $mobile-size) {
         .nav-wrapper {
-            display: absolute; top: 0;
+            position: fixed; top: 0;
             min-width: 100vw; height: 80px; width: 100vw;
             flex-direction: row;
+            z-index: 10000;
         }
 
         .logo-wrapper {
@@ -163,7 +163,7 @@ export default {
         }
 
         .hamburger-overlay {
-            position: absolute;
+            position: fixed;
             top: 70px;
             z-index: 100;
             background-color: $secondary;
