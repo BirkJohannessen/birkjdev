@@ -42,8 +42,10 @@ body {
 
 .app-wrapper {
     display: flex;
+    position: relative;
     flex-direction: row;
     background-color: black;
+    height: 100dvh;
 }
 
 @media (max-width: $mobile-size) {

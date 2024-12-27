@@ -57,7 +57,7 @@ export default {
 <style lang="scss" scoped>
     @import '@/assets/stylesheets/all.scss';
     .wrapper {
-        width: 100%; height: 100vh;
+        width: 100%; height: 100dvh;
         background-color: $primary;
         display: flex; justify-content: right;
         overflow-y: scroll;

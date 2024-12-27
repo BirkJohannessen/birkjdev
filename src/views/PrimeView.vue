@@ -33,7 +33,6 @@ export default {
     methods: {
         onScroll() {
             const topY = window.top.scrollY;
-            console.log(window.innerHeight);
             const scrollLengthForZoom = this.scrollLengthForZoom;
             const scrollLengthForRerender = scrollLengthForZoom * 10;
             this.zoomLevel = parseInt(topY % scrollLengthForRerender / scrollLengthForZoom);

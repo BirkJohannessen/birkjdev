@@ -15,7 +15,6 @@ import python from 'highlight.js/lib/languages/python';
 export default {
     name: 'Blog',
     beforeMount() {
-        console.log(this.blog);
         if (this.blog.type === 'remote') {
             this.fetchRemoteBlog();
         }
@@ -40,9 +39,6 @@ export default {
             document.querySelectorAll('pre code').forEach((block) => {
                 if (this.isLang(block.innerHTML)) {
                     hljs.highlightElement(block);
-                } else {
-                    // No language detected, handle as plain text or ignore
-                    console.log("No language detected for:", block.textContent);
                 }
             });
         }

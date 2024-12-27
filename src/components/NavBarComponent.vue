@@ -6,13 +6,26 @@
             </a>
         </div>
         <div class="path-wrapper">
-            <div v-for="path in paths" >
+            <nav v-for="path in paths" class="hide-mb">
                 <a class="tooltip-holder" @click="push(path)">
                     <span class="material-symbols-outlined" :class="isSelected(path) ? 'selected' : ''">{{path.icon}}</span>
                     <div class="tooltip tright">{{path.name}}</div>
                 </a>
-            </div>
+            </nav>
+            <button class="hamburger hide-desktop" @click="this.showHamburger = !this.showHamburger">
+                <span :class="showHamburger ? 'open' : ''"></span>
+                <span :class="showHamburger ? 'open' : ''"></span>
+                <span :class="showHamburger ? 'open' : ''"></span>
+            </button>
         </div>
+    </div>
+    <div class="hamburger-overlay hide-desktop" v-if="showHamburger">
+        <nav v-for="path in paths">
+            <a @click="push(path); this.showHamburger = false">
+                <span class="material-symbols-outlined" :class="isSelected(path) ? 'selected' : ''">{{path.icon}}</span>
+                <h4 :class="isSelected(path) ? 'selected' : ''">{{path.name}}</h4>
+            </a>
+        </nav>
     </div>
 </template>
 
@@ -47,7 +60,8 @@ export default {
                 { name: 'tetris', path: '/projects/tetris', icon: 'grid_view' },
                 { name: 'typenigma', path: '/projects/typenigma', icon: 'keyboard' }
             ],
-            scrollY: 0
+            scrollY: 0,
+            showHamburger: false
         }
     },
 }
@@ -99,28 +113,68 @@ export default {
 
     @media (max-width: $mobile-size) {
         .nav-wrapper {
-            display: sticky;
-            min-width: 100vw; height: 80px; max-width: 100vw;
+            display: absolute; top: 0;
+            min-width: 100vw; height: 80px; width: 100vw;
             flex-direction: row;
         }
 
-        a {
-            display: block; 
-        }
-
         .logo-wrapper {
-            margin: auto;
-            width: 90px;
+            margin: 0;
         }
 
         .path-wrapper {
             flex-direction: row;
             width: 100%;
-            justify-content: space-around;
+            justify-content: right;
+        }
+
+        a {
+            flex-direction: row;
+            gap: $spacing-1;
         }
 
         img {
             width: 80px;;
+        }
+
+        button {
+            background-color: transparent;
+            border: 0;
+            width: auto;
+            color: $color-secondary;
+            cursor: pointer;
+            padding: 0 $spacing-4 0 0;
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            span {
+                display: block;
+                width: 25px;
+                height: 2px;
+                background-color: $color-secondary;
+                transition: transform 0.3s ease, background-color 0.3s ease;
+                &.open:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+                &.open:nth-child(2) { opacity: 0; }
+                &.open:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+            }
+        }
+
+        .hamburger-overlay {
+            position: absolute;
+            top: 80px;
+            z-index: 100;
+            background-color: $secondary;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: left;
+            padding: 20px;
+            a {
+                margin: $spacing-2 0;
+            }
         }
     }
 </style>

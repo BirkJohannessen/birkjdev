@@ -27,7 +27,6 @@ export default {
     name: 'Blogs',
     computed: {
         blogs() {
-            console.log(blogConfig);
             return blogConfig;
         }
     },
