@@ -59,6 +59,7 @@ export default {
         }
         #md-content {
             animation: fadeIn 2s;
+            overflow: hidden;
         }
     }
 </style>
