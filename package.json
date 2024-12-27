@@ -9,6 +9,7 @@
   "dependencies": {
     "chart.js": "^4.4.6",
     "core-js": "^3.8.3",
+    "highlight.js": "^11.11.1",
     "marked": "^15.0.2",
     "vue": "^3.2.13",
     "vue-chartjs": "^5.3.2",

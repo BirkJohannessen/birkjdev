@@ -9,6 +9,9 @@
 
 <script>
 import { marked } from 'marked';
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
+import python from 'highlight.js/lib/languages/python';
 export default {
     name: 'Blog',
     beforeMount() {
@@ -21,11 +24,27 @@ export default {
         blog: Object
     },
     methods: {
+        isLang(text) {
+            const patterns = [
+                /\b(function|const|let|if|else|class|return|def|import|while)\b/, // Common keywords
+            ];
+            return patterns.some((pattern) => pattern.test(text));
+        },
         async fetchRemoteBlog() {
             const response = await fetch(this.blog.remoteURL);
             let markdownContent = await response.text();
             markdownContent = markdownContent.replace(/\/blob\//g, '/raw/');
             document.getElementById('md-content').innerHTML = marked.parse(markdownContent);
+            hljs.registerLanguage('javascript', javascript);
+            hljs.registerLanguage('python', python);
+            document.querySelectorAll('pre code').forEach((block) => {
+                if (this.isLang(block.innerHTML)) {
+                    hljs.highlightElement(block);
+                } else {
+                    // No language detected, handle as plain text or ignore
+                    console.log("No language detected for:", block.textContent);
+                }
+            });
         }
     }
 }
