@@ -2,7 +2,7 @@
     <div class="nav-wrapper" :class="this.scrollY > 100 ? 'hide-mb' : this.scrollY > 2000 ? 'hide' : ''" >
         <div class="logo-wrapper">
             <a @click="push({ path: '/' })">
-                <img draggable="false" alt="Website logo" src="@/assets/images/birk_lgo.webp" />
+                <img draggable="false" alt="Website logo" src="@/assets/images/birk_mich_lgo.svg" />
             </a>
         </div>
         <div class="path-wrapper">
@@ -98,7 +98,7 @@ export default {
 
     .logo-wrapper {
         height: auto;
-        margin: 0 auto;
+        margin: 30px 0 0 13px;
     }
 
     .path-wrapper {
@@ -119,7 +119,7 @@ export default {
         }
 
         .logo-wrapper {
-            margin: 0;
+            margin: auto 0 auto $spacing-4;
         }
 
         .path-wrapper {
@@ -164,16 +164,16 @@ export default {
 
         .hamburger-overlay {
             position: absolute;
-            top: 80px;
+            top: 70px;
             z-index: 100;
             background-color: $secondary;
             display: flex;
             flex-direction: column;
             width: 100%;
             align-items: left;
-            padding: 20px;
             a {
-                margin: $spacing-2 0;
+                width: auto;
+                margin: $spacing-2 $spacing-4;
             }
         }
     }
