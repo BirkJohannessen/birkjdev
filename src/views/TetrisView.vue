@@ -1,4 +1,3 @@
-G
 <template>
     <div class="wrapper">
         <div class="center">
@@ -87,6 +86,7 @@ export default {
         text-align: center;
         display: flex; flex-direction: column;
         position: relative;
+        animation: fadeIn 1s;
     }
     .info {
         display: flex; flex-direction: row;

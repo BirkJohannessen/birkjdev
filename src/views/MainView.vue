@@ -263,7 +263,9 @@ export default {
         .card {
             background-color: $primary-offset;
             padding: $spacing-5; 
-            width: 400px; height: 300px;
+            max-width: 400px;
+            min-height: 300px;
+            width: 100%;
             .material-symbols-outlined {
                 font-size: var(--step-2);
                 position: relative;

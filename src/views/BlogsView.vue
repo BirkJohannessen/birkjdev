@@ -1,20 +1,22 @@
 <template>
     <div class="wrapper">
-        <p class="introduction">blogs <span class="write">$ ls -l</span></p>
-        <section>
-            <div class="articles">
-                <div v-for="blog in blogs">
-                    <div class="card" @click="push({ path: `/blog/${blog.id}` })">
-                        <h2>{{ blog.title }}</h2>
-                        <p>{{ blog.description }}</p>
-                        <time>{{ blog.date }}</time>
-                        <div class="imgholder">
-                            <img v-if="blog.contentImg" :src="blog.contentImg">
+        <div class="content-wrapper">
+            <p class="introduction">blogs <span class="write">$ ls -l</span></p>
+            <section>
+                <div class="articles">
+                    <div v-for="blog in blogs">
+                        <div class="card" @click="push({ path: `/blog/${blog.id}` })">
+                            <h2>{{ blog.title }}</h2>
+                            <p>{{ blog.description }}</p>
+                            <time>{{ blog.date }}</time>
+                            <div class="imgholder">
+                                <img v-if="blog.contentImg" :src="blog.contentImg">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
 </template>
 
@@ -40,8 +42,8 @@ export default {
 <style lang="scss" scoped>
     @import '@/assets/stylesheets/vars.scss';
 
-    .wrapper {
-        padding: $spacing-5 $spacing-1 0 $spacing-1 ;
+    .content-wrapper {
+        padding: $spacing-5 $spacing-2 $spacing-1 $spacing-2 ;
     }
 
     .articles {
@@ -53,7 +55,7 @@ export default {
 
     .card {
         text-align: center;
-        width: 500px;
+        max-width: 500px;
         height: 400px;
         background-color: $primary-offset;
         display: flex; flex-direction: column;
@@ -73,13 +75,15 @@ export default {
     }
 
     .imgholder {
-        width: 100%; aspect-ratio: 1;
+        width: 100%;
         position: relative;
         overflow: hidden; 
         display: flex;
         align-items: center;
         justify-content: center;
+        height: 100%;
         img {
+            object-fit: cover;
             position: absolute;
             max-width: 100%;
             min-height: 100%;
@@ -98,8 +102,5 @@ export default {
     }
 
     @media (max-width: $mobile-size) {
-        .wrapper {
-            padding: $spacing-1;
-        }
     }
 </style>

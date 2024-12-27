@@ -1,6 +1,8 @@
 <template>
     <div class="wrapper">
-        <div id="md-content">
+        <div class="content-wrapper">
+            <div id="md-content">
+            </div>
         </div>
     </div>
 </template>
@@ -32,13 +34,13 @@ export default {
 <style lang="scss" scoped>
     @import '@/assets/stylesheets/all.scss';
 
-    .wrapper {
+    .content-wrapper {
         padding: $spacing-5;
     }
 
     @media (max-width: $mobile-size) {
-        .wrapper {
-            padding: $spacing-1;
+        .content-wrapper {
+            padding: $spacing-3;
         }
         #md-content {
             animation: fadeIn 2s;

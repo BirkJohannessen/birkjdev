@@ -90,4 +90,10 @@ export default {
             }
         }
     }
+
+    @media (max-width: $mobile-size) {
+        .center {
+            margin: $spacing-5 auto;
+        }
+    }
 </style>

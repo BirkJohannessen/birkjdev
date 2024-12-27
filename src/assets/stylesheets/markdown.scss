@@ -34,6 +34,8 @@
     }
 
     li {
+        position: relative;
+        left: var(--step-1);
         font-size: var(--step-0);
         color: $color-primary;
         list-style-type: "📖 ";
@@ -54,9 +56,5 @@
 @media (max-width: $mobile-size) {
     #md-content {
         max-width: 100%;
-    }
-
-    pre {
-        padding: $spacing-1;
     }
 }
