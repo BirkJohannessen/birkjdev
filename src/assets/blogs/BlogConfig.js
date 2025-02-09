@@ -1,4 +1,5 @@
 import cybertalent23 from '@/assets/blogs/cybertalent23.jpg'
+import ipv4 from '@/assets/blogs/ipv4.webp';
 import p26e23 from '@/assets/blogs/p26e23.jpg'
 import aoc from '@/assets/blogs/aoc.png'
 
@@ -32,6 +33,16 @@ const blogs = [
         remoteURL: 'https://raw.githubusercontent.com/BirkJohannessen/writeups/refs/heads/master/adventofcode2024/README.md',
         contentImg: aoc,
         description: 'Advent of code 2024. Javascript + funksjonell programmering',
+    },
+    {
+        id: 3,
+        title: 'Curious case of encoding ipv4 addresses',
+        type: 'remote',
+        date: '09.02.2025',
+        contentType: 'blog',
+        remoteURL: 'https://raw.githubusercontent.com/BirkJohannessen/writeups/refs/heads/master/curious-case-of-encoding-ipv4-addresses/README.md',
+        contentImg: ipv4,
+        description: 'In how many ways can we encode an ipv4 address?',
     }
 ]
 
