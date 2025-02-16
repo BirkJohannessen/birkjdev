@@ -312,11 +312,8 @@ export default {
 
     @media (max-width: $mobile-size) {
         section { margin-bottom: $spacing-2; }
-        h1, h2, h3, h4, p, li { text-align: center; margin: $spacing-2 0; }
 
-        .cards {
-            .card { padding: $spacing-1; }
-        }
+        h1, h2, h3, h4, p, li { text-align: center; margin: $spacing-2 0; }
 
         .intro { 
             position: relative; top: $spacing-2; transform: translateY(0);
@@ -327,6 +324,12 @@ export default {
                 text-align: center;
                 .introduction { max-width: 100%; width: 150px; margin: auto; }
             }
+        }
+
+        .timeline { margin: $spacing-4 0 100px 0;  }
+
+        .cards {
+            .card { padding: $spacing-1; }
         }
     }
 </style>
