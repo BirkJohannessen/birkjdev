@@ -143,7 +143,7 @@ export default {
 
 @media (max-width: $mobile-size) {
     .zoom {
-        top: 0;
+        top: -80px;
         width: 250vw;
         left: -75%;
     }
