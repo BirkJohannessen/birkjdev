@@ -6,7 +6,7 @@
         </div>
         <div class="percent item">
             <h1>{{this.engine.calculateCorrectPercentage()}}%</h1>
-            <h3>accuracy</h3>
+            <h3>acc</h3>
         </div>
     </div>
     <div class="result-wrapper">
@@ -85,7 +85,7 @@ export default {
     .header {
         display: flex; gap: $spacing-4; justify-content: center;
         .item {
-            display: flex; align-item: bottom; width: 250px;
+            display: flex; align-items: bottom; min-width: 250px;
             gap: $spacing-1;
             h1, h3 { color: inherit }
         }
@@ -100,8 +100,13 @@ export default {
         color: red;
     }
     @media (max-width: $mobile-size) {
-        .result-wrapper {
-            height: 200px;
+        .header {
+            .item {
+                min-width: 0; width: 100px;
+                h1 { color: inherit; font-size: var(--step-4); }
+                h3 { color: inherit; font-size: var(--step-2); }
+            }
         }
+        .result-wrapper { min-width: 0; width: 100vw; }
     }
 </style>
