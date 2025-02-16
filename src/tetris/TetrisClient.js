@@ -9,6 +9,7 @@ export default class TetrisClient {
 
         this.runInterval = 15;
         this.hasStarted = false; 
+        this.globalX = 0;
         this._run();
     }
 
@@ -144,6 +145,48 @@ export default class TetrisClient {
         }
         if (e.key === 'Backspace') {
             this.restart();
+        }
+    }
+
+    gestureTap(_e) {
+        this.getInput().up = 1;
+    }
+
+    gestureSwipeUp(_e) {
+        this.getInput().save = 1;
+    }
+
+    gesturePress(_e) {
+        this.getInput().down = 1;
+    }
+
+    gesturePressUp(_e) {
+        this.getInput().down = 0;
+    }
+
+    gesturePanend(_e) {
+        this.globalX = 0;
+    }
+
+    gesturePanmove(e) {
+        const delta = this.globalX + e.deltaX;
+        this.getInput().down = 0;
+        if (delta < -20) {
+            if (this.getInput().left === 0) {
+                this.getInput().right = 0;
+                this.getInput().left = 1;
+                this.engine.inputProcessor.setKeyDownInputDelay();
+                this.getInput().left = 0;
+                this.globalX += 20;
+            } 
+        } else if (delta > 20) {
+            if (this.getInput().right === 0) {
+                this.getInput().left = 0;
+                this.getInput().right = 1;
+                this.engine.inputProcessor.setKeyDownInputDelay();
+                this.getInput().right = 0;
+                this.globalX -= 20;
+            }
         }
     }
 

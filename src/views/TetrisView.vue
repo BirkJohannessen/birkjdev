@@ -34,6 +34,7 @@
 import TetrisClient from '../tetris/TetrisClient.js'
 import TetrisMap from '../components/tetris/MapComponent.vue'
 import TetrisQueue from '../components/tetris/QueueComponent.vue'
+import Hammer from 'hammerjs'
 
 export default {
     name: 'TetrisView',
@@ -49,6 +50,45 @@ export default {
     mounted() {
         this.updateSize();
         window.addEventListener('resize', this.updateSize);
+
+        const el = document.querySelector('.wrapper');
+        const hammertime = new Hammer(el, {});
+
+        hammertime.on('tap', (e) => {
+            if (!this.isMobile) return;
+            this.tetris.gestureTap(e);
+        });
+
+        hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+        hammertime.on('swipeup', (e) => {
+            if (!this.isMobile) return;
+            this.tetris.gestureSwipeUp(e);
+        });
+
+        hammertime.on('swipeup', (e) => {
+            if (!this.isMobile) return;
+            this.tetris.gestureSwipeUp(e);
+        });
+
+        hammertime.on('press', (e) => {
+            if (!this.isMobile) return;
+            this.tetris.gesturePress(e);
+        });
+
+        hammertime.on('pressup', (e) => {
+            if (!this.isMobile) return;
+            this.tetris.gesturePressUp(e);
+        });
+
+        hammertime.on('panend', (e) => {
+            if (!this.isMobile) return;
+            this.tetris.gesturePanend(e);
+        });
+
+        hammertime.on('panmove', (e) => {
+            if (!this.isMobile) return;
+            this.tetris.gesturePanmove(e);
+        });
     },
     unmounted() {
         window.removeEventListener('resize', this.updateSize);
@@ -72,7 +112,8 @@ export default {
             level: '',
             map: [],
             queue: [],
-            emptyBlockMap: []
+            emptyBlockMap: [],
+            globalX: 0
         }
     },
 }
