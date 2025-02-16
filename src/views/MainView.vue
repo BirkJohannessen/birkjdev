@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper" id="wrapper">
-        <section>
+        <section id="section-intro">
             <div class="flex intro">
                 <div class="headshot">
                     <div class ="image-wrapper">
@@ -18,11 +18,13 @@
                 </div>
             </div>
         </section>
-        <section class ="timeline" v-if="this.timeline">
-            <p class="introduction">$ timeline --short</p>
-            <Timeline class="tl" />
+        <section class ="timeline" id="section-timeline">
+            <div v-if="this.timeline">
+                <p class="introduction">$ timeline --short</p>
+                <Timeline class="tl" />
+            </div>
         </section>
-        <section class="flex">
+        <section class="extended flex" id="section-cards">
             <div v-if="this.cards">
                 <p class="introduction">$ more</p>
                 <div class="flex cards">
@@ -168,27 +170,30 @@ export default {
         Timeline
     },
     mounted() {
-        const wrapper = document.getElementById("wrapper");
-        wrapper.addEventListener('scroll', this.onObserve);
+        this.observe();
     },
     unmounted() {
-        window.removeEventListener('scroll', this.onObserve);
+        this.observer.disconnect();
     },
     methods: {
-        onObserve() {
-            const wrapper = document.getElementById("wrapper");
-            const vh = window.innerHeight + (window.innerHeight * 0.4);
-            const scrolled = wrapper.scrollTop + vh/2;
-            if (scrolled > vh * 1.5) {
-                this.cards = true;
-            }
-            if (scrolled > vh) {
-                this.timeline = true;
-            }
+        observe() {
+            this.observer = new IntersectionObserver(
+                entries => {
+                    entries.filter(o => o.isIntersecting).forEach(entry => {
+                        if (entry.target.id === 'section-cards') this.cards = true;
+                        if (entry.target.id === 'section-timeline') this.timeline = true;
+                    });
+                },
+                {
+                    threshold: 0.35
+                }
+            );
+            document.querySelectorAll('section').forEach(o => this.observer.observe(o));
         }
     },
     data() {
         return {
+            observer: null,
             cards: false,
             timeline: false
         }
@@ -203,6 +208,8 @@ export default {
         height: 100dvh;
         margin-bottom: 30dvh;
         padding: 0 $spacing-2;
+        overflow: hidden;
+        &.extended { min-height: 100dvh; height: auto; }
     }
 
     .image-wrapper {
@@ -304,22 +311,22 @@ export default {
     }
 
     @media (max-width: $mobile-size) {
-        .about {
-            text-align: center;
+        section { margin-bottom: $spacing-2; }
+        h1, h2, h3, h4, p, li { text-align: center; margin: $spacing-2 0; }
+
+        .cards {
+            .card { padding: $spacing-1; }
         }
-        
-        .about {
-            .introduction {
-                max-width: 100%;
-                width: 150px;
-                margin: auto;
+
+        .intro { 
+            position: relative; top: $spacing-2; transform: translateY(0);
+            &.flex { flex-wrap: wrap-reverse; }
+            .headshot { flex: 0 1 300px; }
+            .image-wrapper { min-width: 250px; max-width: 300px; }
+            .about {
+                text-align: center;
+                .introduction { max-width: 100%; width: 150px; margin: auto; }
             }
         }
-
-        .flex {
-            &.intro { flex-wrap: wrap-reverse; }
-        }
-
-        h1, h2, h3, h4, p, li { text-align: center; margin: $spacing-2 0; }
     }
 </style>
