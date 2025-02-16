@@ -43,6 +43,7 @@ export default {
             this.$router.push({ path: path.path }).then(() => this.$forceUpdate());
         },
         isSelected(path) {
+            if (path.matchOn && path.matchOn.length && path.matchOn.some(o => window.location.pathname.match(o))) return true;
             return window.location.pathname === path.path;
         },
         updateY() {
@@ -53,7 +54,7 @@ export default {
         return {
             paths: [
                 { name: 'birk', path: '/', icon: 'person' },
-                { name: 'blogs', path: '/blogs', icon: 'rss_feed' },
+                { name: 'blogs', path: '/blogs', matchOn: ['^/blog/\\d+$'], icon: 'rss_feed' },
                 // { name: 'code', path: '/projects/code', icon: 'code' },
                 // { name: 'biSHk', path: '/projects/bishk', icon: 'terminal' },
                 { name: 'prime_spiral', path: '/projects/primes', icon: 'blur_on'},
