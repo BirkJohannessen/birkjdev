@@ -152,6 +152,10 @@ export default class TetrisClient {
         this.getInput().up = 1;
     }
 
+    gestureSwipeDown(_e) {
+        this.getInput().commit = 1;
+    }
+
     gestureSwipeUp(_e) {
         this.getInput().save = 1;
     }

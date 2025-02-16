@@ -59,10 +59,17 @@ export default {
             this.tetris.gestureTap(e);
         });
 
-        hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+        hammertime.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
+        hammertime.get('pan').set({ direction: Hammer.DIRECTION_HORIZONTAL });
+
         hammertime.on('swipeup', (e) => {
             if (!this.isMobile) return;
             this.tetris.gestureSwipeUp(e);
+        });
+
+        hammertime.on('swipedown', (e) => {
+            if (!this.isMobile) return;
+            this.tetris.gestureSwipeDown(e);
         });
 
         hammertime.on('swipeup', (e) => {
@@ -85,7 +92,7 @@ export default {
             this.tetris.gesturePanend(e);
         });
 
-        hammertime.on('panmove', (e) => {
+        hammertime.on('panleft panright', (e) => {
             if (!this.isMobile) return;
             this.tetris.gesturePanmove(e);
         });
