@@ -18,7 +18,7 @@
                 </div>
             </div>
         </section>
-        <section class ="timeline" id="section-timeline">
+        <section class ="timeline extended" id="section-timeline">
             <div v-if="this.timeline">
                 <p class="introduction">$ timeline --short</p>
                 <Timeline class="tl" />
