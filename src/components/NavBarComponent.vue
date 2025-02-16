@@ -113,8 +113,8 @@ export default {
 
     @media (max-width: $mobile-size) {
         .nav-wrapper {
-            position: block; top: 0;
-            min-width: 100vw; height: 80px; width: 100vw;
+            position: relative; top: 0;
+            min-width: 100vw; min-height: 80px; height: 80px; width: 100vw;
             flex-direction: row;
             z-index: 10000;
         }
