@@ -20,7 +20,7 @@
                     <TetrisMap :onlyBlock="true"  :map="this.holdBlock ? this.holdBlock.state : this.emptyBlockMap" :pxSize="15"/>
                 </div>
                 <div class="main">
-                    <TetrisMap :onlyBlock="false" :map="this.map" :pxSize="30"/>
+                    <TetrisMap :onlyBlock="false" :map="this.map" :pxSize="isMobile ? 20 : 30"/>
                 </div>
                 <div class="queue">
                     <TetrisQueue :queue="this.queue" />
@@ -46,16 +46,27 @@ export default {
         document.addEventListener("keydown", this.onKeyDownPress);
         document.addEventListener("keyup", this.onKeyUpPress);
     },
+    mounted() {
+        this.updateSize();
+        window.addEventListener('resize', this.updateSize);
+    },
+    unmounted() {
+        window.removeEventListener('resize', this.updateSize);
+    },
     methods: {
         onKeyDownPress(e) {
             this.tetris.onKeyDownPress(e);
         },
         onKeyUpPress(e) {
             this.tetris.onKeyUpPress(e);
+        },
+        updateSize() {
+            this.isMobile = window.innerWidth <= 600;
         }
     },
     data() {
         return {
+            isMobile: false,
             info: '',
             score: 0,
             level: '',
@@ -133,5 +144,11 @@ export default {
     .hold {
         min-width: 76px;
     }
-
+    @media (max-width: $mobile-size) {
+        .tetris { width: 100%; overflow: hidden; }
+        .play { scale: 1.2; }
+        .info-message {
+            h2 { font-size: var(--step-1); }
+        }
+    }
 </style>

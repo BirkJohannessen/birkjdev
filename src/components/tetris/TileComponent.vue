@@ -6,13 +6,8 @@
 </template>
 
 <script>
-import Tile from './TileComponent.vue';
-
 export default {
     name: 'MapComponent',
-    components: {
-        Tile
-    },
     props: {
         tile: Object,
         pxSize: Number,
