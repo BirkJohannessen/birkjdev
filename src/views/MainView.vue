@@ -1,5 +1,43 @@
+<script setup>
+    import { ref, onMounted, onUnmounted, nextTick } from 'vue'; 
+    import Timeline from '../components/Timeline';
+
+    const cards = ref(false);
+    const timeline = ref(false);
+    const sectionCards = ref(null);
+    const sectionTimeline = ref(null);
+
+    const icons = ref([
+        { filename: '/icons/java.svg', name: 'Java'}, { filename: '/icons/js.svg', name: 'Javascript'}, { filename: '/icons/ts.svg', name: 'Typescript'},
+        { filename: '/icons/bash.svg', name: 'Bash'}, { filename: '/icons/csharp.svg', name: 'C#'}, { filename: '/icons/py.svg', name: 'Python'},
+        { filename: '/icons/php.svg', name: 'Php'}, { filename: '/icons/css.svg', name: 'CSS'}, { filename: '/icons/html.svg', name: 'HTML'},
+        { filename: '/icons/psql.svg', name: 'PostgreSQL'}, { filename: '/icons/mariadb.svg', name: 'MariaDB'}, { filename: '/icons/jquery.svg', name: 'Jquery'},
+        { filename: '/icons/backbonejs.svg', name: 'Backbone'}, { filename: '/icons/react.svg', name: 'React'}, { filename: '/icons/vue.svg', name: 'Vue'},
+        { filename: '/icons/git.svg', name: 'Git'}, { filename: '/icons/linux.svg', name: 'Linux'}, { filename: '/icons/nvim.svg', name: 'Neovim'},
+        { filename: '/icons/vim.svg', name: 'Vim'}
+    ]);
+
+    const observer = new IntersectionObserver(entries => {
+                entries.filter(o => o.isIntersecting).forEach(entry => {
+                    if (entry.target.id === 'section-cards') cards.value = true;
+                    if (entry.target.id === 'section-timeline') timeline.value = true;
+                });
+            },
+            { threshold: 0.35 }
+        );
+
+    onMounted(() => {
+        [sectionCards, sectionTimeline]
+            .forEach(el => observer.observe(el.value));
+    });
+
+    onUnmounted(() => {
+        observer.disconnect();
+    });
+</script>
+
 <template>
-    <div class="wrapper" id="wrapper">
+    <div class="wrapper">
         <section id="section-intro">
             <div class="flex intro">
                 <div class="headshot">
@@ -18,21 +56,20 @@
                 </div>
             </div>
         </section>
-        <section class ="timeline extended" id="section-timeline">
-            <div v-if="this.timeline">
+        <section class ="timeline extended" id="section-timeline" ref="sectionTimeline">
+            <div v-if="timeline">
                 <p class="introduction">$ timeline --short</p>
                 <Timeline class="tl" />
             </div>
         </section>
-        <section class="extended flex" id="section-cards">
-            <div v-if="this.cards">
+        <section class="extended flex" id="section-cards" ref="sectionCards">
+            <div v-if="cards">
                 <p class="introduction">$ more</p>
                 <div class="flex cards">
                     <div class ="card">
                         <div class="header">
                             <h3>Fullstack utvikler</h3>
                         </div>
-                        <!-- <p>- av yrke, men ikke eksklusivt. Sitter på en bred teknisk interrese. Spør meg om hjemmeserverene mine, Linux configen min eller hacking!</p> -->
                         <p><span class="hl">Elsker faget</span>, og jobben som lar meg praktisere det hver dag.</p>
                         <p>Interessert å utvide vertøykassa samtidig som jeg spisser de skarpeste redskapene der. Samarbeider godt i lag og er veldig mottakelig til diskusjon. Sier meningen min, og spør når jeg lurer på noe.</p>
                     </div>
@@ -78,82 +115,12 @@
                             </h3>
                         </div>
                         <div class="icons flex">
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="Java" src="../assets/icons/java.svg" />
-                                <span class="tooltip ttop">Java</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="Javascript" src="../assets/icons/js.svg" />
-                                <span class="tooltip ttop">Javascript</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="Typescript" src="../assets/icons/ts.svg" />
-                                <span class="tooltip ttop">Typescript</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="Bash" src="../assets/icons/bash.svg" />
-                                <span class="tooltip ttop">Bash</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="C#" src="../assets/icons/csharp.svg" />
-                                <span class="tooltip ttop">C#</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="Python" src="../assets/icons/py.svg" />
-                                <span class="tooltip ttop">Python</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="Php" src="../assets/icons/php.svg" />
-                                <span class="tooltip ttop">Php</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="CSS" src="../assets/icons/css.svg" />
-                                <span class="tooltip ttop">CSS</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="HTML" src="../assets/icons/html.svg" />
-                                <span class="tooltip ttop">HTML</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="PostgreSQL" src="../assets/icons/psql.svg" />
-                                <span class="tooltip ttop">PostgreSQL</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="MariaDB" src="../assets/icons/mariadb.svg" />
-                                <span class="tooltip ttop">MariaDB</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="Jquery" src="../assets/icons/jquery.svg" />
-                                <span class="tooltip ttop">Jquery</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="Backbone" src="../assets/icons/backbonejs.svg" />
-                                <span class="tooltip ttop">Backbone</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="React" src="../assets/icons/react.svg" />
-                                <span class="tooltip ttop">React</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="Vue" src="../assets/icons/vue.svg" />
-                                <span class="tooltip ttop">Vue</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="Git" src="../assets/icons/git.svg" />
-                                <span class="tooltip ttop">Git</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="Linux" src="../assets/icons/linux.svg" />
-                                <span class="tooltip ttop">Linux</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="Neovim" src="../assets/icons/nvim.svg" />
-                                <span class="tooltip ttop">Neovim</span>
-                            </figure>
-                            <figure class="tooltip-holder">
-                                <img class="icon" alt="Vim" src="../assets/icons/vim.svg" />
-                                <span class="tooltip ttop">Vim</span>
-                            </figure>
+                            <div v-for="icon in icons" :id="name">
+                                <figure class="tooltip-holder">
+                                    <img class="icon" :alt="icon.name" :src="`${icon.filename}`" />
+                                    <span class="tooltip ttop">Java</span>
+                                </figure>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -161,45 +128,6 @@
         </section>
     </div>
 </template>
-
-<script>
-import Timeline from '../components/Timeline'
-export default {
-    name: 'MainView',
-    components: {
-        Timeline
-    },
-    mounted() {
-        this.observe();
-    },
-    unmounted() {
-        this.observer.disconnect();
-    },
-    methods: {
-        observe() {
-            this.observer = new IntersectionObserver(
-                entries => {
-                    entries.filter(o => o.isIntersecting).forEach(entry => {
-                        if (entry.target.id === 'section-cards') this.cards = true;
-                        if (entry.target.id === 'section-timeline') this.timeline = true;
-                    });
-                },
-                {
-                    threshold: 0.35
-                }
-            );
-            document.querySelectorAll('section').forEach(o => this.observer.observe(o));
-        }
-    },
-    data() {
-        return {
-            observer: null,
-            cards: false,
-            timeline: false
-        }
-    }
-}
-</script>
 
 <style lang="scss" scoped>
     @import '@/assets/stylesheets/all.scss';
