@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, onMounted, onUnmounted, nextTick } from 'vue'; 
+    import { ref, onMounted, onUnmounted  } from 'vue'; 
     import Timeline from '../components/Timeline';
 
     const cards = ref(false);
