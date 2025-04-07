@@ -1,3 +1,16 @@
+<script setup>
+    import { marked } from 'marked';
+    import blogConfig from '@/assets/blogs/BlogConfig.js'
+    import { ref, computed, defineProps } from 'vue'; 
+    import { useRouter } from 'vue-router'
+
+    const router = useRouter();
+    const blogs = computed(() => { return blogConfig })
+    const pushBlog = id => {
+        router.push({ path: `/blog/${id}` });
+    };
+</script>
+
 <template>
     <div class="wrapper">
         <div class="content-wrapper">
@@ -5,7 +18,7 @@
             <section>
                 <div class="articles">
                     <div v-for="blog in blogs">
-                        <div class="card" @click="push({ path: `/blog/${blog.id}` })">
+                        <div class="card" @click="pushBlog(blog.id)">
                             <h2>{{ blog.title }}</h2>
                             <p>{{ blog.description }}</p>
                             <time>{{ blog.date }}</time>
@@ -19,24 +32,6 @@
         </div>
     </div>
 </template>
-
-<script>
-import { marked } from 'marked';
-import blogConfig from '@/assets/blogs/BlogConfig.js'
-export default {
-    name: 'Blogs',
-    computed: {
-        blogs() {
-            return blogConfig;
-        }
-    },
-    methods: {
-        push(path) {
-            this.$router.push({ path: path.path }).then(() => this.$forceUpdate());
-        }
-    }
-}
-</script>
 
 <style lang="scss" scoped>
     @import '@/assets/stylesheets/vars.scss';
