@@ -1,7 +1,7 @@
 <script setup>
     import { marked } from 'marked';
     import blogConfig from '@/assets/blogs/BlogConfig.js'
-    import { ref, computed, defineProps } from 'vue'; 
+    import { ref, computed } from 'vue'; 
     import { useRouter } from 'vue-router'
 
     const router = useRouter();

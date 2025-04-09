@@ -1,3 +1,7 @@
+<script setup lang="ts">
+    import NavBarComponent from '@/components/NavBarComponent.vue'
+</script>
+
 <template>
     <div class="app-wrapper">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -5,16 +9,6 @@
         <router-view />
     </div>
 </template>
-
-<script>
-import NavBarComponent from './components/NavBarComponent'
-export default {
-    name: 'App',
-    components: {
-        NavBarComponent
-    }
-}
-</script>
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Montserrat');

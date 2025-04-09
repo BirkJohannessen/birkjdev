@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, onBeforeMount, defineProps } from 'vue'; 
+    import { ref, onBeforeMount } from 'vue'; 
     import { marked } from 'marked';
     import hljs from 'highlight.js/lib/core';
     import javascript from 'highlight.js/lib/languages/javascript';
