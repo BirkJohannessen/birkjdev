@@ -2,6 +2,7 @@ import cybertalent23 from '@/assets/blogs/cybertalent23.jpg'
 import ipv4 from '@/assets/blogs/ipv4.webp';
 import p26e23 from '@/assets/blogs/p26e23.jpg'
 import aoc from '@/assets/blogs/aoc.png'
+import Blog from '@/models/Blog';
 
 export const blogs: Blog[] = [
     new Blog(

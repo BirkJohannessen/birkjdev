@@ -44,7 +44,9 @@
 </template>
 
 <style lang="scss" scoped>
-    @import '@/assets/stylesheets/all.scss';
+    @use '@/assets/stylesheets/all.scss' as *;
+    @use '@/assets/stylesheets/vars.scss' as vars;
+
     .wrapper {
         overflow: visible;
     }
@@ -70,7 +72,7 @@
     }
 
     .info {
-        color: $color-secondary;
+        color: vars.$color-secondary;
         position: fixed;
         z-index: 1;
         left: 0;
@@ -97,7 +99,7 @@
     .z10 { transform: scale(1.0); }
 
 
-    @media (max-width: $mobile-size) {
+    @media (max-width: vars.$mobile-size) {
         .zoom {
             top: -80px;
             width: 250vw;

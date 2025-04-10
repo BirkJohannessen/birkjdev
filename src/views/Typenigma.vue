@@ -55,10 +55,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '@/assets/stylesheets/all.scss';
+    @use '@/assets/stylesheets/vars.scss' as vars;
+    @use '@/assets/stylesheets/all.scss' as *;
+    @use '@/assets/stylesheets/_tooltip.scss' as tt;
+
     .wrapper {
         width: 100%; height: 100dvh;
-        background-color: $primary;
+        background-color: vars.$primary;
         display: flex; justify-content: right;
         overflow-y: scroll;
     }
@@ -72,7 +75,7 @@ export default {
         justify-content: center;
         text-align: center;
         height: 40px;
-        color: $color-primary;
+        color: vars.$color-primary;
     }
     .btns {
         margin: 40px 0 0 0 ;
@@ -82,18 +85,18 @@ export default {
             background-color: transparent;
             border: 0;
             width: auto;
-            color: $color-primary;
+            color: vars.$color-primary;
             cursor: pointer;
-            padding: $spacing-2;
+            padding: vars.$spacing-2;
             &:focus {
                 outline: 3px solid grey;
             }
         }
     }
 
-    @media (max-width: $mobile-size) {
+    @media (max-width: vars.$mobile-size) {
         .center {
-            margin: $spacing-5 auto;
+            margin: vars.$spacing-5 auto;
         }
     }
 </style>

@@ -17,20 +17,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/stylesheets/all.scss';
+    @use '@/assets/stylesheets/all.scss' as *;
+    @use '@/assets/stylesheets/vars.scss' as vars;
     .one {
-        border: 1px solid $color-primary;
+        border: 1px solid vars.$color-primary;
         width: 100%; height: 100%;
     }
     .two {
-        border: 1px solid $color-primary;
+        border: 1px solid vars.$color-primary;
         width: 100%; height: 100%;
         opacity: 0.15;
     }
     .three {
-        border: 1px solid $color-primary;
+        border: 1px solid vars.$color-primary;
         width: 100%; height: 100%;
-        background-color: $secondary;
+        background-color: vars.$secondary;
     }
     .d-none {
         width: 0%; height: 0%;

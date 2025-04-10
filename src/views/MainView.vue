@@ -1,6 +1,6 @@
 <script setup>
     import { ref, onMounted, onUnmounted  } from 'vue'; 
-    import Timeline from '../components/Timeline';
+    import Timeline from '@/components/Timeline.vue';
 
     const cards = ref(false);
     const timeline = ref(false);
@@ -130,12 +130,14 @@
 </template>
 
 <style lang="scss" scoped>
-    @import '@/assets/stylesheets/all.scss';
+    @use '@/assets/stylesheets/all.scss' as *;
+    @use '@/assets/stylesheets/_tooltip.scss' as tt;
+    @use '@/assets/stylesheets/vars.scss' as vars;
 
     section {
         height: 100dvh;
         margin-bottom: 30dvh;
-        padding: 0 $spacing-2;
+        padding: 0 vars.$spacing-2;
         overflow: hidden;
         &.extended { min-height: 100dvh; height: auto; }
     }
@@ -147,7 +149,7 @@
         .border {
             position: absolute; top: -7px; left: -7px;
             width: calc(100% + 10px); height: calc(100% + 10px);
-            border-radius: 1500vw; border: 2px solid $tetriary;
+            border-radius: 1500vw; border: 2px solid vars.$tetriary;
         }
         .image-circle {
             img { width: 100%; filter: grayscale(1) contrast(1) brightness(.9); }
@@ -168,12 +170,12 @@
     }
 
     .flex {
-        display: flex; flex-direction: row; justify-content: center; align-items: center; gap: $spacing-3; flex-wrap: wrap; 
+        display: flex; flex-direction: row; justify-content: center; align-items: center; gap: vars.$spacing-3; flex-wrap: wrap; 
     }
 
     .about {
         min-width: 300px;
-        padding: 0 $spacing-2;
+        padding: 0 vars.$spacing-2;
         h1 { padding: 0; animation: fadeInDelay 2s; }
         h3 { animation: fadeInDelay 4s; }
         p { animation: fadeInDelay 4s; }
@@ -186,27 +188,27 @@
     .introduction {
         clip-path: inset(0 0 0 0);
         animation: write 1s ease-in-out forwards;
-        color: $tetriary;
+        color: vars.$tetriary;
         max-width: 250px;
         margin-left: 17%;
-        margin-bottom: $spacing-3;
+        margin-bottom: vars.$spacing-3;
     }
 
     .cards {  
         clip-path: inset(0 0 0 0);
         animation: writeDelay 2.4s;
         .card {
-            background-color: $primary-offset;
-            padding: $spacing-5; 
+            background-color: vars.$primary-offset;
+            padding: vars.$spacing-5; 
             max-width: 400px;
             min-height: 300px;
             width: 100%;
             .material-symbols-outlined {
                 font-size: var(--step-2);
                 position: relative;
-                top: $spacing-1;
-                margin-right: $spacing-1;
-                color: $tetriary;
+                top: vars.$spacing-1;
+                margin-right: vars.$spacing-1;
+                color: vars.$tetriary;
             }
             .header, ul, p {
                 text-align: center;
@@ -215,7 +217,7 @@
     }
 
     .icons {
-        gap: $spacing-3 $spacing-4;
+        gap: vars.$spacing-3 vars.$spacing-4;
         .icon {
             filter: grayscale(1) contrast(1) brightness(1);
             width: 40px;
@@ -226,7 +228,7 @@
         margin: 400px 0;
         .introduction {
             text-align: center;
-            margin: $spacing-4 auto;
+            margin: vars.$spacing-4 auto;
         }
         .tl {
             clip-path: inset(0 0 0 0);
@@ -235,16 +237,16 @@
     }
 
     .hl {
-        color: $tetriary;
+        color: vars.$tetriary;
     }
 
-    @media (max-width: $mobile-size) {
-        section { margin-bottom: $spacing-2; }
+    @media (max-width: vars.$mobile-size) {
+        section { margin-bottom: vars.$spacing-2; }
 
-        h1, h2, h3, h4, p, li { text-align: center; margin: $spacing-2 0; }
+        h1, h2, h3, h4, p, li { text-align: center; margin: vars.$spacing-2 0; }
 
         .intro { 
-            position: relative; top: $spacing-2; transform: translateY(0);
+            position: relative; top: vars.$spacing-2; transform: translateY(0);
             &.flex { flex-wrap: wrap-reverse; }
             .headshot { flex: 0 1 300px; }
             .image-wrapper { min-width: 250px; max-width: 300px; }
@@ -254,10 +256,10 @@
             }
         }
 
-        .timeline { margin: $spacing-4 0 100px 0;  }
+        .timeline { margin: vars.$spacing-4 0 100px 0;  }
 
         .cards {
-            .card { padding: $spacing-1; }
+            .card { padding: vars.$spacing-1; }
         }
     }
 </style>

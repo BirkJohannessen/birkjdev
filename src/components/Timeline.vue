@@ -23,7 +23,8 @@
 </template>
 
 <style lang="scss" scoped>
-    @import '@/assets/stylesheets/all.scss';
+    @use '@/assets/stylesheets/vars.scss' as vars;
+    @use '@/assets/stylesheets/all.scss' as *;
 
     .timeline-wrapper {
         display: flex; flex-direction: row;
@@ -31,8 +32,8 @@
     }
 
     .time {
-        width: $spacing-0;
-        background-color: $tetriary;
+        width: vars.$spacing-0;
+        background-color: vars.$tetriary;
     }
 
     .left {
@@ -50,7 +51,7 @@
     }
 
     .time-object {
-        padding: 0 $spacing-3; margin: $spacing-4 0;
+        padding: 0 vars.$spacing-3; margin: vars.$spacing-4 0;
         max-width: 650px;
         white-space: pre-wrap;
         position: relative;
@@ -60,7 +61,7 @@
         width: 11px; height: 11px;
         position: absolute;
         border-radius: 24px;
-        background-color: $tetriary;
+        background-color: vars.$tetriary;
         &.pleft {
             right: -4px; top: 16px;
         }
@@ -69,7 +70,7 @@
         }
     }
 
-    @media (max-width: $mobile-size) {
+    @media (max-width: vars.$mobile-size) {
         .point {
             &.pleft {
                 left: -7px; top: 16px;

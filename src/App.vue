@@ -10,9 +10,10 @@
     </div>
 </template>
 
-<style>
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
-@import '@/assets/stylesheets/all.scss';
+<style lang="scss">
+@use '@/assets/stylesheets/all.scss' as *;
+@use '@/assets/stylesheets/vars.scss' as vars;
+@import 'https://fonts.googleapis.com/css?family=Montserrat';
 
 html,
 body {
@@ -43,7 +44,7 @@ body {
     height: 100dvh;
 }
 
-@media (max-width: $mobile-size) {
+@media (max-width: vars.$mobile-size) {
     .app-wrapper {
         flex-direction: column;
     }

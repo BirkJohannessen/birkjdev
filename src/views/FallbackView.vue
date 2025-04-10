@@ -19,17 +19,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '@/assets/stylesheets/all.scss';
+    @use '@/assets/stylesheets/all.scss' as *;
+    @use '@/assets/stylesheets/vars.scss' as vars;
+
     .wrapper {
         width: 100%; height: 100dvh;
         display: flex; justify-content: right; overflow-y: scroll;
-        background-color: $primary; color: $color-secondary;
+        background-color: vars.$primary; color: vars.$color-secondary;
     }
 
     .miss-content {
         width: 400px;
-        padding: $spacing-6; margin: auto 0;
-        background-color: $secondary; border-radius: $spacing-2; text-align: center;
+        padding: vars.$spacing-6; margin: auto 0;
+        background-color: vars.$secondary; border-radius: vars.$spacing-2; text-align: center;
     }
 
     .padding {

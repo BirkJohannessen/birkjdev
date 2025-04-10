@@ -1,4 +1,4 @@
-class Blog {
+export default class Blog {
   constructor(
     public id: number,
     public title: string,

@@ -69,7 +69,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '@/assets/stylesheets/all.scss';
+    @use '@/assets/stylesheets/all.scss' as *;
+    @use '@/assets/stylesheets/_tooltip.scss' as tt;
+    @use '@/assets/stylesheets/vars.scss' as vars;
 
     img {
         width: 100%; height: 100%;
@@ -78,19 +80,19 @@ export default {
     a {
         cursor: pointer;
         display: flex; flex-direction: column;
-        color: $color-secondary;
-        padding: 0 $spacing-1;
+        color: vars.$color-secondary;
+        padding: 0 vars.$spacing-1;
         &:hover {
-            color: $tetriary;
+            color: vars.$tetriary;
         }
     }
 
     .selected {
-        color: $tetriary;
+        color: vars.$tetriary;
     }
 
     .nav-wrapper {
-        background-color: $secondary;
+        background-color: vars.$secondary;
         height: 100vh; min-width: 100px; max-width: 100px;
         display: flex; flex-direction: column;
         z-index: 9;
@@ -103,7 +105,7 @@ export default {
 
     .path-wrapper {
         display: flex; flex-direction: column;
-        gap: $spacing-4;
+        gap: vars.$spacing-4;
         margin: auto auto;
     }
 
@@ -111,7 +113,7 @@ export default {
         font-size: var(--step-3);
     }
 
-    @media (max-width: $mobile-size) {
+    @media (max-width: vars.$mobile-size) {
         .nav-wrapper {
             position: relative; top: 0;
             min-width: 100vw; min-height: 80px; height: 80px; width: 100vw;
@@ -120,7 +122,7 @@ export default {
         }
 
         .logo-wrapper {
-            margin: auto 0 auto $spacing-4;
+            margin: auto 0 auto vars.$spacing-4;
         }
 
         .path-wrapper {
@@ -131,7 +133,7 @@ export default {
 
         a {
             flex-direction: row;
-            gap: $spacing-1;
+            gap: vars.$spacing-1;
         }
 
         img {
@@ -142,9 +144,9 @@ export default {
             background-color: transparent;
             border: 0;
             width: auto;
-            color: $color-secondary;
+            color: vars.$color-secondary;
             cursor: pointer;
-            padding: 0 $spacing-4 0 0;
+            padding: 0 vars.$spacing-4 0 0;
         }
 
         .hamburger {
@@ -155,7 +157,7 @@ export default {
                 display: block;
                 width: 25px;
                 height: 2px;
-                background-color: $color-secondary;
+                background-color: vars.$color-secondary;
                 transition: transform 0.3s ease, background-color 0.3s ease;
                 &.open:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
                 &.open:nth-child(2) { opacity: 0; }
@@ -167,14 +169,14 @@ export default {
             position: fixed;
             top: 70px;
             z-index: 100;
-            background-color: $secondary;
+            background-color: vars.$secondary;
             display: flex;
             flex-direction: column;
             width: 100%;
             align-items: left;
             a {
                 width: auto;
-                margin: $spacing-2 $spacing-4;
+                margin: vars.$spacing-2 vars.$spacing-4;
             }
         }
     }

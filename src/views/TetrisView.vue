@@ -127,10 +127,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/stylesheets/all.scss';
+    @use '@/assets/stylesheets/vars.scss' as vars;
+    @use '@/assets/stylesheets/all.scss' as *;
+
     .wrapper {
         width: 100%; height: 100dvh;
-        background-color: $primary; color: $color-secondary;
+        background-color: vars.$primary; color: vars.$color-secondary;
         display: flex; justify-content: right;
         overflow-y: scroll;
     }
@@ -153,8 +155,8 @@ export default {
         margin: auto;
         width: 70%;
         justify-content: space-between;
-        margin-bottom: $spacing-2;
-        color: $color-secondary;
+        margin-bottom: vars.$spacing-2;
+        color: vars.$color-secondary;
     }
     .btns {
         display: flex; flex-direction: row;
@@ -162,8 +164,8 @@ export default {
         font-family: monospace;
         margin: auto;
         justify-content: left;
-        margin-bottom: $spacing-3;
-        color: $color-primary;
+        margin-bottom: vars.$spacing-3;
+        color: vars.$color-primary;
         span {
             margin: 0 6px;
             cursor: pointer;
@@ -174,7 +176,7 @@ export default {
         top: 0; left: 0; right: 0; bottom: 0;
         margin: auto;
         position: absolute;
-        color: $color-secondary;
+        color: vars.$color-secondary;
         opacity: 1;
         z-index: 1;
     }
@@ -183,7 +185,7 @@ export default {
     }
     .play {
         scale: 1.5;
-        margin-top: $spacing-2;
+        margin-top: vars.$spacing-2;
         cursor: pointer;
     }
     .queue {
@@ -192,7 +194,7 @@ export default {
     .hold {
         min-width: 76px;
     }
-    @media (max-width: $mobile-size) {
+    @media (max-width: vars.$mobile-size) {
         .tetris { width: 100%; overflow: hidden; }
         .play { scale: 1.2; }
         .info-message {

@@ -45,15 +45,16 @@
 </template>
 
 <style lang="scss" scoped>
-    @import '@/assets/stylesheets/all.scss';
+    @use '@/assets/stylesheets/vars.scss' as vars;
+    @use '@/assets/stylesheets/all.scss' as *;
 
     .content-wrapper {
-        padding: $spacing-5;
+        padding: vars.$spacing-5;
     }
 
-    @media (max-width: $mobile-size) {
+    @media (max-width: vars.$mobile-size) {
         .content-wrapper {
-            padding: $spacing-3;
+            padding: vars.$spacing-3;
         }
         #md-content {
             animation: fadeIn 2s;

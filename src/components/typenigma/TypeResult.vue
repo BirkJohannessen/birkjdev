@@ -73,7 +73,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '@/assets/stylesheets/all.scss';
+    @use '@/assets/stylesheets/all.scss' as *;
+    @use '@/assets/stylesheets/vars.scss' as vars;
     .chart {
         height: 300px;
     }
@@ -83,23 +84,23 @@ export default {
         animation: fadeIn 2s;
     }
     .header {
-        display: flex; gap: $spacing-4; justify-content: center;
+        display: flex; gap: vars.$spacing-4; justify-content: center;
         .item {
             display: flex; align-items: bottom; min-width: 250px;
-            gap: $spacing-1;
+            gap: vars.$spacing-1;
             h1, h3 { color: inherit }
         }
     }
     .wpm {
-        color: $color-secondary; justify-content: right;
+        color: vars.$color-secondary; justify-content: right;
     }
     .percent {
-        color: $color-primary;
+        color: vars.$color-primary;
     }
     .miss {
         color: red;
     }
-    @media (max-width: $mobile-size) {
+    @media (max-width: vars.$mobile-size) {
         .header {
             .item {
                 min-width: 0; width: 100px;

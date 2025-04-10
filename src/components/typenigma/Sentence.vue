@@ -107,9 +107,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '@/assets/stylesheets/all.scss';
+    @use '@/assets/stylesheets/all.scss' as *;
+    @use '@/assets/stylesheets/vars.scss' as vars;
+
     .word {
-        padding: 0 $spacing-1 0 $spacing-1;
+        padding: 0 vars.$spacing-1 0 vars.$spacing-1;
         font-size: 34px;
         font-weight: 900;
     }
@@ -117,7 +119,7 @@ export default {
         color: red;
     }
     .hit {
-        color: $color-secondary
+        color: vars.$color-secondary
     }
     .letter {
         padding: 0;
@@ -126,8 +128,8 @@ export default {
     }
     .cursor {
         width: 0px;
-        outline: solid 1px $tetriary;
-        border: 1px $tetriary;
+        outline: solid 1px vars.$tetriary;
+        border: 1px vars.$tetriary;
         height: 30px;
         display: inline-block;
     }
@@ -135,7 +137,7 @@ export default {
         width: 70vw;
         display: flex; flex-wrap: wrap;
         justify-content: left;
-        color: $color-primary;
+        color: vars.$color-primary;
         position: relative;
     }
     .sentence-hide {
@@ -172,7 +174,7 @@ export default {
         height: 100%;
         .msg {
             height: 32px;
-            color: $color-secondary;
+            color: vars.$color-secondary;
         }
     }
 </style>
