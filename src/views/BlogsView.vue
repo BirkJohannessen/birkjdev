@@ -20,7 +20,7 @@
                         <div class="card" @click="pushBlog(blog.id)">
                             <h2>{{ blog.title }}</h2>
                             <p>{{ blog.description }}</p>
-                            <time>{{ blog.date }}</time>
+                            <time>{{ blog.parseDate() }}</time>
                             <div class="imgholder">
                                 <img v-if="blog.contentImg" :src="blog.contentImg">
                             </div>

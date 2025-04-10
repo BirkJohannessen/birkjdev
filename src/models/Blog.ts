@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 export default class Blog {
   constructor(
     public id: number,
@@ -9,4 +11,8 @@ export default class Blog {
     public remoteURL: string,
     public description: string
   ) {}
+
+  public parseDate(): string {
+    return dayjs(this.date).format('DD-MM-YYYY')
+  }
 }

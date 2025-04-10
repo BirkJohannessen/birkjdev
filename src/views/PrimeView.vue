@@ -10,7 +10,6 @@
     const zoomLevel = ref(0);
     
     const onScroll = () => {
-        console.log('onzoom');
         const topY = window.top.scrollY;
         zoomLevel.value = parseInt(topY % (scrollLengthForRerender.value) / scrollLengthForZoom.value);
         scrollLevel.value = parseInt(topY / scrollLengthForRerender.value);
