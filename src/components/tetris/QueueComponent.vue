@@ -1,43 +1,23 @@
+<script setup>
+    import Map from './MapComponent.vue';
+    import { ref } from 'vue';
+
+    const props = defineProps(['queue']);
+
+    const queuePx = ref(15);
+</script>
+
 <template>
     <div class="wrapper3">
-        <div v-for="block in this.queue" class="column2">
-            <div class="queue-item">
-                <Map :onlyBlock="true" :map="block.state" :pxSize="15" />
-            </div>
+        <div v-for="block in queue" class="column">
+            <Map :onlyBlock="true" :map="block.state" :pxSize="queuePx" />
         </div>
     </div>
 </template>
 
-<script>
-import Map from './MapComponent.vue';
-
-export default {
-    name: 'MapComponent',
-    components: {
-        Map 
-    },
-    props: {
-        queue: Array,
-    },
-    methods: {
-        foo() {
-        }
-    },
-    data() {
-        return {
-            bar: 1
-        }
-    },
-}
-</script>
-
 <style scoped>
-    .wrapper3 {
-    }
-    .column2 {
+    .column {
         display: flex; flex-direction: column;
-    }
-    .queue-item {
     }
 </style>
 

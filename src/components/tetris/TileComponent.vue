@@ -1,20 +1,13 @@
+<script setup>
+    const props = defineProps(['tile', 'pxSize', 'onlyBlock']);
+</script>
+
 <template>
-    <div class="wrapper4" :style="this.pxSize ? `width: ${this.pxSize}px; height: ${this.pxSize}px` : `width: 30px; height: 30px`">
-        <div v-if="!this.onlyBlock" :class="this.tile.tileState ? 'one' : this.tile.tileReflect ? 'two' : 'three'" :style="this.tile.tileState ? 'background-color:' + this.tile.color : ''"> </div>
-        <div v-if="this.onlyBlock" :class="this.tile.tileState ? 'one' : 'd-none'" :style="this.tile.tileState ? 'background-color:' + this.tile.color : ''"> </div>
+    <div class="wrapper4" :style="pxSize ? `width: ${pxSize}px; height: ${pxSize}px` : `width: 30px; height: 30px`">
+        <div v-if="!onlyBlock" :class="tile.tileState ? 'one' : tile.tileReflect ? 'two' : 'three'" :style="tile.tileState ? 'background-color:' + tile.color : ''"> </div>
+        <div v-if="onlyBlock" :class="tile.tileState ? 'one' : 'hide'" :style="tile.tileState ? 'background-color:' + tile.color : ''"> </div>
     </div>
 </template>
-
-<script>
-export default {
-    name: 'MapComponent',
-    props: {
-        tile: Object,
-        pxSize: Number,
-        onlyBlock: Boolean
-    },
-}
-</script>
 
 <style lang="scss" scoped>
     @use '@/assets/stylesheets/all.scss' as *;
@@ -32,11 +25,6 @@ export default {
         border: 1px solid vars.$color-primary;
         width: 100%; height: 100%;
         background-color: vars.$secondary;
-    }
-    .d-none {
-        width: 0%; height: 0%;
-        display: none;
-        opacity: 0;
     }
 </style>
 

@@ -1,39 +1,7 @@
-<template>
-    <div class="wrapper">
-        <div class="center">
-            <div class="info">
-                <h3>Level: {{this.level}}</h3>
-                <h3>Score: {{this.score}}</h3>
-            </div>
-            <div class="btns">
-                <span v-if="this.tetris.isPaused()" class="material-symbols-outlined" @click="this.tetris.resume()">play_arrow</span>
-                <span v-if="!this.tetris.isPaused()" class="material-symbols-outlined" @click="this.tetris.pause()">pause</span>
-                <span class="material-symbols-outlined" @click="this.tetris.restart()">restart_alt</span>
-                <!--<span class="material-symbols-outlined">leaderboard</span>-->
-            </div>
-            <div v-if="this.info" class="info-message">
-                <h2>{{info}}</h2>
-                <span v-if="this.info === 'Ready?'" class="material-symbols-outlined play" @click="this.tetris.start()">play_arrow</span>
-            </div>
-            <div :class="this.info ? 'tetris opacity' : 'tetris'">
-                <div class="hold">
-                    <TetrisMap :onlyBlock="true"  :map="this.holdBlock ? this.holdBlock.state : this.emptyBlockMap" :pxSize="15"/>
-                </div>
-                <div class="main">
-                    <TetrisMap :onlyBlock="false" :map="this.map" :pxSize="isMobile ? 20 : 30"/>
-                </div>
-                <div class="queue">
-                    <TetrisQueue :queue="this.queue" />
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
-
-<script>
-import TetrisClient from '../tetris/TetrisClient.js'
-import TetrisMap from '../components/tetris/MapComponent.vue'
-import TetrisQueue from '../components/tetris/QueueComponent.vue'
+<script lang="ts">
+import TetrisClient from '@/tetris/TetrisClient.js'
+import TetrisMap from '@/components/tetris/MapComponent.vue'
+import TetrisQueue from '@/components/tetris/QueueComponent.vue'
 import Hammer from 'hammerjs'
 
 export default {
@@ -44,8 +12,8 @@ export default {
     },
     beforeMount() {
         this.tetris = new TetrisClient(this);
-        document.addEventListener("keydown", this.onKeyDownPress);
-        document.addEventListener("keyup", this.onKeyUpPress);
+        document.addEventListener('keydown', this.onKeyDownPress);
+        document.addEventListener('keyup', this.onKeyUpPress);
     },
     mounted() {
         this.updateSize();
@@ -120,11 +88,44 @@ export default {
             map: [],
             queue: [],
             emptyBlockMap: [],
-            globalX: 0
+            globalX: 0,
+            holdBlock: null
         }
     },
 }
 </script>
+
+<template>
+    <div class="wrapper">
+        <div class="center">
+            <div class="info">
+                <h3>Level: {{this.level}}</h3>
+                <h3>Score: {{this.score}}</h3>
+            </div>
+            <div class="btns">
+                <span v-if="this.tetris.isPaused()" class="material-symbols-outlined" @click="this.tetris.resume()">play_arrow</span>
+                <span v-if="!this.tetris.isPaused()" class="material-symbols-outlined" @click="this.tetris.pause()">pause</span>
+                <span class="material-symbols-outlined" @click="this.tetris.restart()">restart_alt</span>
+                <!--<span class="material-symbols-outlined">leaderboard</span>-->
+            </div>
+            <div v-if="this.info" class="info-message">
+                <h2>{{info}}</h2>
+                <span v-if="this.info === 'Ready?'" class="material-symbols-outlined play" @click="this.tetris.start()">play_arrow</span>
+            </div>
+            <div :class="this.info ? 'tetris opacity' : 'tetris'">
+                <div class="hold">
+                    <TetrisMap :onlyBlock="true"  :map="this.holdBlock ? this.holdBlock.state : this.emptyBlockMap" :pxSize="15"/>
+                </div>
+                <div class="main">
+                    <TetrisMap :onlyBlock="false" :map="this.map" :pxSize="isMobile ? 20 : 30"/>
+                </div>
+                <div class="queue">
+                    <TetrisQueue :queue="this.queue" />
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
 
 <style lang="scss" scoped>
     @use '@/assets/stylesheets/vars.scss' as vars;
