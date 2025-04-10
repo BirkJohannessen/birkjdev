@@ -44,9 +44,10 @@
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
     @use '@/assets/stylesheets/vars.scss' as vars;
     @use '@/assets/stylesheets/all.scss' as *;
+    @use '@/assets/stylesheets/markdown.scss' as md;
 
     .content-wrapper {
         padding: vars.$spacing-5;

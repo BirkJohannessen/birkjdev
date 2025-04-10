@@ -1,4 +1,4 @@
-@import '@/assets/stylesheets/vars.scss';
+@use '@/assets/stylesheets/vars.scss' as vars;
 
 .tooltip-holder {
     position: relative;
@@ -14,10 +14,10 @@ a, button, figure {
             all: unset;
             display: inline-block;
             position: absolute; z-index: 3;
-            color: $color-secondary;
-            background-color: $tetriary-offset;
-            padding: $spacing-2;
-            border-radius: $spacing-1;
+            color: vars.$color-secondary;
+            background-color: vars.$tetriary-offset;
+            padding: vars.$spacing-2;
+            border-radius: vars.$spacing-1;
             -webkit-user-select: none; /* Safari */        
             -moz-user-select: none; /* Firefox */
             -ms-user-select: none; /* IE10+/Edge */
@@ -26,8 +26,8 @@ a, button, figure {
             &::after {
                 content: " ";
                 position: absolute;
-                margin-top: -$spacing-2;
-                border-width: $spacing-2;
+                margin-top: - vars.$spacing-2;
+                border-width: vars.$spacing-2;
                 border-style: solid;
             }
         }
@@ -38,7 +38,7 @@ a, button, figure {
             &::after {
                 top: 50%;
                 right: 100%;
-                border-color: transparent $tetriary-offset transparent transparent;
+                border-color: transparent vars.$tetriary-offset transparent transparent;
             }
         }
         .tleft {
@@ -48,7 +48,7 @@ a, button, figure {
             &::after {
                 top: 50%;
                 left: 100%;
-                border-color: transparent transparent transparent $tetriary-offset;
+                border-color: transparent transparent transparent vars.$tetriary-offset;
             }
         }
         .tbottom {
@@ -58,7 +58,7 @@ a, button, figure {
             &::after {
                 left: calc(50% - 12px);
                 bottom: 100%;
-                border-color: transparent transparent $tetriary-offset transparent;
+                border-color: transparent transparent vars.$tetriary-offset transparent;
             }
         }
         .ttop {
@@ -69,13 +69,13 @@ a, button, figure {
                 left: calc(50% - 12px);
                 top: 100%;
                 transform: translate(0, 50%);
-                border-color: $tetriary-offset transparent transparent transparent
+                border-color: vars.$tetriary-offset transparent transparent transparent
             }
         }
     }
 }
 
-@media (max-width: $mobile-size) {
+@media (max-width: vars.$mobile-size) {
 
     a, button, figure {
         .tooltip {

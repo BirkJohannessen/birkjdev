@@ -115,7 +115,7 @@
                             </h3>
                         </div>
                         <div class="icons flex">
-                            <div v-for="icon in icons" :id="name">
+                            <div v-for="icon in icons">
                                 <figure class="tooltip-holder">
                                     <img class="icon" :alt="icon.name" :src="`${icon.filename}`" />
                                     <span class="tooltip ttop">Java</span>
