@@ -8,6 +8,7 @@ import BlogView from '@/views/BlogView.vue';
 import BlogsView from '@/views/BlogsView.vue';
 import { blogs } from '@/config/BlogConfig.js';
 import type { RouteLocationNormalized } from 'vue-router';
+import type Blog from '@/models/Blog'; 
 
 const routes = [
     {

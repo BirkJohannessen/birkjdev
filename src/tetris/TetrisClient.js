@@ -2,21 +2,28 @@ import TetrisEngine from "./TetrisEngine";
 import TetrisBlock from "./blocks/TetrisBlock";
 
 export default class TetrisClient {
-    constructor(parent) {
-        this.parent = parent;
+    constructor(queue, map, info, level, score, holdBlock, emptyBlockMap) {
+        this.queue = queue;
+        this.map = map;
+        this.info = info;
+        this.level = level;
+        this.score = score;
+        this.holdBlock = holdBlock;
+        this.emptyBlockMap = emptyBlockMap;
 
         this._initEngine();
 
         this.runInterval = 15;
         this.hasStarted = false; 
         this.globalX = 0;
+        this._setVariables();
         this._run();
     }
 
     _initEngine() {
         this.engine = new TetrisEngine();
         this.inputProcessor = this.engine.inputProcessor;
-        this.map = this.engine.map.map;
+        this.map.value = this.engine.map.map;
     }
 
     start() {
@@ -52,31 +59,29 @@ export default class TetrisClient {
          setInterval(() => {
              if (!this.hasStarted) {
                 this._setVariables()
-                this.info = 'Ready?'
+                this.info.value = 'Ready?';
              } else if (this.engine.gameInfo.paused) {
                 this._setVariables()
-                this.info = 'Paused'
+                this.info.value = 'Paused';
             } else if (!this.engine.gameInfo.stop) {
-                this.info = ''
+                this.info.value = ''
                 this._setVariables()
                 this.engine.run();
             } else {
-                this.info = 'Game over'
+                this.info.value = 'Game over'
                 this._setVariables()
             }
         },  this.runInterval);
     }
-    
-    _setVariables() {
-        this.parent.queue = this.engine.tetrisControl.blockStack;
-        this.parent.map = this.engine.map.map;
-        this.parent.info = this.info;
-        this.parent.level = this.engine.gameInfo.level;
-        this.parent.score = this.engine.gameInfo.score;
-        this.parent.holdBlock = this.engine.gameInfo.storedBlock;
-        this.parent.emptyBlockMap = new TetrisBlock().getEmptyControlMap();
-    }
 
+    _setVariables() {
+        this.queue.value = this.engine.tetrisControl.blockStack;
+        this.map.value = this.engine.map.map;
+        this.level.value = this.engine.gameInfo.level;
+        this.score.value = this.engine.gameInfo.score;
+        this.holdBlock.value = this.engine.gameInfo.storedBlock;
+        this.emptyBlockMap.value = new TetrisBlock().getEmptyControlMap();
+    }
 
     onKeyUpPress(e) {
         e.stopPropagation();

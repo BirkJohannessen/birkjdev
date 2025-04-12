@@ -1,126 +1,124 @@
-<script lang="ts">
-import TetrisClient from '@/tetris/TetrisClient.js'
-import TetrisMap from '@/components/tetris/MapComponent.vue'
-import TetrisQueue from '@/components/tetris/QueueComponent.vue'
-import Hammer from 'hammerjs'
+<script setup>
+    import TetrisClient from '@/tetris/TetrisClient.js';
+    import TetrisMap from '@/components/tetris/MapComponent.vue';
+    import TetrisQueue from '@/components/tetris/QueueComponent.vue';
+    import Hammer from 'hammerjs';
+    import { ref, onMounted, onUnmounted, onBeforeMount } from 'vue'; 
 
-export default {
-    name: 'TetrisView',
-    components: {
-        TetrisMap,
-        TetrisQueue
-    },
-    beforeMount() {
-        this.tetris = new TetrisClient(this);
-        document.addEventListener('keydown', this.onKeyDownPress);
-        document.addEventListener('keyup', this.onKeyUpPress);
-    },
-    mounted() {
-        this.updateSize();
-        window.addEventListener('resize', this.updateSize);
+    const isMobile = ref(false);
+    const globalX = ref(0);
+    const tetris = ref(null);
+
+    const queue = ref([]);
+    const map = ref([]);
+    const info = ref('');
+    const level = ref(0);
+    const score = ref(0);
+    const holdBlock = ref(null);
+    const emptyBlockMap = ref(null);
+
+    const onKeyDownPress = (e) => {
+        tetris.value.onKeyDownPress(e);
+    }
+
+    const onKeyUpPress = (e) =>{
+        tetris.value.onKeyUpPress(e);
+    }
+
+    const updateSize = () => {
+        console.log(window.innerWidth);
+        isMobile.value = window.innerWidth <= 600;
+        console.log(isMobile.value);
+    }
+
+    onBeforeMount(() => {
+        tetris.value = new TetrisClient(queue, map, info, level, score, holdBlock, emptyBlockMap);
+        document.addEventListener('keydown', onKeyDownPress);
+        document.addEventListener('keyup', onKeyUpPress);
+    });
+
+    onMounted(() => {
+        updateSize();
+        window.addEventListener('resize', updateSize);
 
         const el = document.querySelector('.wrapper');
         const hammertime = new Hammer(el, {});
 
         hammertime.on('tap', (e) => {
-            if (!this.isMobile) return;
-            this.tetris.gestureTap(e);
+            if (!isMobile.value) return;
+            tetris.value.gestureTap(e);
         });
 
         hammertime.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
         hammertime.get('pan').set({ direction: Hammer.DIRECTION_HORIZONTAL });
 
         hammertime.on('swipeup', (e) => {
-            if (!this.isMobile) return;
-            this.tetris.gestureSwipeUp(e);
+            if (!isMobile.value) return;
+            tetris.value.gestureSwipeUp(e);
         });
 
         hammertime.on('swipedown', (e) => {
-            if (!this.isMobile) return;
-            this.tetris.gestureSwipeDown(e);
+            if (!isMobile.value) return;
+            tetris.value.gestureSwipeDown(e);
         });
 
         hammertime.on('swipeup', (e) => {
-            if (!this.isMobile) return;
-            this.tetris.gestureSwipeUp(e);
+            if (!isMobile.value) return;
+            tetris.value.gestureSwipeUp(e);
         });
 
         hammertime.on('press', (e) => {
-            if (!this.isMobile) return;
-            this.tetris.gesturePress(e);
+            if (!isMobile.value) return;
+            tetris.value.gesturePress(e);
         });
 
         hammertime.on('pressup', (e) => {
-            if (!this.isMobile) return;
-            this.tetris.gesturePressUp(e);
+            if (!isMobile.value) return;
+            tetris.value.gesturePressUp(e);
         });
 
         hammertime.on('panend', (e) => {
-            if (!this.isMobile) return;
-            this.tetris.gesturePanend(e);
+            if (!isMobile.value) return;
+            tetris.value.gesturePanend(e);
         });
 
         hammertime.on('panleft panright', (e) => {
-            if (!this.isMobile) return;
-            this.tetris.gesturePanmove(e);
+            if (!isMobile.value) return;
+            tetris.value.gesturePanmove(e);
         });
-    },
-    unmounted() {
-        window.removeEventListener('resize', this.updateSize);
-    },
-    methods: {
-        onKeyDownPress(e) {
-            this.tetris.onKeyDownPress(e);
-        },
-        onKeyUpPress(e) {
-            this.tetris.onKeyUpPress(e);
-        },
-        updateSize() {
-            this.isMobile = window.innerWidth <= 600;
-        }
-    },
-    data() {
-        return {
-            isMobile: false,
-            info: '',
-            score: 0,
-            level: '',
-            map: [],
-            queue: [],
-            emptyBlockMap: [],
-            globalX: 0,
-            holdBlock: null
-        }
-    },
-}
+    });
+
+    onUnmounted(() => {
+        window.removeEventListener('resize', updateSize);
+    });
 </script>
 
 <template>
     <div class="wrapper">
         <div class="center">
             <div class="info">
-                <h3>Level: {{this.level}}</h3>
-                <h3>Score: {{this.score}}</h3>
+                <h3>Level: {{level}}</h3>
+                <h3>Score: {{score}}</h3>
             </div>
             <div class="btns">
-                <span v-if="this.tetris.isPaused()" class="material-symbols-outlined" @click="this.tetris.resume()">play_arrow</span>
-                <span v-if="!this.tetris.isPaused()" class="material-symbols-outlined" @click="this.tetris.pause()">pause</span>
-                <span class="material-symbols-outlined" @click="this.tetris.restart()">restart_alt</span>
+                <span v-if="tetris.isPaused()" class="material-symbols-outlined" @click="tetris.resume()">play_arrow</span>
+                <span v-if="!tetris.isPaused()" class="material-symbols-outlined" @click="tetris.pause()">pause</span>
+                <span class="material-symbols-outlined" @click="tetris.restart()">restart_alt</span>
                 <!--<span class="material-symbols-outlined">leaderboard</span>-->
             </div>
-            <div v-if="this.info" class="info-message">
+            <div v-if="info" class="info-message">
                 <h2>{{info}}</h2>
-                <span v-if="this.info === 'Ready?'" class="material-symbols-outlined play" @click="this.tetris.start()">play_arrow</span>
+                <span v-if="info === 'Ready?'" class="material-symbols-outlined play" @click="tetris.start()">play_arrow</span>
             </div>
-            <div :class="this.info ? 'tetris opacity' : 'tetris'">
+            <div :class="info ? 'tetris opacity' : 'tetris'">
                 <div class="hold">
-                    <TetrisMap :onlyBlock="true"  :map="this.holdBlock ? this.holdBlock.state : this.emptyBlockMap" :pxSize="15"/>
+                    <TetrisMap :onlyBlock="true"  :map="holdBlock ? holdBlock.state : emptyBlockMap" :pxSize="15"/>
                 </div>
                 <div class="main">
-                    <TetrisMap :onlyBlock="false" :map="this.map" :pxSize="isMobile ? 20 : 30"/>
+                    <TetrisMap :onlyBlock="false" :map="map" :pxSize="isMobile ? 20 : 30"/>
                 </div>
                 <div class="queue">
-                    <TetrisQueue :queue="this.queue" />
+                    <TetrisQueue :queue="queue" />
                 </div>
             </div>
         </div>
