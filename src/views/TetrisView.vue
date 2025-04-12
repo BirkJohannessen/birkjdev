@@ -2,12 +2,11 @@
     import TetrisClient from '@/tetris/TetrisClient.js';
     import TetrisMap from '@/components/tetris/MapComponent.vue';
     import TetrisQueue from '@/components/tetris/QueueComponent.vue';
-    import Hammer from 'hammerjs';
     import { ref, onMounted, onUnmounted, onBeforeMount } from 'vue'; 
 
-    const isMobile = ref(false);
-    const globalX = ref(0);
     const tetris = ref(null);
+    const wrapper = ref(null);
+    const isMobile = ref(false);
 
     const queue = ref([]);
     const map = ref([]);
@@ -17,75 +16,20 @@
     const holdBlock = ref(null);
     const emptyBlockMap = ref(null);
 
-    const onKeyDownPress = (e) => {
-        tetris.value.onKeyDownPress(e);
-    }
-
-    const onKeyUpPress = (e) =>{
-        tetris.value.onKeyUpPress(e);
-    }
-
     const updateSize = () => {
-        console.log(window.innerWidth);
         isMobile.value = window.innerWidth <= 600;
-        console.log(isMobile.value);
-    }
+    };
 
     onBeforeMount(() => {
         tetris.value = new TetrisClient(queue, map, info, level, score, holdBlock, emptyBlockMap);
-        document.addEventListener('keydown', onKeyDownPress);
-        document.addEventListener('keyup', onKeyUpPress);
+        document.addEventListener('keydown', (e) => tetris.value.onKeyDownPress(e));
+        document.addEventListener('keyup', (e) => tetris.value.onKeyUpPress(e));
     });
 
     onMounted(() => {
         updateSize();
         window.addEventListener('resize', updateSize);
-
-        const el = document.querySelector('.wrapper');
-        const hammertime = new Hammer(el, {});
-
-        hammertime.on('tap', (e) => {
-            if (!isMobile.value) return;
-            tetris.value.gestureTap(e);
-        });
-
-        hammertime.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
-        hammertime.get('pan').set({ direction: Hammer.DIRECTION_HORIZONTAL });
-
-        hammertime.on('swipeup', (e) => {
-            if (!isMobile.value) return;
-            tetris.value.gestureSwipeUp(e);
-        });
-
-        hammertime.on('swipedown', (e) => {
-            if (!isMobile.value) return;
-            tetris.value.gestureSwipeDown(e);
-        });
-
-        hammertime.on('swipeup', (e) => {
-            if (!isMobile.value) return;
-            tetris.value.gestureSwipeUp(e);
-        });
-
-        hammertime.on('press', (e) => {
-            if (!isMobile.value) return;
-            tetris.value.gesturePress(e);
-        });
-
-        hammertime.on('pressup', (e) => {
-            if (!isMobile.value) return;
-            tetris.value.gesturePressUp(e);
-        });
-
-        hammertime.on('panend', (e) => {
-            if (!isMobile.value) return;
-            tetris.value.gesturePanend(e);
-        });
-
-        hammertime.on('panleft panright', (e) => {
-            if (!isMobile.value) return;
-            tetris.value.gesturePanmove(e);
-        });
+        tetris.value.subscribeToGestures(wrapper, isMobile);
     });
 
     onUnmounted(() => {
@@ -94,7 +38,7 @@
 </script>
 
 <template>
-    <div class="wrapper">
+    <div class="wrapper" ref="wrapper">
         <div class="center">
             <div class="info">
                 <h3>Level: {{level}}</h3>

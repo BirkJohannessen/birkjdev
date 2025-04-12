@@ -1,5 +1,6 @@
-import TetrisEngine from "./TetrisEngine";
-import TetrisBlock from "./blocks/TetrisBlock";
+import TetrisEngine from './TetrisEngine';
+import TetrisBlock from './blocks/TetrisBlock';
+import Hammer from 'hammerjs';
 
 export default class TetrisClient {
     constructor(queue, map, info, level, score, holdBlock, emptyBlockMap) {
@@ -151,6 +152,53 @@ export default class TetrisClient {
         if (e.key === 'Backspace') {
             this.restart();
         }
+    }
+
+    subscribeToGestures(wrapper, isMobile) {
+        const hammertime = new Hammer(wrapper.value, {});
+
+        hammertime.on('tap', (e) => {
+            if (!isMobile.value) return;
+            this.gestureTap(e);
+        });
+
+        hammertime.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
+        hammertime.get('pan').set({ direction: Hammer.DIRECTION_HORIZONTAL });
+
+        hammertime.on('swipeup', (e) => {
+            if (!isMobile.value) return;
+            this.gestureSwipeUp(e);
+        });
+
+        hammertime.on('swipedown', (e) => {
+            if (!isMobile.value) return;
+            this.gestureSwipeDown(e);
+        });
+
+        hammertime.on('swipeup', (e) => {
+            if (!isMobile.value) return;
+            this.gestureSwipeUp(e);
+        });
+
+        hammertime.on('press', (e) => {
+            if (!isMobile.value) return;
+            this.gesturePress(e);
+        });
+
+        hammertime.on('pressup', (e) => {
+            if (!isMobile.value) return;
+            this.gesturePressUp(e);
+        });
+
+        hammertime.on('panend', (e) => {
+            if (!isMobile.value) return;
+            this.gesturePanend(e);
+        });
+
+        hammertime.on('panleft panright', (e) => {
+            if (!isMobile.value) return;
+            this.gesturePanmove(e);
+        });
     }
 
     gestureTap(_e) {
