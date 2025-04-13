@@ -2,10 +2,8 @@ import TetrisEngine from './TetrisEngine';
 import TetrisBlock from '@/models/tetris/TetrisBlock';
 import TetrisTile from '@/models/tetris/TetrisTile';
 import Hammer from 'hammerjs';
+import type TetrisInputProcessor from './TetrisInputProcessor';
 import type { Ref } from 'vue';
-import  { ref } from 'vue';
-
-// import type TetrisInputProcessor from './TetrisInputProcessor';
 
 export default class TetrisClient {
     private queue: Ref<TetrisBlock[]>;
@@ -17,7 +15,7 @@ export default class TetrisClient {
     private emptyBlockMap: Ref<TetrisTile[][]>;
 
     private engine: TetrisEngine;
-    // private inputProcessor: TetrisInputProcessor;
+    private inputProcessor: TetrisInputProcessor;
 
     private runInterval: number;
     private hasStarted: boolean;
@@ -41,7 +39,7 @@ export default class TetrisClient {
         this.emptyBlockMap = emptyBlockMap;
 
         this.engine = new TetrisEngine();
-        // this.inputProcessor = this.engine.inputProcessor;
+        this.inputProcessor = this.engine.inputProcessor;
         this.map.value = this.engine.map.map;
 
         this.runInterval = 15;
@@ -58,7 +56,7 @@ export default class TetrisClient {
 
     restart() {
         this.engine = new TetrisEngine();
-        // this.inputProcessor = this.engine.inputProcessor;
+        this.inputProcessor = this.engine.inputProcessor;
         this.map.value = this.engine.map.map;
         this.start();
     }
@@ -147,7 +145,7 @@ export default class TetrisClient {
             if (!this.getInput().left) {
                 this.getInput().right = false;
                 this.getInput().left = true;
-                this.engine.inputProcessor.setKeyDownInputDelay();
+                this.inputProcessor.setKeyDownInputDelay();
             } else {
                 this.getInput().right = false;
                 this.getInput().left = true;
@@ -160,7 +158,7 @@ export default class TetrisClient {
             if (!this.getInput().right) {
                 this.getInput().left = false;
                 this.getInput().right = true;
-                this.engine.inputProcessor.setKeyDownInputDelay();
+                this.inputProcessor.setKeyDownInputDelay();
             } else {
                 this.getInput().left = false;
                 this.getInput().right = true;
@@ -258,7 +256,7 @@ export default class TetrisClient {
             if (!this.getInput().left) {
                 this.getInput().right = false;
                 this.getInput().left = true;
-                this.engine.inputProcessor.setKeyDownInputDelay();
+                this.inputProcessor.setKeyDownInputDelay();
                 this.getInput().left = false;
                 this.globalX += 20;
             } 
@@ -266,7 +264,7 @@ export default class TetrisClient {
             if (!this.getInput().right) {
                 this.getInput().left = false;
                 this.getInput().right = true;
-                this.engine.inputProcessor.setKeyDownInputDelay();
+                this.inputProcessor.setKeyDownInputDelay();
                 this.getInput().right = false;
                 this.globalX -= 20;
             }
@@ -274,6 +272,6 @@ export default class TetrisClient {
     }
 
     getInput() {
-        return this.engine.inputProcessor.input;
+        return this.inputProcessor.input;
     }
 }
