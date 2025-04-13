@@ -1,13 +1,12 @@
 import TetrisBlock from './TetrisBlock';
+import TetrisTile from './TetrisTile';
 
 export default class TetrisBlockS extends TetrisBlock {
     constructor() {
         super();
-        this.state = this.init();
         this.cutLooseColumnsAndRows();
     }
-
-    init() {
+    init() : TetrisTile[][] {
         const controlMap = this.getEmptyControlMap();
         this.setTileState(controlMap, 3, 1, 'green');
         this.setTileState(controlMap, 3, 2, 'green');

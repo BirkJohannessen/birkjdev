@@ -23,3 +23,13 @@ declare module '*.webp' {
   const content: string;
   export default content;
 }
+
+declare module '@/tetris/TetrisClient.js' {
+  const client: any;
+  export default client;
+}
+
+declare module 'hammerjs' {
+  const hammertime: any;
+  export default hammertime;
+}

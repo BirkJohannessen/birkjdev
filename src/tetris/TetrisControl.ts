@@ -1,15 +1,24 @@
-import TetrisBlockL from './blocks/TetrisBlockL';
-import TetrisBlockJ from './blocks/TetrisBlockJ';
-import TetrisBlockZ from './blocks/TetrisBlockZ';
-import TetrisBlockS from './blocks/TetrisBlockS';
-import TetrisBlockI from './blocks/TetrisBlockI';
-import TetrisBlockO from './blocks/TetrisBlockO';
-import TetrisBlockT from './blocks/TetrisBlockT';
+import TetrisBlock from '@/models/tetris/TetrisBlock';
+import TetrisBlockL from '@/models/tetris/TetrisBlockL';
+import TetrisBlockJ from '@/models/tetris/TetrisBlockJ';
+import TetrisBlockZ from '@/models/tetris/TetrisBlockZ';
+import TetrisBlockS from '@/models/tetris/TetrisBlockS';
+import TetrisBlockI from '@/models/tetris/TetrisBlockI';
+import TetrisBlockO from '@/models/tetris/TetrisBlockO';
+import TetrisBlockT from '@/models/tetris/TetrisBlockT';
 
 export default class TetrisControl {
+    public xShift: number;
+    public blockSave: boolean;
+    public blockStack: TetrisBlock[];
+    private currentBlock: TetrisBlock;
+
     constructor() {
         this.xShift = 0;
         this.blockSave = false;
+
+        // default
+        this.currentBlock = new TetrisBlockI();
 
         this.blockStack = [];
         for (let i = 0; i < 5; i++) {
@@ -17,16 +26,16 @@ export default class TetrisControl {
         }
     }
 
-    getRandomBlock() {
+    getRandomBlock() : TetrisBlock {
         const blocks = [new TetrisBlockI(), new TetrisBlockL(), new TetrisBlockJ(), new TetrisBlockZ(), new TetrisBlockS(), new TetrisBlockO(), new TetrisBlockT()]
         return blocks[Math.floor(Math.random() * blocks.length)];
     }
 
-    getCurrentBlock() {
+    getCurrentBlock() : TetrisBlock {
         return this.currentBlock;
     }
 
-    setNextBlock() {
+    setNextBlock() : TetrisBlock {
         this.currentBlock = this.blockStack[0];
         this.blockStack.splice(0, 1);
         const queue = [...this.blockStack];
@@ -36,13 +45,13 @@ export default class TetrisControl {
         return this.currentBlock;
     }
 
-    setStoredBlock(storedBlock) {
+    setStoredBlock(storedBlock: TetrisBlock) : TetrisBlock {
         this.currentBlock = storedBlock;
         this.xShift = 0;
         return storedBlock;
     }
 
-    rotate() {
+    rotate() : void {
         this.currentBlock.rotate();
     }
 }

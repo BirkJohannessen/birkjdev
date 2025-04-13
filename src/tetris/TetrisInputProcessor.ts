@@ -1,5 +1,22 @@
+import type TetrisEngineInfo from '@/models/tetris/TetrisEngineInfo';
+import type TetrisEngine from './TetrisEngine';
+import TetrisInput from '@/models/tetris/TetrisInput';
+import type TetrisMap from './TetrisMap';
+import type TetrisControl from './TetrisControl';
+
 export default class TetrisInputProcessor {
-    constructor(tetrisEngine, tetrisControl, map) {
+    public engine: TetrisEngine;
+    public gameInfo: TetrisEngineInfo;
+    public input: TetrisInput;
+    public map: TetrisMap;
+    public tetrisControl: TetrisControl;
+
+    private lastInputTime: number;
+    private lastKeyDownTime: number;
+    private inputDelay: number;
+    private firstInputDelay: number;
+
+    constructor(tetrisEngine: TetrisEngine, tetrisControl: TetrisControl, map: TetrisMap) {
         this.engine = tetrisEngine;
         this.gameInfo = this.engine.gameInfo;
         this.tetrisControl = tetrisControl;
@@ -10,18 +27,10 @@ export default class TetrisInputProcessor {
         this.inputDelay = 20,
         this.firstInputDelay = 250
 
-        this.input = {
-            right: 0,
-            left: 0,
-            up: 0,
-            down: 0,
-            commit: 0,
-            save: 0,
-            pause: 0
-        }
+        this.input = new TetrisInput();
     }
 
-    processSmoothInput() {
+    processSmoothInput() : void {
         if (this.input.left) {
             if (this.map.canLeftShiftX()) {
                 this.tetrisControl.xShift -= 1;
@@ -41,11 +50,13 @@ export default class TetrisInputProcessor {
             this.lastInputTime = Date.now();
         }
     }
-    setKeyDownInputDelay() {
+
+    setKeyDownInputDelay() : void {
         this.lastKeyDownTime = Date.now();
         this.processSmoothInput();
     }
-    process() {
+
+    process() : void {
         if (this.input.commit) {
             for (let i = 0; i < this.map.height; i++) {
                 try {
@@ -63,18 +74,18 @@ export default class TetrisInputProcessor {
             }
             this.tetrisControl.setNextBlock()
             this.tetrisControl.blockSave = false;
-            this.input.commit = 0;
-            this.input.up = 0;
-            this.input.save = 0;
+            this.input.commit = false;
+            this.input.up = false;
+            this.input.save = false;
             this.gameInfo.blockAge = Date.now();
-            this.gameInfo.pauseAge = 0;
+            this.gameInfo.pauseContext.pauseAge = 0;
             this.gameInfo.paddingLifeTimeTicks = 0;
             return;
         }
         
         if (this.input.up) {
             this.engine.rotate();
-            this.input.up = 0;
+            this.input.up = false;
         }
 
         const timeSinceLastInput = Date.now() - this.lastInputTime;
@@ -99,7 +110,7 @@ export default class TetrisInputProcessor {
             this.gameInfo.pauseContext.pauseAge = 0;
             this.gameInfo.pauseContext.resumeAge = 0;
             this.gameInfo.pauseContext.excessPauseTime = 0;
-            this.input.save = 0;
+            this.input.save = false;
             this.tetrisControl.blockSave = true;
         }
     }

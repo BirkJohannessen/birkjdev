@@ -1,7 +1,18 @@
-import TetrisTile from './TetrisTile';
+import TetrisTile from '@/models/tetris/TetrisTile';
+import TetrisControl from './TetrisControl';
+import TetrisEngineInfo from '@/models/tetris/TetrisEngineInfo';
 
 export default class TetrisMap {
-    constructor(width, height, tetrisControl, gameInfo) {
+    public height: number;
+    private width: number;
+    private heightPadding: number;
+    private _map: TetrisTile[][];
+    private _shadowMap: TetrisTile[][];
+    private _renderMap: TetrisTile[][];
+    private tetrisControl: TetrisControl;
+    private gameInfo: TetrisEngineInfo;
+
+    constructor(width: number, height: number, tetrisControl: TetrisControl, gameInfo: TetrisEngineInfo) {
         this.height = height;
         this.heightPadding = 4;
         this.width = width;
@@ -12,7 +23,7 @@ export default class TetrisMap {
         this.tetrisControl = tetrisControl;
     }
 
-    putControl(paddingTicks, xShiftPadding, autoCommit, reflection) {
+    putControl(paddingTicks: number, xShiftPadding: number, autoCommit: boolean, reflection?: boolean) : void {
         const block = this.tetrisControl.getCurrentBlock().state;
         const lifetimeTick = this.gameInfo.blockLifetimeTicks + paddingTicks + this.heightPadding;
         const xShift = this.tetrisControl.xShift + xShiftPadding;
@@ -60,7 +71,7 @@ export default class TetrisMap {
     }
 
 
-    initMap() {
+    initMap() : TetrisTile[][] {
         const map = [];
         for (let j = 0; j < this.height; j++) {
             const row = [];
@@ -72,23 +83,23 @@ export default class TetrisMap {
         return map;
     }
 
-    get map() {
-        const map = this.deepModelCopy(this._renderMap);
+    get map() : TetrisTile[][] {
+        const map: TetrisTile[][] = this.deepModelCopy(this._renderMap);
         for (let i = 0; i < 4; i++) {
-            map[i].forEach(tile => {
-                tile.outOfBounds = 1;
+            map[i].forEach((tile: TetrisTile) => {
+                tile.outOfBounds = true;
             });
         }
         return map;
     }
     
     // save as hard blocks
-    commitMap() {
+    commitMap() : void {
         this._map = this.deepModelCopy(this._renderMap);
         // todo remove all tilereflects before saving -- nvm these are good for debugging / noticing a bug
     }
 
-    removeFullLines() {
+    removeFullLines() : void {
         let noFullLines = 0;
         for (let i = 0; i < this.height; i++) {
             let isFull = true;
@@ -122,7 +133,7 @@ export default class TetrisMap {
         }
     }
 
-    canLeftShiftX() {
+    canLeftShiftX() : boolean {
         try {
             this.putControl(0, -1, false);
         } catch (e) {
@@ -131,7 +142,7 @@ export default class TetrisMap {
         return true;
     }
 
-    canRightShiftX() {
+    canRightShiftX() : boolean {
         try {
             this.putControl(0, 1, false);
         } catch (e) {
@@ -140,9 +151,8 @@ export default class TetrisMap {
         return true;
     }
 
-    deepModelCopy(matrix) {
+    deepModelCopy(matrix: TetrisTile[][]) : TetrisTile[][] {
         return JSON.parse(JSON.stringify(matrix));
     }
-
 }
 

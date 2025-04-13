@@ -1,9 +1,37 @@
 import TetrisEngine from './TetrisEngine';
-import TetrisBlock from './blocks/TetrisBlock';
+import TetrisBlock from '@/models/tetris/TetrisBlock';
+import TetrisTile from '@/models/tetris/TetrisTile';
 import Hammer from 'hammerjs';
+import type { Ref } from 'vue';
+import  { ref } from 'vue';
+
+// import type TetrisInputProcessor from './TetrisInputProcessor';
 
 export default class TetrisClient {
-    constructor(queue, map, info, level, score, holdBlock, emptyBlockMap) {
+    private queue: Ref<TetrisBlock[]>;
+    private map: Ref<TetrisTile[][]>;
+    private info: Ref<string>;
+    private level: Ref<number>;
+    private score: Ref<number>;
+    private holdBlock: Ref<TetrisBlock | undefined>;
+    private emptyBlockMap: Ref<TetrisTile[][]>;
+
+    private engine: TetrisEngine;
+    // private inputProcessor: TetrisInputProcessor;
+
+    private runInterval: number;
+    private hasStarted: boolean;
+    private globalX: number;
+
+    constructor(
+        queue: Ref<TetrisBlock[]>,
+        map: Ref<TetrisTile[][]>,
+        info: Ref<string>,
+        level: Ref<number>,
+        score: Ref<number>,
+        holdBlock: Ref<TetrisBlock | undefined>,
+        emptyBlockMap: Ref<TetrisTile[][]>
+    ) {
         this.queue = queue;
         this.map = map;
         this.info = info;
@@ -12,7 +40,9 @@ export default class TetrisClient {
         this.holdBlock = holdBlock;
         this.emptyBlockMap = emptyBlockMap;
 
-        this._initEngine();
+        this.engine = new TetrisEngine();
+        // this.inputProcessor = this.engine.inputProcessor;
+        this.map.value = this.engine.map.map;
 
         this.runInterval = 15;
         this.hasStarted = false; 
@@ -21,38 +51,34 @@ export default class TetrisClient {
         this._run();
     }
 
-    _initEngine() {
-        this.engine = new TetrisEngine();
-        this.inputProcessor = this.engine.inputProcessor;
-        this.map.value = this.engine.map.map;
-    }
-
-    start() {
+    start() : void {
         this.hasStarted = true; 
         this.engine.start();
     }
 
     restart() {
-        this._initEngine();
+        this.engine = new TetrisEngine();
+        // this.inputProcessor = this.engine.inputProcessor;
+        this.map.value = this.engine.map.map;
         this.start();
     }
 
     pause() {
         if (!this.engine.gameInfo.stop) {
             this.engine.gameInfo.pauseContext.pauseAge = Date.now();
-            this.engine.gameInfo.paused = 1;
+            this.engine.gameInfo.paused = true;
         }
     }
 
-    isPaused() {
-        return this.engine.gameInfo.paused === 1;
+    isPaused() : boolean {
+        return this.engine.gameInfo.paused;
     }
 
-    resume() {
+    resume() : void {
         if (!this.engine.gameInfo.stop) {
             this.engine.gameInfo.pauseContext.resumeAge = Date.now();
             this.engine.gameInfo.pauseContext.excessPauseTime += this.engine.gameInfo.pauseContext.resumeAge - this.engine.gameInfo.pauseContext.pauseAge;
-            this.engine.gameInfo.paused = 0;
+            this.engine.gameInfo.paused = false;
         }
     }
 
@@ -84,7 +110,7 @@ export default class TetrisClient {
         this.emptyBlockMap.value = new TetrisBlock().getEmptyControlMap();
     }
 
-    onKeyUpPress(e) {
+    onKeyUpPress(e: KeyboardEvent) : void {
         e.stopPropagation();
 
         if (this.isPaused() || !this.hasStarted) {
@@ -102,7 +128,7 @@ export default class TetrisClient {
         }
     }
 
-    onKeyDownPress(e) {
+    onKeyDownPress(e: KeyboardEvent) {
         e.stopPropagation();
         if (e.key === 'Enter') {
             if (!this.hasStarted) {
@@ -154,10 +180,10 @@ export default class TetrisClient {
         }
     }
 
-    subscribeToGestures(wrapper, isMobile) {
-        const hammertime = new Hammer(wrapper.value, {});
+    subscribeToGestures(wrapper: Ref<HTMLElement | undefined>, isMobile: Ref<boolean>) {
+        const hammertime: any = new Hammer(wrapper.value, {});
 
-        hammertime.on('tap', (e) => {
+        hammertime.on('tap', (e: any) => {
             if (!isMobile.value) return;
             this.gestureTap(e);
         });
@@ -165,67 +191,67 @@ export default class TetrisClient {
         hammertime.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
         hammertime.get('pan').set({ direction: Hammer.DIRECTION_HORIZONTAL });
 
-        hammertime.on('swipeup', (e) => {
+        hammertime.on('swipeup', (e: any) => {
             if (!isMobile.value) return;
             this.gestureSwipeUp(e);
         });
 
-        hammertime.on('swipedown', (e) => {
+        hammertime.on('swipedown', (e: any) => {
             if (!isMobile.value) return;
             this.gestureSwipeDown(e);
         });
 
-        hammertime.on('swipeup', (e) => {
+        hammertime.on('swipeup', (e: any) => {
             if (!isMobile.value) return;
             this.gestureSwipeUp(e);
         });
 
-        hammertime.on('press', (e) => {
+        hammertime.on('press', (e: any) => {
             if (!isMobile.value) return;
             this.gesturePress(e);
         });
 
-        hammertime.on('pressup', (e) => {
+        hammertime.on('pressup', (e: any) => {
             if (!isMobile.value) return;
             this.gesturePressUp(e);
         });
 
-        hammertime.on('panend', (e) => {
+        hammertime.on('panend', (e: any) => {
             if (!isMobile.value) return;
             this.gesturePanend(e);
         });
 
-        hammertime.on('panleft panright', (e) => {
+        hammertime.on('panleft panright', (e: any) => {
             if (!isMobile.value) return;
             this.gesturePanmove(e);
         });
     }
 
-    gestureTap(_e) {
+    gestureTap(_e: any) {
         this.getInput().up = 1;
     }
 
-    gestureSwipeDown(_e) {
+    gestureSwipeDown(_e: any) {
         this.getInput().commit = 1;
     }
 
-    gestureSwipeUp(_e) {
+    gestureSwipeUp(_e: any) {
         this.getInput().save = 1;
     }
 
-    gesturePress(_e) {
+    gesturePress(_e: any) {
         this.getInput().down = 1;
     }
 
-    gesturePressUp(_e) {
+    gesturePressUp(_e: any) {
         this.getInput().down = 0;
     }
 
-    gesturePanend(_e) {
+    gesturePanend(_e: any) {
         this.globalX = 0;
     }
 
-    gesturePanmove(e) {
+    gesturePanmove(e: any) {
         const delta = this.globalX + e.deltaX;
         this.getInput().down = 0;
         if (delta < -20) {

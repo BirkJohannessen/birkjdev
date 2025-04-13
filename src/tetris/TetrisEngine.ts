@@ -1,45 +1,30 @@
 import TetrisMap from './TetrisMap';
 import TetrisControl from './TetrisControl';
 import TetrisInputProcessor from './TetrisInputProcessor';
+import TetrisEngineInfo from '@/models/tetris/TetrisEngineInfo';
+import TetrisInput from '@/models/tetris/TetrisInput';
 
 export default class TetrisEngine {
+    public gameInfo: TetrisEngineInfo;
+    public input: TetrisInput;
+    public tetrisControl: TetrisControl;
+    public inputProcessor: TetrisInputProcessor;
+    public map: TetrisMap;
+
     constructor() {
-        this.gameInfo = {
-            blockAge: Date.now(),
-            gameTick: 600,
-            blockLifetimeTicks: 0,
-            paddingLifeTimeTicks: 0,
-            level: 1,
-            score: 0,
-            reset: false,
-            storedBlock: null,
-            stop: true,
-            paused: false,
-            pauseContext: {
-                pauseAge: 0,
-                resumeAge: 0,
-                excessPauseTime: 0 // accumalated (pauseAge-resumeAge) from previous pauses from the same blocklifesycle.
-            }
-        }
-        this.input = {
-            right: 0,
-            left: 0,
-            up: 0,
-            down: 0,
-            commit: 0,
-            save: 0
-        }
+        this.gameInfo = new TetrisEngineInfo();
+        this.input = new TetrisInput();
         this.tetrisControl = new TetrisControl();
         this.map = new TetrisMap(10, 24, this.tetrisControl, this.gameInfo);
         this.inputProcessor = new TetrisInputProcessor(this, this.tetrisControl, this.map);
     }
 
-    start() {
+    start() : void {
         this.tetrisControl.setNextBlock();
         this.gameInfo.stop = false;
     }
 
-    run() {
+    run() : void {
         this.map.removeFullLines();
         this.calculateLevel();
 
@@ -68,7 +53,7 @@ export default class TetrisEngine {
         }
     }
 
-    putTileReflection() {
+    putTileReflection() : void {
         for (let i = 0; i < this.map.height; i++) {
             try {
                 this.map.putControl(i, 0, false, false);
@@ -83,7 +68,7 @@ export default class TetrisEngine {
         }
     }
 
-    reset() {
+    reset() : void {
         this.tetrisControl.setNextBlock()
         this.tetrisControl.blockSave = false;
         this.inputProcessor.input.commit = 0;
@@ -98,7 +83,7 @@ export default class TetrisEngine {
     }
 
 
-    calculateLevel() {
+    calculateLevel() : void {
         const levelMap = [
             {
                 level: 1,
@@ -136,7 +121,7 @@ export default class TetrisEngine {
     }
 
 
-    rotate() {
+    rotate() : void {
         const block = this.tetrisControl.getCurrentBlock().state;
         const blockWidthHeighDiff = Math.abs(block.length - block[0].length);
         for (let i = 0 ; i <= blockWidthHeighDiff ; i++) {
@@ -148,7 +133,7 @@ export default class TetrisEngine {
         }
     }
 
-    _canRotate(x) {
+    _canRotate(x: number) : boolean {
         let maybe = true;
         try {
             this.tetrisControl.rotate();
@@ -159,27 +144,5 @@ export default class TetrisEngine {
         let r = 3;
         for (; r > 0; r--) this.tetrisControl.rotate()
         return maybe;
-    }
-
-    shiftLeftIfYouCan() {
-        try {
-            this.tetrisControl.shiftLeft();
-            this.map.putControl(0, 0, false, false);
-        } catch(e) {
-            this.tetrisControl.shiftRight();
-            return false;
-        }
-        return true;
-    }
-
-    shiftRightIfYouCan() {
-        try {
-            this.tetrisControl.shiftRight();
-            this.map.putControl(0, 0, false, false);
-        } catch(e) {
-            this.tetrisControl.shiftLeft();
-            return false;
-        }
-        return true;
     }
 }

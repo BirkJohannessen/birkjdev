@@ -1,10 +1,17 @@
-import TetrisTile from '../TetrisTile.js';
+import TetrisTile from './TetrisTile';
 
 export default class TetrisBlock {
+    public state: TetrisTile[][];
     constructor() {
+        this.state = this.init(); 
     }
 
-    getEmptyControlMap() {
+    // Overrideable
+    init() : TetrisTile[][] {
+        return this.getEmptyControlMap();
+    }
+
+    getEmptyControlMap() : TetrisTile[][] {
         const controlMap = [];
         for (let i = 0; i < 4; i++) {
             const row = [];
@@ -19,23 +26,23 @@ export default class TetrisBlock {
 
     cutLooseColumnsAndRows() {
         let matrix = this.deepModelCopy(this.state);
-        const isEmptyRow = row => !row.map(o => o.tileState).includes(1);
-        const isEmptyCol = colIndex => !matrix.map(row => row[colIndex].tileState).includes(1);
+        const isEmptyRow = (row: TetrisTile[]) => !row.map(o => o.tileState).includes(1);
+        const isEmptyCol = (colIndex: number) => !matrix.map((row: TetrisTile[]) => row[colIndex].tileState).includes(1);
 
         // Remove empty rows
-        matrix = matrix.filter(row => !isEmptyRow(row));
+        matrix = matrix.filter((row: TetrisTile[]) => !isEmptyRow(row));
 
         // Find columns to keep
-        const colIndicesToKeep = [];
-        matrix[0].forEach((_, colIndex) => {
+        const colIndicesToKeep: number[] = [];
+        matrix[0].forEach((_: TetrisTile[], colIndex: number) => {
             if (!isEmptyCol(colIndex)) colIndicesToKeep.push(colIndex);
         });
 
         // Remove empty columns
-        this.state = matrix.map(row => colIndicesToKeep.map(colIndex => row[colIndex]));
+        this.state = matrix.map((row: TetrisTile[]) => colIndicesToKeep.map(colIndex => row[colIndex]));
     }
 
-    setTileState(matrix, x, y, color) {
+    setTileState(matrix: TetrisTile[][], x: number, y: number, color?: string) {
         matrix[x][y].tileState = 1;
         if (color) {
             matrix[x][y].color = color;
@@ -51,7 +58,7 @@ export default class TetrisBlock {
         this.state = this._rotateMatrix(this.state);
     }
 
-    _rotateMatrix(matrix) {
+    _rotateMatrix(matrix: TetrisTile[][]) : TetrisTile[][] {
         const rows = matrix.length;
         const cols = matrix[0].length;
         const result = Array.from({ length: cols }, () => Array(rows).fill(0));
@@ -65,7 +72,7 @@ export default class TetrisBlock {
         return result;
     }
 
-    deepModelCopy(matrix) {
+    deepModelCopy(matrix: TetrisTile[][]) {
         return JSON.parse(JSON.stringify(matrix));
     }
 }

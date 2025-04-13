@@ -1,5 +1,11 @@
-<script setup>
-    const props = defineProps(['tile', 'pxSize', 'onlyBlock']);
+<script setup lang="ts">
+    import TetrisTile from '@/models/tetris/TetrisTile';
+
+    const props = defineProps<{
+        tile: TetrisTile,
+        pxSize: number,
+        onlyBlock: boolean
+    }>();
 </script>
 
 <template>
@@ -12,15 +18,18 @@
 <style lang="scss" scoped>
     @use '@/assets/stylesheets/all.scss' as *;
     @use '@/assets/stylesheets/vars.scss' as vars;
+
     .one {
         border: 1px solid vars.$color-primary;
         width: 100%; height: 100%;
     }
+
     .two {
         border: 1px solid vars.$color-primary;
         width: 100%; height: 100%;
         opacity: 0.15;
     }
+
     .three {
         border: 1px solid vars.$color-primary;
         width: 100%; height: 100%;

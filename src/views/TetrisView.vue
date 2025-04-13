@@ -1,27 +1,30 @@
-<script setup>
-    import TetrisClient from '@/tetris/TetrisClient.js';
+<script setup lang="ts">
+    import TetrisClient from '@/tetris/TetrisClient';
     import TetrisMap from '@/components/tetris/MapComponent.vue';
     import TetrisQueue from '@/components/tetris/QueueComponent.vue';
+    import TetrisBlock from '@/models/tetris/TetrisBlock';
+    import TetrisTile from '@/models/tetris/TetrisTile';
+    import type { Ref } from 'vue'; 
     import { ref, onMounted, onUnmounted, onBeforeMount } from 'vue'; 
 
-    const tetris = ref(null);
-    const wrapper = ref(null);
+    const wrapper: Ref<HTMLElement | undefined> = ref();
     const isMobile = ref(false);
 
-    const queue = ref([]);
-    const map = ref([]);
-    const info = ref('');
-    const level = ref(0);
-    const score = ref(0);
-    const holdBlock = ref(null);
-    const emptyBlockMap = ref(null);
+    const queue: Ref<TetrisBlock[]> = ref([]);
+    const map: Ref<TetrisTile[][]> = ref([]);
+    const info: Ref<string> = ref('');
+    const level: Ref<number> = ref(0);
+    const score: Ref<number> = ref(0);
+    const holdBlock: Ref<TetrisBlock | undefined> = ref();
+    const emptyBlockMap: Ref<TetrisTile[][]> = ref([]);
+
+    const tetris = ref(new TetrisClient(queue, map, info, level, score, holdBlock, emptyBlockMap));
 
     const updateSize = () => {
         isMobile.value = window.innerWidth <= 600;
     };
 
     onBeforeMount(() => {
-        tetris.value = new TetrisClient(queue, map, info, level, score, holdBlock, emptyBlockMap);
         document.addEventListener('keydown', (e) => tetris.value.onKeyDownPress(e));
         document.addEventListener('keyup', (e) => tetris.value.onKeyUpPress(e));
     });
@@ -79,11 +82,13 @@
         display: flex; justify-content: right;
         overflow-y: scroll;
     }
+
     .tetris {
         display: flex; flex-direction: row;
         width: auto;
         margin: auto;
     }
+
     .center {
         width: auto; height: auto;
         margin: auto;
@@ -92,6 +97,7 @@
         position: relative;
         animation: fadeIn 1s;
     }
+
     .info {
         display: flex; flex-direction: row;
         text-align: center;
@@ -101,6 +107,7 @@
         margin-bottom: vars.$spacing-2;
         color: vars.$color-secondary;
     }
+
     .btns {
         display: flex; flex-direction: row;
         text-align: center;
@@ -114,6 +121,7 @@
             cursor: pointer;
         }
     }
+
     .info-message {
         height: 0;
         top: 0; left: 0; right: 0; bottom: 0;
@@ -123,20 +131,25 @@
         opacity: 1;
         z-index: 1;
     }
+
     .opacity {
         opacity: 0.3;
     }
+
     .play {
         scale: 1.5;
         margin-top: vars.$spacing-2;
         cursor: pointer;
     }
+
     .queue {
         min-width: 76px;
     }
+
     .hold {
         min-width: 76px;
     }
+
     @media (max-width: vars.$mobile-size) {
         .tetris { width: 100%; overflow: hidden; }
         .play { scale: 1.2; }
