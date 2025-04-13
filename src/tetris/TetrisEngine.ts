@@ -71,9 +71,9 @@ export default class TetrisEngine {
     reset() : void {
         this.tetrisControl.setNextBlock()
         this.tetrisControl.blockSave = false;
-        this.inputProcessor.input.commit = 0;
-        this.inputProcessor.input.up = 0;
-        this.inputProcessor.input.save = 0;
+        this.inputProcessor.input.commit = false;
+        this.inputProcessor.input.up = false;
+        this.inputProcessor.input.save = false;
         this.gameInfo.blockAge = Date.now();
         this.gameInfo.pauseContext.pauseAge = 0;
         this.gameInfo.pauseContext.resumeAge = 0;

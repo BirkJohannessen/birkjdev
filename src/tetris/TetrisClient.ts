@@ -118,13 +118,13 @@ export default class TetrisClient {
         }
 
         if (e.key === 'ArrowRight') {
-            this.getInput().right = 0;
+            this.getInput().right = false;
         }
         if (e.key === 'ArrowLeft') {
-            this.getInput().left = 0;
+            this.getInput().left = false;
         }
         if (e.key === 'ArrowDown') {
-            this.getInput().down = 0;
+            this.getInput().down = false;
         }
     }
 
@@ -144,36 +144,36 @@ export default class TetrisClient {
         }
 
         if (e.key === 'ArrowLeft') {
-            if (this.getInput().left === 0) {
-                this.getInput().right = 0;
-                this.getInput().left = 1;
+            if (!this.getInput().left) {
+                this.getInput().right = false;
+                this.getInput().left = true;
                 this.engine.inputProcessor.setKeyDownInputDelay();
             } else {
-                this.getInput().right = 0;
-                this.getInput().left = 1;
+                this.getInput().right = false;
+                this.getInput().left = true;
             }
         }
         if (e.key === 'ArrowDown') {
-            this.getInput().down = 1;
+            this.getInput().down = true;
         }
         if (e.key === 'ArrowRight') {
-            if (this.getInput().right === 0) {
-                this.getInput().left = 0;
-                this.getInput().right = 1;
+            if (!this.getInput().right) {
+                this.getInput().left = false;
+                this.getInput().right = true;
                 this.engine.inputProcessor.setKeyDownInputDelay();
             } else {
-                this.getInput().left = 0;
-                this.getInput().right = 1;
+                this.getInput().left = false;
+                this.getInput().right = true;
             }
         }
         if (e.key === 'ArrowUp') {
-            this.getInput().up = 1;
+            this.getInput().up = true;
         }
         if (e.code === 'Space') {
-            this.getInput().commit = 1;
+            this.getInput().commit = true;
         }
         if (e.key === 'Shift') {
-            this.getInput().save = 1;
+            this.getInput().save = true;
         }
         if (e.key === 'Backspace') {
             this.restart();
@@ -228,23 +228,23 @@ export default class TetrisClient {
     }
 
     gestureTap(_e: any) {
-        this.getInput().up = 1;
+        this.getInput().up = true;
     }
 
     gestureSwipeDown(_e: any) {
-        this.getInput().commit = 1;
+        this.getInput().commit = true;
     }
 
     gestureSwipeUp(_e: any) {
-        this.getInput().save = 1;
+        this.getInput().save = true;
     }
 
     gesturePress(_e: any) {
-        this.getInput().down = 1;
+        this.getInput().down = true;
     }
 
     gesturePressUp(_e: any) {
-        this.getInput().down = 0;
+        this.getInput().down = false;
     }
 
     gesturePanend(_e: any) {
@@ -253,21 +253,21 @@ export default class TetrisClient {
 
     gesturePanmove(e: any) {
         const delta = this.globalX + e.deltaX;
-        this.getInput().down = 0;
+        this.getInput().down = false;
         if (delta < -20) {
-            if (this.getInput().left === 0) {
-                this.getInput().right = 0;
-                this.getInput().left = 1;
+            if (!this.getInput().left) {
+                this.getInput().right = false;
+                this.getInput().left = true;
                 this.engine.inputProcessor.setKeyDownInputDelay();
-                this.getInput().left = 0;
+                this.getInput().left = false;
                 this.globalX += 20;
             } 
         } else if (delta > 20) {
-            if (this.getInput().right === 0) {
-                this.getInput().left = 0;
-                this.getInput().right = 1;
+            if (!this.getInput().right) {
+                this.getInput().left = false;
+                this.getInput().right = true;
                 this.engine.inputProcessor.setKeyDownInputDelay();
-                this.getInput().right = 0;
+                this.getInput().right = false;
                 this.globalX -= 20;
             }
         }
