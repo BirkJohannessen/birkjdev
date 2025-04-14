@@ -1,18 +1,61 @@
+<script setup lang="ts">
+    import { onMounted, onUnmounted, ref } from 'vue';
+    import type { Ref } from 'vue';
+    import { useRouter  } from 'vue-router';
+    import { navbarpaths } from '@/config/NavbarConfig';
+    import type NavbarPath from '@/models/NavbarPath';
+
+    const router = useRouter();
+
+    const showHamburger: Ref<boolean> = ref(false);
+    const scrollY: Ref<number> = ref(0);
+    const paths: Ref<number> = ref(0);
+
+    const updateY = () => {
+        scrollY.value = window.top?.scrollY || 0;
+    }
+
+    onMounted(() => {
+        window.addEventListener('scroll', updateY);
+    });
+
+    onUnmounted(() => {
+        window.removeEventListener('scroll', updateY);
+    });
+
+    const push = (navbarPath: NavbarPath) => {
+        router.push({ path: navbarPath.path });
+    };
+
+    const pushRoot = () => {
+        router.push({ path: '/' });
+    };
+
+    const isSelected = (navbarPath: NavbarPath) => {
+        if (navbarPath.matchOn && navbarPath.matchOn.length && navbarPath.matchOn.some((o: string) => window.location.pathname.match(o))) return true;
+        return window.location.pathname === navbarPath.path;
+    };
+    
+    const toggleHamburger = () => {
+        showHamburger.value = !showHamburger.value;
+    }
+</script>
+
 <template>
-    <div class="nav-wrapper" :class="this.scrollY > 100 ? 'hide-mb' : this.scrollY > 2000 ? 'hide' : ''" >
+    <div class="nav-wrapper" :class="scrollY > 100 ? 'hide-mb' : scrollY > 2000 ? 'hide' : ''" >
         <div class="logo-wrapper">
-            <a @click="push({ path: '/' })">
+            <a @click="pushRoot()">
                 <img draggable="false" alt="Website logo" src="@/assets/images/birk_mich_lgo.svg" />
             </a>
         </div>
         <div class="path-wrapper">
-            <nav v-for="path in paths" class="hide-mb">
+            <nav v-for="path in navbarpaths" class="hide-mb">
                 <a class="tooltip-holder" @click="push(path)">
                     <span class="material-symbols-outlined" :class="isSelected(path) ? 'selected' : ''">{{path.icon}}</span>
                     <div class="tooltip tright">{{path.name}}</div>
                 </a>
             </nav>
-            <button class="hamburger hide-desktop" @click="this.showHamburger = !this.showHamburger">
+            <button class="hamburger hide-desktop" @click="toggleHamburger">
                 <span :class="showHamburger ? 'open' : ''"></span>
                 <span :class="showHamburger ? 'open' : ''"></span>
                 <span :class="showHamburger ? 'open' : ''"></span>
@@ -20,53 +63,14 @@
         </div>
     </div>
     <div class="hamburger-overlay hide-desktop" v-if="showHamburger">
-        <nav v-for="path in paths">
-            <a @click="push(path); this.showHamburger = false">
+        <nav v-for="path in navbarpaths">
+            <a @click="push(path); toggleHamburger()">
                 <span class="material-symbols-outlined" :class="isSelected(path) ? 'selected' : ''">{{path.icon}}</span>
                 <h4 :class="isSelected(path) ? 'selected' : ''">{{path.name}}</h4>
             </a>
         </nav>
     </div>
 </template>
-
-<script>
-export default {
-    name: 'HeaderComponent',
-    mounted () {
-        window.addEventListener('scroll', this.updateY);
-    },
-    unmounted () {
-        window.removeEventListener('scroll', this.updateY);
-    },
-    methods: {
-        push(path) {
-            this.$router.push({ path: path.path }).then(() => this.$forceUpdate());
-        },
-        isSelected(path) {
-            if (path.matchOn && path.matchOn.length && path.matchOn.some(o => window.location.pathname.match(o))) return true;
-            return window.location.pathname === path.path;
-        },
-        updateY() {
-            this.scrollY = window.top.scrollY;
-        }
-    },
-    data() {
-        return {
-            paths: [
-                { name: 'birk', path: '/', icon: 'person' },
-                { name: 'blogs', path: '/blogs', matchOn: ['^/blog/\\d+$'], icon: 'rss_feed' },
-                // { name: 'code', path: '/projects/code', icon: 'code' },
-                // { name: 'biSHk', path: '/projects/bishk', icon: 'terminal' },
-                { name: 'prime_spiral', path: '/projects/primes', icon: 'blur_on'},
-                { name: 'tetris', path: '/projects/tetris', icon: 'grid_view' },
-                { name: 'typenigma', path: '/projects/typenigma', icon: 'keyboard' }
-            ],
-            scrollY: 0,
-            showHamburger: false
-        }
-    },
-}
-</script>
 
 <style lang="scss" scoped>
     @use '@/assets/stylesheets/all.scss' as *;

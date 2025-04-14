@@ -14,7 +14,6 @@ import am2 from '../assets/PRIME_8.png'
 import am1 from '../assets/PRIME_16.png'
 import a from '../assets/PRIME_32.png'
 import a0 from '../assets/PRIME_64.png'
-
 import a1 from '../assets/PRIME_128.png'
 import a3 from '../assets/PRIME_512.png'
 import a5 from '../assets/PRIME_2048.png'
@@ -25,14 +24,11 @@ import a13 from '../assets/PRIME_524288.png'
 import a15 from '../assets/PRIME_2097152.png'
 import a17 from '../assets/PRIME_8388608.png'
 
-
-
 import svg10 from '../assets/primesvg/PRIME_65536.svg'
 
+//primeArray: [a,a0,a1,a3,a5,a7,a9,a11,a13,a15,a17],
+//           0   1   2   3 4  5  6  7  8  9  10 11 12 13 14  15  16  17  18  19  20   21
 export default {
-    //primeArray: [a,a0,a1,a3,a5,a7,a9,a11,a13,a15,a17],
-    //           0   1   2   3 4  5  6  7  8  9  10 11 12 13 14  15  16  17  18  19  20   21
     primeArray: [am3,am2,am1,a,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17],
     prime2Array: [svg10],
-
 }

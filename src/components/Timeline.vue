@@ -1,7 +1,5 @@
-<script setup>
-    import { computed } from 'vue'; 
-    import Config from '@/config/timelineConfig.js'
-    const timeline = computed(() => Config.timeline);
+<script setup lang="ts">
+    import { timeline } from '@/config/timelineConfig'
 </script>
 
 <template>

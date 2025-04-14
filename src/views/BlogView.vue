@@ -1,5 +1,5 @@
-<script setup>
-    import { ref, onBeforeMount } from 'vue'; 
+<script setup lang="ts">
+    import { onBeforeMount } from 'vue'; 
     import { marked } from 'marked';
     import hljs from 'highlight.js/lib/core';
     import javascript from 'highlight.js/lib/languages/javascript';
@@ -7,7 +7,7 @@
 
     const props = defineProps(['blog']);
 
-    const isLang = (text) => {
+    const isLang = (text: string) => {
         const patterns = [
             /\b(function|const|let|if|else|class|return|def|import|while)\b/, // Common keywords
         ];
@@ -16,12 +16,19 @@
 
     const fetchRemoteBlog = async() => {
         const response = await fetch(props.blog.remoteURL);
-        let markdownContent = await response.text();
+
+        let markdownContent: string = await response.text();
         markdownContent = markdownContent.replace(/\/blob\//g, '/raw/');
-        document.getElementById('md-content').innerHTML = marked.parse(markdownContent);
+        markdownContent = await Promise.resolve(marked.parse(markdownContent));
+
+        const mdcEl: HTMLElement | null = document.getElementById('md-content');
+        if (mdcEl != null) {
+            mdcEl.innerHTML = markdownContent;
+        }
+
         hljs.registerLanguage('javascript', javascript);
         hljs.registerLanguage('python', python);
-        document.querySelectorAll('pre code').forEach((block) => {
+        document.querySelectorAll('pre code').forEach((block: any) => {
             if (isLang(block.innerHTML)) {
                 hljs.highlightElement(block);
             }

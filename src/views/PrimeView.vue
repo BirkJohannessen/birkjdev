@@ -1,18 +1,20 @@
-<script setup>
-    import HoverController from '@/components/primespiral/HoverController.vue'
-    import Config from '@/config/primeConfig'
+<script setup lang="ts">
+    import HoverController from '@/components/primespiral/HoverController.vue';
+    import Config from '@/config/primeConfig';
     import { ref, computed, onUnmounted, onMounted } from 'vue'; 
+    import type { Ref, ComputedRef } from 'vue'; 
 
-    const primes = computed(() => { return Config.primeArray });
-    const scrollLengthForRerender = ref(1200);
-    const scrollLengthForZoom = ref(120);
-    const scrollLevel = ref(0);
-    const zoomLevel = ref(0);
+    const primes: ComputedRef<string[]> = computed(() => { return Config.primeArray });
+
+    const scrollLengthForRerender: Ref<number> = ref(1200);
+    const scrollLengthForZoom: Ref<number> = ref(120);
+    const scrollLevel: Ref<number> = ref(0);
+    const zoomLevel: Ref<number> = ref(0);
     
     const onScroll = () => {
-        const topY = window.top.scrollY;
-        zoomLevel.value = parseInt(topY % (scrollLengthForRerender.value) / scrollLengthForZoom.value);
-        scrollLevel.value = parseInt(topY / scrollLengthForRerender.value);
+        const topY: number = window.top?.scrollY ?? 0;
+        zoomLevel.value = Math.floor(topY % (scrollLengthForRerender.value) / scrollLengthForZoom.value);
+        scrollLevel.value = Math.floor(topY / scrollLengthForRerender.value);
     };
 
     onMounted(() => {

@@ -1,3 +1,6 @@
+<script setup lang="ts">
+</script>
+
 <template>
     <div class="wrapper">
         <div class="miss-content">
@@ -11,12 +14,6 @@
         <div class="padding"></div>
     </div>
 </template>
-
-<script>
-export default {
-    name: 'FallbackView',
-}
-</script>
 
 <style lang="scss" scoped>
     @use '@/assets/stylesheets/all.scss' as *;

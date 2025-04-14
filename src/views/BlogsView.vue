@@ -1,11 +1,9 @@
-<script setup>
-    import { marked } from 'marked';
-    import { blogs } from '@/config/BlogConfig.ts'
-    import { ref, computed } from 'vue'; 
+<script setup lang="ts">
+    import { blogs } from '@/config/BlogConfig';
     import { useRouter } from 'vue-router'
 
     const router = useRouter();
-    const pushBlog = id => {
+    const pushBlog = (id: number) => {
         router.push({ path: `/blog/${id}` });
     };
 </script>

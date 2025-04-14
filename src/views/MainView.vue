@@ -1,11 +1,12 @@
-<script setup>
+<script setup lang="ts">
     import { ref, onMounted, onUnmounted  } from 'vue'; 
+    import type { Ref } from 'vue'; 
     import Timeline from '@/components/Timeline.vue';
 
-    const cards = ref(false);
-    const timeline = ref(false);
-    const sectionCards = ref(null);
-    const sectionTimeline = ref(null);
+    const cards: Ref<boolean> = ref(false);
+    const timeline: Ref<boolean> = ref(false);
+    const sectionCards: Ref<HTMLElement | null> = ref(null);
+    const sectionTimeline: Ref<HTMLElement | null> = ref(null);
 
     const icons = ref([
         { filename: '/icons/java.svg', name: 'Java'}, { filename: '/icons/js.svg', name: 'Javascript'}, { filename: '/icons/ts.svg', name: 'Typescript'},
@@ -27,8 +28,9 @@
         );
 
     onMounted(() => {
-        [sectionCards, sectionTimeline]
-            .forEach(el => observer.observe(el.value));
+        [sectionCards, sectionTimeline].forEach((el: Ref<HTMLElement | null>) => {
+            if (el.value) observer.observe(el.value)
+        });
     });
 
     onUnmounted(() => {
