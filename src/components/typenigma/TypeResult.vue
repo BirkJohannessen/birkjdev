@@ -1,56 +1,31 @@
-<template>
-    <div class="header">
-        <div class="wpm item">
-            <h3>wpm</h3>
-            <h1>{{this.engine.calculateFinalWPM()}}</h1>
-        </div>
-        <div class="percent item">
-            <h1>{{this.engine.calculateCorrectPercentage()}}%</h1>
-            <h3>acc</h3>
-        </div>
-    </div>
-    <div class="result-wrapper">
-        <Line :data="data" :options="options" class="chart" />
-    </div>
-</template>
+<script setup lang="ts">
+    import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js'
+    import { Line } from 'vue-chartjs'
+    import { ref } from 'vue';
+    import type { Ref } from 'vue';
 
-<script>
+    ChartJS.register( CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
+    ChartJS.defaults.backgroundColor = '#292736';
+    ChartJS.defaults.borderColor = 'rgba(0,0,0,0.15)';
+    ChartJS.defaults.color = '#77727D';
 
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js'
-import { Line } from 'vue-chartjs'
-ChartJS.register( CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
-ChartJS.defaults.backgroundColor = '#292736';
-ChartJS.defaults.borderColor = 'rgba(0,0,0,0.15)';
-ChartJS.defaults.color = '#77727D';
+    const props = defineProps<{
+        engine: any
+    }>();
 
-export default {
-    name: 'TypeResult',
-    props: {
-        engine: Object,
-    },
-    components: {
-        Line 
-    },
-    mounted() {
-    },
-    methods: {
-        foo() {
-        },
-    },
-    data() {
-        return {
-            data: {
-                labels: this.engine.gameInfo.timeIntervals,
+    const data: Ref<any> = ref({
+                labels: props.engine.gameInfo.timeIntervals,
                 datasets: [
                     {
                         label: 'WPM',
                         backgroundColor: 'gold',
                         borderColor: 'gold',
-                        data: this.engine.gameInfo.wpmIntervals
+                        data: props.engine.gameInfo.wpmIntervals
                     }
                 ]
-            },
-            options: {
+            });
+
+    const options: Ref<any> = ref({
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
@@ -66,23 +41,39 @@ export default {
                         }
                     }
                 }
-            }
-        }
-    }
-}
+            });
 </script>
+
+<template>
+    <div class="header">
+        <div class="wpm item">
+            <h3>wpm</h3>
+            <h1>{{engine.calculateFinalWPM()}}</h1>
+        </div>
+        <div class="percent item">
+            <h1>{{engine.calculateCorrectPercentage()}}%</h1>
+            <h3>acc</h3>
+        </div>
+    </div>
+    <div class="result-wrapper">
+        <Line :data="data" :options="options" class="chart" />
+    </div>
+</template>
 
 <style lang="scss" scoped>
     @use '@/assets/stylesheets/all.scss' as *;
     @use '@/assets/stylesheets/vars.scss' as vars;
+
     .chart {
         height: 300px;
     }
+
     .result-wrapper {
         min-width: 450px;
         width: 80vw;
         animation: fadeIn 2s;
     }
+
     .header {
         display: flex; gap: vars.$spacing-4; justify-content: center;
         .item {
@@ -91,15 +82,19 @@ export default {
             h1, h3 { color: inherit }
         }
     }
+
     .wpm {
         color: vars.$color-secondary; justify-content: right;
     }
+
     .percent {
         color: vars.$color-primary;
     }
+
     .miss {
         color: red;
     }
+
     @media (max-width: vars.$mobile-size) {
         .header {
             .item {

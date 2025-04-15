@@ -1,8 +1,97 @@
+<script setup lang="ts">
+    import { ref, onMounted } from 'vue';
+    import type { Ref } from 'vue';
+
+    const props = defineProps<{
+        engine: any
+    }>();
+
+    const sentence: Ref<any[]> = ref([]);
+    const topStyle: Ref<string> = ref('');
+
+    const input: Ref<HTMLInputElement | null> = ref(null);
+    const sentenceblur: Ref<HTMLElement | null> = ref(null);
+    const sentenceEl: Ref<HTMLElement | null> = ref(null);
+    const cursor: Ref<HTMLElement | null> = ref(null);
+
+    const onInput = (e: Event) => {
+        props.engine.onInput(e);
+        sentence.value = props.engine.inputProcessor.enstructData();
+    };
+
+    const listenTo = (htmlElement: HTMLElement, e: string, callback: any) => {
+        htmlElement.addEventListener(e, callback);
+    };
+
+    const reset = () => {
+        input.value?.focus();
+        input.value!.value = '';
+        sentence.value = props.engine.inputProcessor.enstructData();
+    };
+
+    defineExpose({
+        reset
+    });
+
+    const calculateTop = () => {
+        topStyle.value = `top: -${calculateSentenceOffset()}px`;
+    };
+
+    const calculateSentenceOffset = () : number => {
+        const firstPaddingOffset = 3;
+        const sentenceOffset = 42;
+        if (!sentence || !cursor) {
+            return 0;
+        }
+        const cursorY: number = cursor.value?.offsetTop ?? 0;
+        const returnValue = (Math.floor(cursorY / sentenceOffset) * sentenceOffset);
+        if (returnValue === 0 || returnValue === sentenceOffset + firstPaddingOffset) {
+            return returnValue;
+        }
+        return returnValue - sentenceOffset;
+    };
+ 
+    onMounted(() => {
+        sentence.value = props.engine.inputProcessor.enstructData();
+
+        setInterval(() => {
+            calculateTop();
+        }, 10);
+
+        setTimeout(() => {
+            if (document.activeElement != input.value)  {
+                sentenceblur.value?.classList?.add('blur');
+            }
+        }, 1000);
+
+        const unblur = () => {
+            sentenceblur.value?.classList.add('hide');
+            sentenceblur.value?.classList.remove('blur');
+        };
+
+        const blur = () => {
+            sentenceblur.value?.classList.add('blur');
+            sentenceblur.value?.classList.remove('hide');
+        };
+
+        const focus = () => {
+            input.value?.focus();
+        };
+
+        input.value && listenTo(input.value, 'focusout', blur);
+        input.value && listenTo(input.value, 'focus', unblur);
+        sentenceblur.value && listenTo(sentenceblur.value, 'click', focus);
+        sentenceblur.value && listenTo(sentenceblur.value, 'focus', focus);
+        sentenceEl.value && listenTo(sentenceEl.value, 'click', focus);
+        sentenceEl.value && listenTo(sentenceEl.value, 'focus', focus);
+    });
+</script>
+
 <template>
     <div class="sentence-wrapper">
-        <input id="input" class="no-hl" @input="onInput" />
+        <input id="input" ref="input" class="no-hl" @input="onInput" />
         <div class="sentence-hide">
-            <div id="sentence" :style="this.top">
+            <div id="sentence" :style="topStyle">
                 <span v-for="word in sentence" class="word">
                     <div v-for="letter in word" class="letter">
                         <span v-if="letter.isCursor() && letter.isCursorLeft()" id="cursor" class="cursor"></span>
@@ -15,96 +104,11 @@
                 </span>
             </div>
         </div>
-        <div id="sentenceblur" class="hide">
+        <div ref="sentenceblur" class="hide">
             <p class="msg">Click here focus.</p>
         </div>
     </div>
 </template>
-
-<script>
-export default {
-    name: 'SentenceComponent',
-    props: {
-        engine: Object
-    },
-    mounted() {
-        this.sentence = this.engine.inputProcessor.enstructData();
-        const div = document.getElementById('sentenceblur');
-        const input = document.getElementById('input');
-        const sentenceblur = document.getElementById('sentenceblur');
-
-        setInterval(() => {
-            this.calculateTop();
-        }, 10);
-
-        setTimeout(() => {
-            if (document.activeElement != input)  {
-                sentenceblur.classList.add('blur');
-            }
-        }, 1000);
-
-        const unblur = () => {
-            sentenceblur.classList.add('hide');
-            sentenceblur.classList.remove('blur');
-        };
-
-        const blur = () => {
-            sentenceblur.classList.add('blur');
-            sentenceblur.classList.remove('hide');
-        };
-
-        const focus = () => {
-            input.focus();
-        };
-
-        this.listenTo(input, 'focusout', blur);
-        this.listenTo(input, 'focus', unblur);
-        this.listenTo(sentenceblur, 'click', focus);
-        this.listenTo(sentenceblur, 'focus', focus);
-        this.listenTo(sentence, 'click', focus);
-        this.listenTo(sentence, 'focus', focus);
-    },
-    methods: {
-        onInput(e) {
-            this.engine.onInput(e);
-            this.sentence = this.engine.inputProcessor.enstructData();
-        },
-        listenTo(htmlElement, e, callback) {
-            htmlElement.addEventListener(e, callback);
-        },
-        reset() {
-            const input = document.getElementById("input");
-            input.focus();
-            input.value = '';
-            this.sentence = this.engine.inputProcessor.enstructData();
-        },
-        calculateTop() {
-            this.top = `top: -${this.calculateSentenceOffset()}px`;
-        },
-        calculateSentenceOffset() {
-            const firstPaddingOffset = 3;
-            const sentenceOffset = 42;
-            const sentence = document.getElementById('sentence');
-            const cursor  = document.getElementById('cursor');
-            if (!sentence || !cursor) {
-                return 0;
-            }
-            const cursorY = cursor.offsetTop;
-            const returnValue = (parseInt(cursorY / sentenceOffset) * sentenceOffset);
-            if (returnValue === 0 || returnValue === sentenceOffset + firstPaddingOffset) {
-                return returnValue;
-            }
-            return returnValue - sentenceOffset;
-        }
-    },
-    data() {
-        return {
-            sentence: [],
-            top: ''
-        }
-    }
-}
-</script>
 
 <style lang="scss" scoped>
     @use '@/assets/stylesheets/all.scss' as *;
@@ -115,17 +119,21 @@ export default {
         font-size: 34px;
         font-weight: 900;
     }
+
     .miss {
         color: red;
     }
+
     .hit {
         color: vars.$color-secondary
     }
+
     .letter {
         padding: 0;
         margin: 0;
         display: inline-block;
     }
+
     .cursor {
         width: 0px;
         outline: solid 1px vars.$tetriary;
@@ -133,6 +141,7 @@ export default {
         height: 30px;
         display: inline-block;
     }
+
     #sentence {
         width: 70vw;
         display: flex; flex-wrap: wrap;
@@ -140,11 +149,13 @@ export default {
         color: vars.$color-primary;
         position: relative;
     }
+
     .sentence-hide {
         overflow: hidden;
         height: 129px;
         position: relative;
     }
+
     #input {
         position: absolute;
         color: transparent;
@@ -158,11 +169,13 @@ export default {
             border: 0;
         }
     }
+
     .sentence-wrapper {
         display: flex; flex-direction: column;
         position: relative;
         animation: fadeIn 1s;
     }
+
     .blur {
         position: absolute;
         display: flex; flex-direction: row;

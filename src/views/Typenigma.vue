@@ -1,13 +1,43 @@
+<script setup lang="ts">
+    import Sentence from '@/components/typenigma/Sentence.vue';
+    import Result from '@/components/typenigma/TypeResult.vue';
+    import TypenigmaEngine from '@/typenigma/TypenigmaEngine.js';
+    import { ref, onBeforeMount } from 'vue';
+    import type { Ref } from 'vue';
+
+    const engine: Ref<any> = ref(new TypenigmaEngine());
+    const timeDisplay: Ref<string> = ref('');
+    const gameState: Ref<number> = ref(0);
+    const sentence: Ref<InstanceType<typeof Sentence> | null> = ref(null);
+
+    const resetRef: Ref<HTMLElement | undefined> = ref();
+
+    onBeforeMount(() => {
+        setInterval(() => {
+            timeDisplay.value = engine.value.gameInfo.timeDisplay;
+            gameState.value = engine.value.gameInfo.gameState
+        }, 100);
+    });
+
+    const reset = () => {
+        engine.value.reset();
+        resetRef.value?.blur();
+        setTimeout(() => {
+            sentence.value?.reset();
+        }, 100);
+    };
+</script>
+
 <template>
     <div class="wrapper">
         <div class="center">
-            <div id="timer" v-if="[0,1].includes(this.gameState)">
+            <div id="timer" v-if="[0,1].includes(gameState)">
                 {{ timeDisplay }}
             </div>
-            <Sentence id="sentence" :engine="this.engine" ref="sentence" v-if="[0,1].includes(this.gameState)" />
-            <Result :engine="this.engine" v-if="this.gameState == 2"/>
+            <Sentence id="sentence" :engine="engine" ref="sentence" v-if="[0,1].includes(gameState)" />
+            <Result :engine="engine" v-if="gameState == 2"/>
             <div class="btns">
-                <button id="reset" class="tooltip-holder" @click="this.reset()">
+                <button ref="resetRef" class="tooltip-holder" @click="reset()">
                     <span class="material-symbols-outlined">restart_alt</span>
                     <div class="tooltip tbottom">Restart</div>
                 </button>
@@ -15,44 +45,6 @@
         </div>
     </div>
 </template>
-
-<script>
-import Sentence from '@/components/typenigma/Sentence.vue';
-import Result from '@/components/typenigma/TypeResult.vue';
-import TypenigmaEngine from '@/typenigma/TypenigmaEngine.js';
-
-export default {
-    name: 'Typenigma',
-    beforeMount() {
-        if (!this.engine) {
-            this.engine = new TypenigmaEngine();
-            setInterval(() => {
-                this.timeDisplay = this.engine.gameInfo.timeDisplay;
-                this.gameState = this.engine.gameInfo.gameState
-            }, 100);
-        }
-    },
-    components: {
-        Sentence,
-        Result
-    },
-    methods: {
-        reset() {
-            this.engine.reset();
-            document.getElementById("reset").blur();
-            setTimeout(() => {
-                this.$refs.sentence.reset();
-            }, 100);
-        },
-    },    
-    data() {
-        return {
-            timeDisplay: '',
-            gameState: 0
-        }
-    }
-}
-</script>
 
 <style lang="scss" scoped>
     @use '@/assets/stylesheets/vars.scss' as vars;

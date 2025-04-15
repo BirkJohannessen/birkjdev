@@ -24,7 +24,7 @@ declare module '*.webp' {
   export default content;
 }
 
-declare module '@/tetris/TetrisClient.js' {
+declare module '@/typenigma/TypenigmaEngine.js' {
   const client: any;
   export default client;
 }
