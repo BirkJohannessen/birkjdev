@@ -1,25 +1,17 @@
-<template>
-        <div class="body" :class="this.type ? 'textBody'+this.type : ''">
-            <h2>
-                {{ this.header}}
-            </h2>
-            <p>
-                {{ this.subText }}
-            </p>
-        </div>
-  
-</template>
-
-<script>
-export default {
-    name: 'HoverText',
-    props: {
-        header: String,
-        subText: String,
-        type: String
-    },
-}
+<script setup lang="ts">
+    const props = defineProps<{
+        header: string,
+        subText: string,
+        type: number 
+    }>();
 </script>
+
+<template>
+        <div class="body" :class="type ? 'textBody' + type : ''">
+            <h2>{{ header }}</h2>
+            <p>{{ subText }}</p>
+        </div>
+</template>
 
 <style lang="scss" scoped>
     @use '@/assets/stylesheets/vars.scss' as vars;
