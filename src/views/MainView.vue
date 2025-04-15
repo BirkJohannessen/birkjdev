@@ -120,7 +120,7 @@
                             <div v-for="icon in icons">
                                 <figure class="tooltip-holder">
                                     <img class="icon" :alt="icon.name" :src="`${icon.filename}`" />
-                                    <span class="tooltip ttop">Java</span>
+                                    <span class="tooltip ttop">{{icon.name}}</span>
                                 </figure>
                             </div>
                         </div>
