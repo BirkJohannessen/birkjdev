@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import HoverController from '@/components/primespiral/HoverController.vue';
-    import Config from '@/config/primeConfig';
+    import Config from '@/config/PrimeConfig';
     import { ref, computed, onUnmounted, onMounted } from 'vue'; 
     import type { Ref, ComputedRef } from 'vue'; 
 

@@ -2,21 +2,15 @@
     import { ref, onMounted, onUnmounted  } from 'vue'; 
     import type { Ref } from 'vue'; 
     import Timeline from '@/components/Timeline.vue';
+    import { icons } from '@/config/AboutConfig';
+    import type LanguageIcon from '@/models/about/LanguageIcon';
 
     const cards: Ref<boolean> = ref(false);
     const timeline: Ref<boolean> = ref(false);
     const sectionCards: Ref<HTMLElement | null> = ref(null);
     const sectionTimeline: Ref<HTMLElement | null> = ref(null);
 
-    const icons = ref([
-        { filename: '/icons/java.svg', name: 'Java'}, { filename: '/icons/js.svg', name: 'Javascript'}, { filename: '/icons/ts.svg', name: 'Typescript'},
-        { filename: '/icons/bash.svg', name: 'Bash'}, { filename: '/icons/csharp.svg', name: 'C#'}, { filename: '/icons/py.svg', name: 'Python'},
-        { filename: '/icons/php.svg', name: 'Php'}, { filename: '/icons/css.svg', name: 'CSS'}, { filename: '/icons/html.svg', name: 'HTML'},
-        { filename: '/icons/psql.svg', name: 'PostgreSQL'}, { filename: '/icons/mariadb.svg', name: 'MariaDB'}, { filename: '/icons/jquery.svg', name: 'Jquery'},
-        { filename: '/icons/backbonejs.svg', name: 'Backbone'}, { filename: '/icons/react.svg', name: 'React'}, { filename: '/icons/vue.svg', name: 'Vue'},
-        { filename: '/icons/git.svg', name: 'Git'}, { filename: '/icons/linux.svg', name: 'Linux'}, { filename: '/icons/nvim.svg', name: 'Neovim'},
-        { filename: '/icons/vim.svg', name: 'Vim'}
-    ]);
+    const langIcons: Ref<LanguageIcon[]> = ref(icons);
 
     const observer = new IntersectionObserver(entries => {
                 entries.filter(o => o.isIntersecting).forEach(entry => {
@@ -117,7 +111,7 @@
                             </h3>
                         </div>
                         <div class="icons flex">
-                            <div v-for="icon in icons">
+                            <div v-for="icon in langIcons">
                                 <figure class="tooltip-holder">
                                     <img class="icon" :alt="icon.name" :src="`${icon.filename}`" />
                                     <span class="tooltip ttop">{{icon.name}}</span>

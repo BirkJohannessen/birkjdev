@@ -1,4 +1,4 @@
-import Timeline from '@/models/Timeline';
+import Timeline from '@/models/about/Timeline';
 
 export const timeline: Timeline[] = [ 
     new Timeline(

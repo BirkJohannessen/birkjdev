@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { timeline } from '@/config/timelineConfig'
+    import { timeline } from '@/config/TimelineConfig'
 </script>
 
 <template>
