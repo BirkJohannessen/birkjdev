@@ -18,9 +18,11 @@
     const sentenceEl: Ref<HTMLElement | null> = ref(null);
     const cursor: Ref<HTMLElement | null> = ref(null);
 
-    const onInput = (e: InputEvent) => {
-        props.engine.onInput(e);
-        sentence.value = props.engine.inputProcessor.enstructData();
+    const onInput = (e: Event) : void => {
+        if (e instanceof InputEvent) {
+            props.engine.onInput(e);
+            sentence.value = props.engine.inputProcessor.enstructData();
+        }
     };
 
     const listenTo = (htmlElement: HTMLElement, e: string, callback: VoidCallback) => {
