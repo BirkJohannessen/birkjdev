@@ -1,11 +1,10 @@
 <script setup lang="ts">
     import { onMounted, onUnmounted, ref, watch } from 'vue';
     import type { Ref } from 'vue';
-    import { useRouter, useRoute  } from 'vue-router';
+    import { useRoute  } from 'vue-router';
     import { navbarpaths } from '@/config/NavbarConfig';
     import NavbarPath from '@/models/NavbarPath';
 
-    const router = useRouter();
     const route = useRoute();
 
     const showHamburger: Ref<boolean> = ref(false);
@@ -48,14 +47,6 @@
         window.removeEventListener('scroll', updateY);
     });
 
-    const push = (navbarPath: NavbarPath) : void => {
-        router.push({ path: navbarPath.path });
-    };
-
-    const pushRoot = () : void => {
-        router.push({ path: '/' });
-    };
-
     const toggleHamburger = () : void => {
         showHamburger.value = !showHamburger.value;
     };
@@ -64,32 +55,32 @@
 <template>
     <div class="nav-wrapper" :class="scrollY > 100 ? 'hide-mb' : scrollY > 2000 ? 'hide' : ''" >
         <div class="logo-wrapper">
-            <a @click="pushRoot()">
+            <router-link to="/">
                 <img draggable="false" alt="Website logo" src="@/assets/images/birk_mich_lgo.svg" />
-            </a>
+            </router-link>
         </div>
-        <div class="path-wrapper">
-            <nav v-for="path in navPaths" class="hide-mb">
-                <a class="tooltip-holder" @click="push(path)">
+        <nav class="path-wrapper">
+            <div v-for="path in navPaths" class="hide-mb">
+                <router-link :to="path.path" class="route tooltip-holder">
                     <span class="material-symbols-outlined" :class="path.selected ? 'selected' : ''">{{path.icon}}</span>
                     <div class="tooltip tright">{{path.name}}</div>
-                </a>
-            </nav>
+                </router-link>
+            </div>
             <button class="hamburger hide-desktop" @click="toggleHamburger">
                 <span :class="showHamburger ? 'open' : ''"></span>
                 <span :class="showHamburger ? 'open' : ''"></span>
                 <span :class="showHamburger ? 'open' : ''"></span>
             </button>
-        </div>
-    </div>
-    <div class="hamburger-overlay hide-desktop" v-if="showHamburger">
-        <nav v-for="path in navPaths">
-            <a @click="push(path); toggleHamburger()">
-                <span class="material-symbols-outlined" :class="path.selected ? 'selected' : ''">{{path.icon}}</span>
-                <h4 :class="path.selected ? 'selected' : ''">{{path.name}}</h4>
-            </a>
         </nav>
     </div>
+    <nav class="hamburger-overlay hide-desktop" v-if="showHamburger">
+        <div v-for="path in navPaths">
+            <router-link :to="path.path" @click="toggleHamburger()">
+                <span class="material-symbols-outlined" :class="path.selected ? 'selected' : ''">{{path.icon}}</span>
+                <h4 :class="path.selected ? 'selected' : ''">{{path.name}}</h4>
+            </router-link>
+        </div>
+    </nav>
 </template>
 
 <style lang="scss" scoped>
@@ -102,6 +93,7 @@
     }
 
     a {
+        text-decoration: none;
         cursor: pointer;
         display: flex; flex-direction: column;
         color: vars.$color-secondary;
