@@ -1,35 +1,31 @@
 declare module '*.vue' {
-  import { DefineComponent } from 'vue';
-  const component: DefineComponent<{}, {}, any>;
-  export default component;
+    import { DefineComponent } from 'vue';
+    const component: DefineComponent<{}, {}, any>;
+    export default component;
 }
 
 declare module '*.png' {
-  const path: string;
-  export default path;
+    const path: string;
+    export default path;
 }
 
 declare module '*.jpg' {
-  const path: string;
-  export default path;
+    const path: string;
+    export default path;
 }
 
 declare module '*.svg' {
-  const content: string;
-  export default content;
+    const content: string;
+    export default content;
 }
 
 declare module '*.webp' {
-  const content: string;
-  export default content;
+    const content: string;
+    export default content;
 }
 
-declare module '@/typenigma/TypenigmaEngine.js' {
-  const client: any;
-  export default client;
-}
 
 declare module 'hammerjs' {
-  const hammertime: any;
-  export default hammertime;
+    const hammertime: any;
+    export default hammertime;
 }

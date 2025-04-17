@@ -1,13 +1,15 @@
 <script setup lang="ts">
     import Sentence from '@/components/typenigma/Sentence.vue';
     import Result from '@/components/typenigma/TypeResult.vue';
-    import TypenigmaEngine from '@/typenigma/TypenigmaEngine.js';
+    import TypenigmaEngine from '@/typenigma/TypenigmaEngine';
     import { ref, onBeforeMount } from 'vue';
     import type { Ref } from 'vue';
+    import type { GameState } from '@/models/typenigma/TypenigmaStateEnum';
+    import { STARTED, STOPPED, RESULTS } from '@/models/typenigma/TypenigmaStateEnum';
 
     const engine: Ref<any> = ref(new TypenigmaEngine());
     const timeDisplay: Ref<string> = ref('');
-    const gameState: Ref<number> = ref(0);
+    const gameState: Ref<GameState> = ref(0);
     const sentence: Ref<InstanceType<typeof Sentence> | null> = ref(null);
 
     const resetRef: Ref<HTMLElement | undefined> = ref();
@@ -31,11 +33,11 @@
 <template>
     <div class="wrapper">
         <div class="center">
-            <div id="timer" v-if="[0,1].includes(gameState)">
+            <div id="timer" v-if="[STARTED, STOPPED].includes(gameState)">
                 {{ timeDisplay }}
             </div>
-            <Sentence id="sentence" :engine="engine" ref="sentence" v-if="[0,1].includes(gameState)" />
-            <Result :engine="engine" v-if="gameState == 2"/>
+            <Sentence id="sentence" :engine="engine" ref="sentence" v-if="[STARTED, STOPPED].includes(gameState)" />
+            <Result :engine="engine" v-if="gameState === RESULTS"/>
             <div class="btns">
                 <button ref="resetRef" class="tooltip-holder" @click="reset()">
                     <span class="material-symbols-outlined">restart_alt</span>

@@ -1,12 +1,14 @@
 <script setup lang="ts">
     import { ref, onMounted } from 'vue';
     import type { Ref } from 'vue';
+    import { NOTTYPED, MISS, HIT, OVERFLOW } from '@/models/typenigma/LetterStateEnum';
+    import type { Sentence } from '@/models/typenigma/Sentence';
 
     const props = defineProps<{
         engine: any
     }>();
 
-    const sentence: Ref<any[]> = ref([]);
+    const sentence: Ref<Sentence> = ref([]);
     const topStyle: Ref<string> = ref('');
 
     const input: Ref<HTMLInputElement | null> = ref(null);
@@ -95,10 +97,10 @@
                 <span v-for="word in sentence" class="word">
                     <div v-for="letter in word" class="letter">
                         <span v-if="letter.isCursor() && letter.isCursorLeft()" id="cursor" class="cursor"></span>
-                        <span v-if="letter.getState() === 0" class="default">{{ letter.getLetter() }}</span>
-                        <span v-if="letter.getState() === 1" class="miss">{{ letter.getLetter() }}</span>
-                        <span v-if="letter.getState() === 2" class="hit">{{ letter.getLetter() }}</span>
-                        <span v-if="letter.getState() === 3" class="miss">{{ letter.getLetter() }}</span>
+                        <span v-if="letter.getState() === NOTTYPED" class="default">{{ letter.getLetter() }}</span>
+                        <span v-if="letter.getState() === MISS" class="miss">{{ letter.getLetter() }}</span>
+                        <span v-if="letter.getState() === HIT" class="hit">{{ letter.getLetter() }}</span>
+                        <span v-if="letter.getState() === OVERFLOW" class="miss">{{ letter.getLetter() }}</span>
                         <span v-if="letter.isCursor() && !letter.isCursorLeft()" id="cursor" class="cursor"></span>
                     </div>
                 </span>

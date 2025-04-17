@@ -1,10 +1,15 @@
-import InputProcessor from  './TypenigmaInputProcessor.js';
+import InputProcessor from  './TypenigmaInputProcessor';
+import type { TypenigmaEngineInfo } from '@/models/typenigma/TypenigmaEngineInfo';
+import { STARTED, STOPPED, RESULTS } from '@/models/typenigma/TypenigmaStateEnum';
+
 export default class TypenigmaEngine {
-    constructor(timeDisplay) {
+    public inputProcessor: InputProcessor;
+    public gameInfo: TypenigmaEngineInfo;
+    constructor() {
         this.inputProcessor = new InputProcessor();
         this.gameInfo = {
             wpmTotal: 0,
-            gameState: 0,
+            gameState: STOPPED,
             startTime: 0,
             interval: 15,
             input: this.inputProcessor,
@@ -13,9 +18,9 @@ export default class TypenigmaEngine {
             wpmIntervals: [],
             timeIntervals: []
         }
+
         setInterval(() => {
-            timeDisplay = this.timeDisplay;
-            if (this.gameInfo.gameState === 1) {
+            if (this.gameInfo.gameState === STARTED) {
                 const diff = Date.now() - this.gameInfo.startTime;
                 const timeleft = this.gameInfo.interval * 1000 - diff ;
                 const timepassed = this.gameInfo.interval * 1000 - timeleft;
@@ -23,8 +28,7 @@ export default class TypenigmaEngine {
                     this.gameInfo.timeDisplay = this._formatMilliseconds(timeleft);
                 } else {
                     this.gameInfo.timeDisplay = this._formatMilliseconds(0);
-                    this.gameInfo.gameState = 2;
-                    this.wpm = this.calculateWPM();
+                    this.gameInfo.gameState = RESULTS;
                 }
                 const nextInterval = this.nextInterval();
                 if ((timepassed / 1000) > nextInterval) {
@@ -32,7 +36,6 @@ export default class TypenigmaEngine {
                     this.gameInfo.wpmIntervals.push(`${this.calculateWPM(timepassed)}`);
                 }
             }
-            timeDisplay = this.timeDisplay;
         }, 50);
     }
 
@@ -48,15 +51,11 @@ export default class TypenigmaEngine {
         return this.calculateWPM(this.gameInfo.interval * 1000);
     }
 
-    calculateCorrectPercentage() {
-        return this.inputProcessor.calculateCorrectPercentage() * 100;
+    calculateCorrectPercentage() : number {
+        return parseInt(this.inputProcessor.calculateCorrectPercentage()) * 100;
     }
 
-    calculateWrongLetters() {
-        return this.inputProcessor.calculateWrongLetters();
-    }
-
-    calculateWPM(timepassed) {
+    calculateWPM(timepassed: number) : number{
         const correctLetters = this.inputProcessor.calculateCorrectLetters();
         const words = correctLetters / 5;
         return (60 / (timepassed / 1000)) * words;
@@ -65,26 +64,26 @@ export default class TypenigmaEngine {
     start() {
         this.gameInfo.startTime = Date.now();
         this.gameInfo.input.inputData.userInput = '';
-        this.gameInfo.gameState = 1;
+        this.gameInfo.gameState = STARTED;
     }
 
     reset() {
-        this.gameInfo.gameState = 0;
+        this.gameInfo.gameState = STOPPED;
         this.gameInfo.timeDisplay = '';
         this.gameInfo.wpmIntervals = [];
         this.gameInfo.timeIntervals = [];
-        this.gameInfo.wpm = '';
+        this.gameInfo.wpm = 0;
         this.gameInfo.input.reset();
         this.gameInfo.startTime = 0;
     }
 
-    _formatMilliseconds(ms) {
+    _formatMilliseconds(ms: number) {
         const date = new Date(ms);
         return `${String(date.getUTCMinutes()).padStart(2, '0')}:${String(date.getUTCSeconds()).padStart(2, '0')}`;
     }
 
-    onInput(e) {
-        if (this.gameInfo.gameState === 0) {
+    onInput(e: KeyboardEvent) {
+        if (this.gameInfo.gameState === STOPPED) {
             this.start();
         }
         this.inputProcessor.onInput(e);
