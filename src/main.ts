@@ -7,4 +7,4 @@ import Router from './router';
 
 createApp(App)
     .use(Router)
-    .mount('#app')
+    .mount('#app');

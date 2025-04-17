@@ -31,15 +31,15 @@ export default class TetrisEngine {
         this.inputProcessor.process();
 
         // actual blockage for the game is not included pauseage.
-        const blockAge = this.gameInfo.blockAge + this.gameInfo.pauseContext.excessPauseTime
+        const blockAge = this.gameInfo.blockAge + this.gameInfo.pauseContext.excessPauseTime;
         // calc gametickvalues
         this.gameInfo.blockLifetimeTicks = Math.floor((Date.now() - blockAge) / this.gameInfo.gameTick) + this.gameInfo.paddingLifeTimeTicks;
 
         // render the block on the map;
         try {
             this.map.putControl(0, 0, true, false);
-            !this.inputProcessor.input.commit && this.putTileReflection();
-        } catch (e) {
+            if (!this.inputProcessor.input.commit) this.putTileReflection();
+        } catch {
             this.map.commitMap();
             this.gameInfo.reset = true;
             if (this.gameInfo.blockLifetimeTicks === 0) {
@@ -57,11 +57,11 @@ export default class TetrisEngine {
         for (let i = 0; i < this.map.height; i++) {
             try {
                 this.map.putControl(i, 0, false, false);
-            } catch(e) {
+            } catch {
                 try {
                     this.map.putControl(i - 1, 0, true, true);
                     break;
-                } catch (e) {
+                } catch {
                     break;
                 }
             }
@@ -69,7 +69,7 @@ export default class TetrisEngine {
     }
 
     reset() : void {
-        this.tetrisControl.setNextBlock()
+        this.tetrisControl.setNextBlock();
         this.tetrisControl.blockSave = false;
         this.inputProcessor.input.commit = false;
         this.inputProcessor.input.up = false;
@@ -110,7 +110,7 @@ export default class TetrisEngine {
                 score: 700,
                 gameTick: 100
             }
-        ]
+        ];
 
         levelMap.forEach(map => {
             if (this.gameInfo.score >= map.score) {
@@ -138,11 +138,11 @@ export default class TetrisEngine {
         try {
             this.tetrisControl.rotate();
             this.map.putControl(0, x, false, false);
-        } catch(e) {
+        } catch {
             maybe = false;
         }
         let r = 3;
-        for (; r > 0; r--) this.tetrisControl.rotate()
+        for (; r > 0; r--) this.tetrisControl.rotate();
         return maybe;
     }
 }

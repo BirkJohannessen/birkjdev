@@ -83,18 +83,18 @@ export default class TetrisClient {
     _run() {
          setInterval(() => {
              if (!this.hasStarted) {
-                this._setVariables()
+                this._setVariables();
                 this.info.value = 'Ready?';
              } else if (this.engine.gameInfo.paused) {
-                this._setVariables()
+                this._setVariables();
                 this.info.value = 'Paused';
             } else if (!this.engine.gameInfo.stop) {
-                this.info.value = ''
-                this._setVariables()
+                this.info.value = '';
+                this._setVariables();
                 this.engine.run();
             } else {
-                this.info.value = 'Game over'
-                this._setVariables()
+                this.info.value = 'Game over';
+                this._setVariables();
             }
         },  this.runInterval);
     }
@@ -179,76 +179,80 @@ export default class TetrisClient {
     }
 
     subscribeToGestures(wrapper: Ref<HTMLElement | undefined>, isMobile: Ref<boolean>) {
+        // Hammerjs comes with no ts-types out of the box, there's is a npm package "types/hammerjs", but it's only bloat for now.
+        // eslint-disable-next-line
         const hammertime: any = new Hammer(wrapper.value, {});
 
-        hammertime.on('tap', (e: any) => {
+        hammertime.on('tap', () => {
             if (!isMobile.value) return;
-            this.gestureTap(e);
+            this.gestureTap();
         });
 
         hammertime.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
         hammertime.get('pan').set({ direction: Hammer.DIRECTION_HORIZONTAL });
 
-        hammertime.on('swipeup', (e: any) => {
+        hammertime.on('swipeup', () => {
             if (!isMobile.value) return;
-            this.gestureSwipeUp(e);
+            this.gestureSwipeUp();
         });
 
-        hammertime.on('swipedown', (e: any) => {
+        hammertime.on('swipedown', () => {
             if (!isMobile.value) return;
-            this.gestureSwipeDown(e);
+            this.gestureSwipeDown();
         });
 
-        hammertime.on('swipeup', (e: any) => {
+        hammertime.on('swipeup', () => {
             if (!isMobile.value) return;
-            this.gestureSwipeUp(e);
+            this.gestureSwipeUp();
         });
 
-        hammertime.on('press', (e: any) => {
+        hammertime.on('press', () => {
             if (!isMobile.value) return;
-            this.gesturePress(e);
+            this.gesturePress();
         });
 
-        hammertime.on('pressup', (e: any) => {
+        hammertime.on('pressup', () => {
             if (!isMobile.value) return;
-            this.gesturePressUp(e);
+            this.gesturePressUp();
         });
 
-        hammertime.on('panend', (e: any) => {
+        hammertime.on('panend', () => {
             if (!isMobile.value) return;
-            this.gesturePanend(e);
+            this.gesturePanend();
         });
 
-        hammertime.on('panleft panright', (e: any) => {
+        hammertime.on('panleft panright', (e: Event) => {
             if (!isMobile.value) return;
             this.gesturePanmove(e);
         });
     }
 
-    gestureTap(_e: any) {
+    gestureTap() {
         this.getInput().up = true;
     }
 
-    gestureSwipeDown(_e: any) {
+    gestureSwipeDown() {
         this.getInput().commit = true;
     }
 
-    gestureSwipeUp(_e: any) {
+    gestureSwipeUp() {
         this.getInput().save = true;
     }
 
-    gesturePress(_e: any) {
+    gesturePress() {
         this.getInput().down = true;
     }
 
-    gesturePressUp(_e: any) {
+    gesturePressUp() {
         this.getInput().down = false;
     }
 
-    gesturePanend(_e: any) {
+    gesturePanend() {
         this.globalX = 0;
     }
 
+    // see comment subscribeToGestures()
+    // eslint-disable-next-line
     gesturePanmove(e: any) {
         const delta = this.globalX + e.deltaX;
         this.getInput().down = false;

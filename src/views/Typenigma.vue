@@ -7,7 +7,7 @@
     import type { GameState } from '@/models/typenigma/TypenigmaStateEnum';
     import { STARTED, STOPPED, RESULTS } from '@/models/typenigma/TypenigmaStateEnum';
 
-    const engine: Ref<any> = ref(new TypenigmaEngine());
+    const engine: Ref<TypenigmaEngine> = ref(new TypenigmaEngine());
     const timeDisplay: Ref<string> = ref('');
     const gameState: Ref<GameState> = ref(0);
     const sentence: Ref<InstanceType<typeof Sentence> | null> = ref(null);
@@ -17,7 +17,7 @@
     onBeforeMount(() => {
         setInterval(() => {
             timeDisplay.value = engine.value.gameInfo.timeDisplay;
-            gameState.value = engine.value.gameInfo.gameState
+            gameState.value = engine.value.gameInfo.gameState;
         }, 100);
     });
 

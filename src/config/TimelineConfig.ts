@@ -37,4 +37,4 @@ export const timeline: Timeline[] = [
         'Uteksaminert fra HVL som Dataingeniør',
         '{\nnull: "🎓"    \n}'
     )
-]
+];

@@ -17,7 +17,7 @@ export default class TypenigmaEngine {
             wpm: 0,
             wpmIntervals: [],
             timeIntervals: []
-        }
+        };
 
         setInterval(() => {
             if (this.gameInfo.gameState === STARTED) {
@@ -32,8 +32,8 @@ export default class TypenigmaEngine {
                 }
                 const nextInterval = this.nextInterval();
                 if ((timepassed / 1000) > nextInterval) {
-                    this.gameInfo.timeIntervals.push(`${nextInterval}`);
-                    this.gameInfo.wpmIntervals.push(`${this.calculateWPM(timepassed)}`);
+                    this.gameInfo.timeIntervals.push([nextInterval.toString()]);
+                    this.gameInfo.wpmIntervals.push(this.calculateWPM(timepassed));
                 }
             }
         }, 50);
@@ -43,11 +43,11 @@ export default class TypenigmaEngine {
         return (this.gameInfo.timeIntervals.length + 1) * this.calculateDerivative();
     }
 
-    calculateDerivative() {
+    calculateDerivative() : number {
         return Math.ceil(this.gameInfo.interval / 15);
     }
 
-    calculateFinalWPM() {
+    calculateFinalWPM() : number {
         return this.calculateWPM(this.gameInfo.interval * 1000);
     }
 
@@ -55,10 +55,14 @@ export default class TypenigmaEngine {
         return parseInt(this.inputProcessor.calculateCorrectPercentage()) * 100;
     }
 
-    calculateWPM(timepassed: number) : number{
+    calculateWPM(timepassed: number) : number {
         const correctLetters = this.inputProcessor.calculateCorrectLetters();
         const words = correctLetters / 5;
-        return (60 / (timepassed / 1000)) * words;
+        return this.roundToSingleDecimal((60 / (timepassed / 1000)) * words);
+    }
+
+    roundToSingleDecimal(num: number) : number {
+        return Math.round(num * 10) / 10;
     }
 
     start() {
@@ -82,7 +86,7 @@ export default class TypenigmaEngine {
         return `${String(date.getUTCMinutes()).padStart(2, '0')}:${String(date.getUTCSeconds()).padStart(2, '0')}`;
     }
 
-    onInput(e: KeyboardEvent) {
+    onInput(e: InputEvent) {
         if (this.gameInfo.gameState === STOPPED) {
             this.start();
         }

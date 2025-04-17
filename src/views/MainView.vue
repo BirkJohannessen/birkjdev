@@ -23,7 +23,7 @@
 
     onMounted(() => {
         [sectionCards, sectionTimeline].forEach((el: Ref<HTMLElement | null>) => {
-            if (el.value) observer.observe(el.value)
+            if (el.value) observer.observe(el.value);
         });
     });
 

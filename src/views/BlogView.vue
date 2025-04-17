@@ -28,7 +28,8 @@
 
         hljs.registerLanguage('javascript', javascript);
         hljs.registerLanguage('python', python);
-        document.querySelectorAll('pre code').forEach((block: any) => {
+        document.querySelectorAll('pre code').forEach((block: Element) => {
+            if (!(block instanceof HTMLElement)) return;
             if (isLang(block.innerHTML)) {
                 hljs.highlightElement(block);
             }

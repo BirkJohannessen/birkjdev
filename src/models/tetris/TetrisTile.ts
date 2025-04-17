@@ -5,7 +5,7 @@ export default class TetrisTile {
     private debug: boolean;
     public outOfBounds: boolean;
 
-    constructor( tileState: any );
+    constructor( tileState: number );
     constructor(
         tileState: number,
         tileReflect?: number,

@@ -1,47 +1,46 @@
 <script setup lang="ts">
-    import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js'
-    import { Line } from 'vue-chartjs'
-    import { ref } from 'vue';
-    import type { Ref } from 'vue';
+    import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, type ChartOptions, type ChartData } from 'chart.js';
+    import { Line } from 'vue-chartjs';
+    import type TypenigmaEngine from '@/typenigma/TypenigmaEngine';
 
-    ChartJS.register( CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
+    ChartJS.register( CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
     ChartJS.defaults.backgroundColor = '#292736';
     ChartJS.defaults.borderColor = 'rgba(0,0,0,0.15)';
     ChartJS.defaults.color = '#77727D';
 
     const props = defineProps<{
-        engine: any
+        engine: TypenigmaEngine 
     }>();
 
-    const data: Ref<any> = ref({
-                labels: props.engine.gameInfo.timeIntervals,
-                datasets: [
-                    {
-                        label: 'WPM',
-                        backgroundColor: 'gold',
-                        borderColor: 'gold',
-                        data: props.engine.gameInfo.wpmIntervals
-                    }
-                ]
-            });
+    const data: ChartData<'line', (number | null)[], string[]> = {
+        labels: props.engine.gameInfo.timeIntervals,
+        datasets: [
+            {
+                label: 'WPM',
+                backgroundColor: 'gold',
+                borderColor: 'gold',
+                data: props.engine.gameInfo.wpmIntervals
+            }
+        ]
+    };
 
-    const options: Ref<any> = ref({
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    }  
-                },
-                scales: {
-                    y: {
-                        min: 0,
-                        ticks: {
-                            maxTicksLimit: 4
-                        }
-                    }
+    const options: ChartOptions<'line'> = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }  
+        },
+        scales: {
+            y: {
+                min: 0,
+                ticks: {
+                    maxTicksLimit: 4
                 }
-            });
+            }
+        }
+    };
 </script>
 
 <template>

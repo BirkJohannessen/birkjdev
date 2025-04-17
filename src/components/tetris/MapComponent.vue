@@ -2,15 +2,15 @@
     import TetrisTile from '@/models/tetris/TetrisTile';
     import Tile from './TileComponent.vue';
 
-    const props = defineProps<{
+    defineProps<{
         map: TetrisTile[][],
         pxSize: number,
         onlyBlock: boolean
     }>();
 
     const rowOutOfBounds = (row: TetrisTile[]) => {
-        return row.some(o => o.outOfBounds)
-    }
+        return row.some(o => o.outOfBounds);
+    };
 </script>
 
 <template>

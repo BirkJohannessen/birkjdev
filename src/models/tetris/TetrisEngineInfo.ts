@@ -34,7 +34,7 @@ export default class TetrisEngineInfo {
                 pauseAge: 0,
                 resumeAge: 0,
                 excessPauseTime: 0 // accumalated (pauseAge-resumeAge) from previous pauses from the same blocklifesycle.
-            }
+            };
     }
 }
 

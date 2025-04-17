@@ -1,7 +1,7 @@
-import cybertalent23 from '@/assets/blogs/cybertalent23.jpg'
+import cybertalent23 from '@/assets/blogs/cybertalent23.jpg';
 import ipv4 from '@/assets/blogs/ipv4.webp';
-import p26e23 from '@/assets/blogs/p26e23.jpg'
-import aoc from '@/assets/blogs/aoc.png'
+import p26e23 from '@/assets/blogs/p26e23.jpg';
+import aoc from '@/assets/blogs/aoc.png';
 
 import Blog from '@/models/Blog';
 
@@ -46,4 +46,4 @@ export const blogs: Blog[] = [
         'https://raw.githubusercontent.com/BirkJohannessen/writeups/refs/heads/master/curious-case-of-encoding-ipv4-addresses/README.md',
         'In how many ways can we encode an ipv4 address?',
     )
-]
+];

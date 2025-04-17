@@ -3,9 +3,11 @@
     import type { Ref } from 'vue';
     import { NOTTYPED, MISS, HIT, OVERFLOW } from '@/models/typenigma/LetterStateEnum';
     import type { Sentence } from '@/models/typenigma/Sentence';
+    import type TypenigmaEngine from '@/typenigma/TypenigmaEngine';
+    import type { VoidCallback } from '@/models/Generics';
 
     const props = defineProps<{
-        engine: any
+        engine: TypenigmaEngine 
     }>();
 
     const sentence: Ref<Sentence> = ref([]);
@@ -16,12 +18,12 @@
     const sentenceEl: Ref<HTMLElement | null> = ref(null);
     const cursor: Ref<HTMLElement | null> = ref(null);
 
-    const onInput = (e: Event) => {
+    const onInput = (e: InputEvent) => {
         props.engine.onInput(e);
         sentence.value = props.engine.inputProcessor.enstructData();
     };
 
-    const listenTo = (htmlElement: HTMLElement, e: string, callback: any) => {
+    const listenTo = (htmlElement: HTMLElement, e: string, callback: VoidCallback) => {
         htmlElement.addEventListener(e, callback);
     };
 
@@ -80,12 +82,12 @@
             input.value?.focus();
         };
 
-        input.value && listenTo(input.value, 'focusout', blur);
-        input.value && listenTo(input.value, 'focus', unblur);
-        sentenceblur.value && listenTo(sentenceblur.value, 'click', focus);
-        sentenceblur.value && listenTo(sentenceblur.value, 'focus', focus);
-        sentenceEl.value && listenTo(sentenceEl.value, 'click', focus);
-        sentenceEl.value && listenTo(sentenceEl.value, 'focus', focus);
+        if (input.value) listenTo(input.value, 'focusout', blur);
+        if (input.value) listenTo(input.value, 'focus', unblur);
+        if (sentenceblur.value) listenTo(sentenceblur.value, 'click', focus);
+        if (sentenceblur.value) listenTo(sentenceblur.value, 'focus', focus);
+        if (sentenceEl.value) listenTo(sentenceEl.value, 'click', focus);
+        if (sentenceEl.value) listenTo(sentenceEl.value, 'focus', focus);
     });
 </script>
 

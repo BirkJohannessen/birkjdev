@@ -11,10 +11,10 @@ export default class TypenigmaInputProcessor {
     public inputData: TypenigmaInput;
 
     constructor() {
-        this.sentence = this.aliceFix("Alice went on in the air off at once in her brother’s Latin Grammar, “A mouse—to a mouse—O mouse!”) The Mouse dear! Do come up: if not, I’ll tell its age, there stood near the very deep, hollow the soldiers, or corrupt data, transcription errors, a copyright in the second thought she had got its head. “Very uncommon way. “Hold you think I must go and get ready to play croquet she was a little thing you like to be talking. “It _began_ with us!’” “Yes,” said the Caterpillar contemptuously. “I dare say that Alice, the name “W. RABBIT,” engraved upon it.) “Here! Come and join the trees as well enough hatching out laughing: and while finished quite agree to come, so she began, in a solemnly. Alice dear!” cried Alice did not dare to disagree with his head impatient tone: “explanation; “I’ve tried the poor Alice, and she ran across the garden door. “Well, I’d hardly room for a dunce? Go on!” “Hold you like!” then that did they wouldn’t keep the same thing about as "),
+        this.sentence = this.aliceFix('Alice went on in the air off at once in her brother’s Latin Grammar, “A mouse—to a mouse—O mouse!”) The Mouse dear! Do come up: if not, I’ll tell its age, there stood near the very deep, hollow the soldiers, or corrupt data, transcription errors, a copyright in the second thought she had got its head. “Very uncommon way. “Hold you think I must go and get ready to play croquet she was a little thing you like to be talking. “It _began_ with us!’” “Yes,” said the Caterpillar contemptuously. “I dare say that Alice, the name “W. RABBIT,” engraved upon it.) “Here! Come and join the trees as well enough hatching out laughing: and while finished quite agree to come, so she began, in a solemnly. Alice dear!” cried Alice did not dare to disagree with his head impatient tone: “explanation; “I’ve tried the poor Alice, and she ran across the garden door. “Well, I’d hardly room for a dunce? Go on!” “Hold you like!” then that did they wouldn’t keep the same thing about as ');
         this.inputData = {
             userInput: ''
-        }
+        };
     }
 
     calculateCorrectLetters() : number {
@@ -122,7 +122,7 @@ export default class TypenigmaInputProcessor {
         }
     }
 
-    onInput(e: KeyboardEvent) {
+    onInput(e: InputEvent) {
         this.inputData.userInput = (e?.target as HTMLInputElement).value;
     }
 }

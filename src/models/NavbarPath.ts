@@ -3,7 +3,7 @@ export default class NavbarPath {
     public path: string;
     public icon: string;
     public matchOn: string[];
-    public selected: boolean
+    public selected: boolean;
 
     constructor(
         name: string,

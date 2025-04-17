@@ -55,7 +55,7 @@ export default class TetrisMap {
                     }
                 } else {
                     if (block[i][j].tileState && !this._shadowMap[lifetimeTick - i][j + startIdxX].tileState) {
-                        this._shadowMap[lifetimeTick - i][j + startIdxX] = block[i][j]
+                        this._shadowMap[lifetimeTick - i][j + startIdxX] = block[i][j];
                     } else if (block[i][j].tileState && this._shadowMap[lifetimeTick - i][j + startIdxX].tileState) {
                         throw new Error(); // illegal state.
                     } else {
@@ -105,7 +105,7 @@ export default class TetrisMap {
             let isFull = true;
             for (let j = 0; j < this.width; j++) {
                 if (!this._map[i][j].tileState) {
-                    isFull = false
+                    isFull = false;
                     break;
                 }
             }
@@ -117,7 +117,7 @@ export default class TetrisMap {
                 }
                 for (let ii = i - 1; ii > 0; ii--) {
                     for (let j = 0; j < this.width; j++) {
-                        this._map[ii + 1][j] = this._map[ii][j]
+                        this._map[ii + 1][j] = this._map[ii][j];
                     }
                 }
             }
@@ -136,7 +136,7 @@ export default class TetrisMap {
     canLeftShiftX() : boolean {
         try {
             this.putControl(0, -1, false);
-        } catch (e) {
+        } catch {
             return false;
         }
         return true;
@@ -145,7 +145,7 @@ export default class TetrisMap {
     canRightShiftX() : boolean {
         try {
             this.putControl(0, 1, false);
-        } catch (e) {
+        } catch {
             return false;
         }
         return true;

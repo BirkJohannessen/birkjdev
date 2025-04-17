@@ -27,7 +27,7 @@ export default class TetrisControl {
     }
 
     getRandomBlock() : TetrisBlock {
-        const blocks = [new TetrisBlockI(), new TetrisBlockL(), new TetrisBlockJ(), new TetrisBlockZ(), new TetrisBlockS(), new TetrisBlockO(), new TetrisBlockT()]
+        const blocks = [new TetrisBlockI(), new TetrisBlockL(), new TetrisBlockJ(), new TetrisBlockZ(), new TetrisBlockS(), new TetrisBlockO(), new TetrisBlockT()];
         return blocks[Math.floor(Math.random() * blocks.length)];
     }
 

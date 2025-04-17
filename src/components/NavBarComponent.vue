@@ -14,7 +14,7 @@
 
     const updateY = () : void => {
         scrollY.value = window.top?.scrollY || 0;
-    }
+    };
 
     const updateSelected = () : void => {
         navPaths.value.forEach((navPath: NavbarPath) => {
@@ -58,7 +58,7 @@
 
     const toggleHamburger = () : void => {
         showHamburger.value = !showHamburger.value;
-    }
+    };
 </script>
 
 <template>

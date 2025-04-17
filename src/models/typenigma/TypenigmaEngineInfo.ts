@@ -8,6 +8,6 @@ export interface TypenigmaEngineInfo {
     input: InputProcessor,
     timeDisplay: string,
     wpm: number,
-    wpmIntervals: string[],
-    timeIntervals: string[]
+    wpmIntervals: number[],
+    timeIntervals: string[][]
 }

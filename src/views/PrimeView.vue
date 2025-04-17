@@ -4,7 +4,7 @@
     import { ref, computed, onUnmounted, onMounted } from 'vue'; 
     import type { Ref, ComputedRef } from 'vue'; 
 
-    const primes: ComputedRef<string[]> = computed(() => { return Config.primeArray });
+    const primes: ComputedRef<string[]> = computed(() => { return Config.primeArray; });
 
     const scrollLengthForRerender: Ref<number> = ref(1200);
     const scrollLengthForZoom: Ref<number> = ref(120);

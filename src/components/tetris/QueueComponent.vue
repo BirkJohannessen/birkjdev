@@ -3,7 +3,7 @@
     import TetrisBlock from '@/models/tetris/TetrisBlock';
     import { ref } from 'vue';
 
-    const props = defineProps<{
+    defineProps<{
         queue: TetrisBlock[]
     }>();
 

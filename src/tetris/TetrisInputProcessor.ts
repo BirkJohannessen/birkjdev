@@ -22,10 +22,10 @@ export default class TetrisInputProcessor {
         this.tetrisControl = tetrisControl;
         this.map = map; 
 
-        this.lastInputTime = Date.now(),
-        this.lastKeyDownTime = Date.now(),
-        this.inputDelay = 20,
-        this.firstInputDelay = 250
+        this.lastInputTime = Date.now();
+        this.lastKeyDownTime = Date.now();
+        this.inputDelay = 20;
+        this.firstInputDelay = 250;
 
         this.input = new TetrisInput();
     }
@@ -61,18 +61,18 @@ export default class TetrisInputProcessor {
             for (let i = 0; i < this.map.height; i++) {
                 try {
                     this.map.putControl(i, 0, false, false);
-                } catch(e) {
+                } catch {
                     try {
                         this.map.putControl(i - 1, 0, true, false);
                         this.map.commitMap();
                         break;
-                    } catch (e) {
+                    } catch {
                         this.gameInfo.stop = true;
                         break;
                     }
                 }
             }
-            this.tetrisControl.setNextBlock()
+            this.tetrisControl.setNextBlock();
             this.tetrisControl.blockSave = false;
             this.input.commit = false;
             this.input.up = false;
@@ -98,7 +98,7 @@ export default class TetrisInputProcessor {
             this.tetrisControl.getCurrentBlock().resetToDefault();
             if (!this.gameInfo.storedBlock) {
                 this.gameInfo.storedBlock = this.tetrisControl.getCurrentBlock();
-                this.tetrisControl.setNextBlock()
+                this.tetrisControl.setNextBlock();
             } else {
                 const storedBlock = this.gameInfo.storedBlock;
                 this.gameInfo.storedBlock = this.tetrisControl.getCurrentBlock();

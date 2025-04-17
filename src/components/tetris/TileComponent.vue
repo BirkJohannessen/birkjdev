@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import TetrisTile from '@/models/tetris/TetrisTile';
 
-    const props = defineProps<{
+    defineProps<{
         tile: TetrisTile,
         pxSize: number,
         onlyBlock: boolean

@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { blogs } from '@/config/BlogConfig';
-    import { useRouter } from 'vue-router'
+    import { useRouter } from 'vue-router';
 
     const router = useRouter();
     const pushBlog = (id: number) => {
