@@ -47,7 +47,6 @@
                 <div class ="about">
                     <p class="introduction">$ whoami</p>
                     <h1>Birk Johannessen</h1>
-                    <h2 class="hide">stupid seo</h2>
                     <h3>Utvikler, hacker, nerd</h3>
                     <p>... generelt over gjennomsnittet interessert i programvare.</p>
                 </div>

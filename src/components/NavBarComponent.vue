@@ -61,12 +61,12 @@
         </div>
         <nav class="path-wrapper">
             <div v-for="path in navPaths" class="hide-mb">
-                <router-link :to="path.path" class="route tooltip-holder">
+                <router-link :to="path.path" class="tooltip-holder">
                     <span class="material-symbols-outlined" :class="path.selected ? 'selected' : ''">{{path.icon}}</span>
                     <div class="tooltip tright">{{path.name}}</div>
                 </router-link>
             </div>
-            <button class="hamburger hide-desktop" @click="toggleHamburger">
+            <button class="hamburger hide-desktop" @click="toggleHamburger" aria-label="Meny">
                 <span :class="showHamburger ? 'open' : ''"></span>
                 <span :class="showHamburger ? 'open' : ''"></span>
                 <span :class="showHamburger ? 'open' : ''"></span>
