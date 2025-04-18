@@ -20,7 +20,7 @@
                             <p>{{ blog.description }}</p>
                             <time>{{ blog.parseDate() }}</time>
                             <div class="imgholder">
-                                <img v-if="blog.contentImg" :src="blog.contentImg">
+                                <img v-if="blog.contentImg" :src="blog.contentImg" :alt="blog.title">
                             </div>
                         </div>
                     </div>
