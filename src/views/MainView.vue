@@ -7,6 +7,9 @@
 
     const cards: Ref<boolean> = ref(false);
     const timeline: Ref<boolean> = ref(false);
+
+    const timelineIntro: Ref<boolean> = ref(false);
+
     const sectionCards: Ref<HTMLElement | null> = ref(null);
     const sectionTimeline: Ref<HTMLElement | null> = ref(null);
 
@@ -15,7 +18,10 @@
     const observer = new IntersectionObserver(entries => {
                 entries.filter(o => o.isIntersecting).forEach(entry => {
                     if (entry.target.id === 'section-cards') cards.value = true;
-                    if (entry.target.id === 'section-timeline') timeline.value = true;
+                    if (entry.target.id === 'section-timeline') {
+                        timelineIntro.value = true;
+                        setTimeout(() => { timeline.value = true; }, 1000);
+                    }
                 });
             },
             { threshold: 0.35 }
@@ -53,10 +59,8 @@
             </div>
         </section>
         <section class ="timeline extended" id="section-timeline" ref="sectionTimeline">
-            <div v-if="timeline">
-                <p class="introduction">$ timeline --short</p>
-                <Timeline class="tl" />
-            </div>
+            <p v-if="timelineIntro" class="introduction">$ timeline --short</p>
+            <Timeline v-if="timeline" />
         </section>
         <section class="extended flex" id="section-cards" ref="sectionCards">
             <div v-if="cards">
@@ -225,10 +229,6 @@
         .introduction {
             text-align: center;
             margin: vars.$spacing-4 auto;
-        }
-        .tl {
-            clip-path: inset(0 0 0 0);
-            animation: writeDownDelay 3s ease-in-out forwards;
         }
     }
 

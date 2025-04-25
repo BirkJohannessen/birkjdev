@@ -119,6 +119,11 @@ figure {
     100% { clip-path: inset(0 0 0 0); }
 }
 
+@keyframes writeDown {
+    0% { clip-path: inset(0 0 100% 0 ); }
+    100% { clip-path: inset(0 0 0 0); }
+}
+
 @keyframes writeDownDelay {
     0% { clip-path: inset(0 0 100% 0 ); }
     35% { clip-path: inset(0 0 100% 0); }

@@ -9,7 +9,7 @@
         </div>
         <div class="time-object-wrapper">
             <div v-for="(timeobj, idx) in timeline">
-                <div :class="idx % 2 === 1 ? 'left' : ''" class="time-object">
+                <div :class="['time-object', `ob-${idx}`, { 'left' : idx % 2 === 1 }]">
                     <div class="point" :class="idx % 2 === 1 ? 'pleft' : 'pright'"></div>
                     <h3 v-if="timeobj.title">{{timeobj.title}}</h3>
                     <h3>{{timeobj.time}}</h3>
@@ -32,6 +32,8 @@
     .time {
         width: vars.$spacing-0;
         background-color: vars.$tetriary;
+        clip-path: inset(0 0 0 0);
+        animation: writeDown 3s ease-in-out forwards;
     }
 
     .left {
@@ -53,6 +55,14 @@
         max-width: 650px;
         white-space: pre-wrap;
         position: relative;
+        opacity: 0;
+        animation: fadeIn 0.8s forwards;
+        &.ob-0 { animation-delay: .5s; }
+        &.ob-1 { animation-delay: .9s; }
+        &.ob-2 { animation-delay: 1.3s; }
+        &.ob-3 { animation-delay: 1.7s; }
+        &.ob-4 { animation-delay: 2.1s; }
+        &.ob-5 { animation-delay: 2.5s; }
     }
 
     .point {
