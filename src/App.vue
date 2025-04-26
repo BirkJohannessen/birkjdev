@@ -1,12 +1,17 @@
 <script setup lang="ts">
     import NavBarComponent from '@/components/NavBarComponent.vue';
+    import type { Ref } from 'vue';
+    import { ref } from 'vue';
+
+    const preLoaded: Ref<boolean> = ref(false);
+    setTimeout(() => preLoaded.value = true, 200);
 </script>
 
 <template>
     <div class="app-wrapper">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <NavBarComponent />
-        <router-view />
+        <router-view v-if="preLoaded" />
     </div>
 </template>
 

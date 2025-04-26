@@ -108,8 +108,9 @@
     }
 
     .nav-wrapper {
+        animation: writeNavbar .5s;
         background-color: vars.$secondary;
-        height: 100vh; min-width: 100px; max-width: 100px;
+        height: 100vh; width: 100px;
         display: flex; flex-direction: column;
         z-index: 9;
     }
@@ -129,8 +130,14 @@
         font-size: var(--step-3);
     }
 
+    @keyframes writeNavbar {
+        0% { clip-path: inset(0 100% 0 0 ); width: 0; }
+        100% { clip-path: inset(0 0 0 0); width: 100px; }
+    }
+
     @media (max-width: vars.$mobile-size) {
         .nav-wrapper {
+            animation: none;
             position: relative; top: 0;
             min-width: 100vw; min-height: 80px; height: 80px; width: 100vw;
             flex-direction: row;
