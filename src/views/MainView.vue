@@ -46,7 +46,7 @@
                     <div class ="image-wrapper">
                         <div class="border"></div>
                         <div class ="image-circle">
-                            <img alt="" src="../assets/birk.jpg" />
+                            <img alt="" src="../assets/birk.jpg" loading="lazy" />
                         </div>
                     </div>
                 </div>
