@@ -14,8 +14,8 @@
             <p class="introduction">blogs <span class="write">$ ls -l</span></p>
             <section>
                 <div class="articles">
-                    <div v-for="blog in blogs">
-                        <div class="card" @click="pushBlog(blog.id)">
+                    <div v-for="(blog, idx) in blogs">
+                        <div :class="['card', `blog-${idx}`]" @click="pushBlog(blog.id)">
                             <h2>{{ blog.title }}</h2>
                             <p>{{ blog.description }}</p>
                             <time>{{ blog.parseDate() }}</time>
@@ -39,8 +39,6 @@
     }
 
     .articles {
-        clip-path: inset(0 0 0 0);
-        animation: writeDelay 2.5s;
         display: flex; flex-wrap: wrap; gap: vars.$spacing-3; justify-content: center;
         padding: vars.$spacing-1 0;
     }
@@ -55,9 +53,17 @@
         cursor: pointer;
         position: relative;
         transition: transform 0.4s;
+        animation: fadeIn 1s forwards; opacity: 0;
         &:hover {
             transform: translateY(- vars.$spacing-1);
         }
+
+        &.blog-0 { animation-delay: .7s }
+        &.blog-1 { animation-delay: .85s }
+        &.blog-2 { animation-delay: 1s }
+        &.blog-3 { animation-delay: 1.15s }
+        &.blog-4 { animation-delay: 1.3s }
+        &.blog-5 { animation-delay: 1.45s }
     }
 
     time {

@@ -66,26 +66,26 @@
             <div v-if="cards">
                 <p class="introduction">$ more</p>
                 <div class="flex cards">
-                    <div class ="card">
+                    <div class ="card card-0">
                         <div class="header">
                             <h3>Fullstack utvikler</h3>
                         </div>
                         <p><span class="hl">Elsker faget</span>, og jobben som lar meg praktisere det hver dag.</p>
                         <p>Interessert å utvide vertøykassa samtidig som jeg spisser de skarpeste redskapene der. Samarbeider godt i lag og er veldig mottakelig til diskusjon. Sier meningen min, og spør når jeg lurer på noe.</p>
                     </div>
-                    <div class ="card">
+                    <div class ="card card-1">
                         <div class="header">
                             <h3>Machina</h3>
                         </div>
                         <p>Effektiviserer saksbehandling og tilskuddsløsninger for flere titalls kunder hos Machina. Daglig arbeid med de <span class="hl">fremste featurene</span> i produktet inklusivt flere integrasjoner. Som regel ansvarlig for hele funksjonaliteter, fra spec til master merge.</p>
                     </div>
-                    <div class ="card">
+                    <div class ="card card-2">
                         <div class="header">
                             <h3>Effektiv</h3>
                         </div>
                         <p>Lidenskapelig opptatt av å være rask! Enten det er å redigere tekst med <span class="hl">vim</span>, scripte vekk kjedelige oppgaver, tillære shortcuts til programvarer, utnytte tekstgenererende AI, meste touchtyping eller prøve å få over 115wpm på racetyping. </p>
                     </div>
-                    <div class ="card">
+                    <div class ="card card-3">
                         <div class="header">
                             <h3>Kvalifikasjoner</h3>
                         </div>
@@ -95,7 +95,7 @@
                             <li><span class="material-symbols-outlined">psychology</span> 5 år med konstant læring</li>
                         </ul>
                     </div>
-                    <div class ="card">
+                    <div class ="card card-4">
                         <div class="header">
                             <h3>Dev miljø</h3>
                         </div>
@@ -108,7 +108,7 @@
                                 <li><span class="material-symbols-outlined">laptop_windows</span>Lenovo Thinkpad E14 G5</li>
                             </ul>
                     </div>
-                    <div class="card">
+                    <div class="card card-5">
                         <div class="header">
                             <h3>
                                 Techstack
@@ -195,9 +195,8 @@
     }
 
     .cards {  
-        clip-path: inset(0 0 0 0);
-        animation: writeDelay 2.4s;
         .card {
+            animation: fadeIn 1s forwards; opacity: 0;
             background-color: vars.$primary-offset;
             padding: vars.$spacing-5; 
             max-width: 400px;
@@ -213,6 +212,13 @@
             .header, ul, p {
                 text-align: center;
             }
+
+            &.card-0 { animation-delay: .7s }
+            &.card-1 { animation-delay: .85s }
+            &.card-2 { animation-delay: 1s }
+            &.card-3 { animation-delay: 1.15s }
+            &.card-4 { animation-delay: 1.3s }
+            &.card-5 { animation-delay: 1.45s }
         }
     }
 
