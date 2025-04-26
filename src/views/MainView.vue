@@ -89,16 +89,19 @@
                         <div class="header">
                             <h3>Kvalifikasjoner</h3>
                         </div>
-                        <ul>
-                            <li><span class="material-symbols-outlined">school</span> Dataingeniør bachelor</li>
-                            <li><span class="material-symbols-outlined">public</span> 2 år fartstid i bransjen</li>
-                            <li><span class="material-symbols-outlined">psychology</span> 5 år med konstant læring</li>
-                        </ul>
+                        <div class="ul-wrapper">
+                            <ul>
+                                <li><span class="material-symbols-outlined">school</span> Dataingeniør bachelor</li>
+                                <li><span class="material-symbols-outlined">public</span> 2 år fartstid i bransjen</li>
+                                <li><span class="material-symbols-outlined">psychology</span> 5 år med konstant læring</li>
+                            </ul>
+                        </div>
                     </div>
                     <div class ="card card-4">
                         <div class="header">
                             <h3>Dev miljø</h3>
                         </div>
+                        <div class="ul-wrapper">
                             <ul>
                                 <li><span class="material-symbols-outlined">developer_board</span>Linux / ubuntu 22.04 LTS</li>
                                 <li><span class="material-symbols-outlined">tile_large</span>i3 window manager</li>
@@ -107,6 +110,7 @@
                                 <li><span class="material-symbols-outlined">keyboard</span>ISO 105 NO qwerty TKL keyboard</li>
                                 <li><span class="material-symbols-outlined">laptop_windows</span>Lenovo Thinkpad E14 G5</li>
                             </ul>
+                        </div>
                     </div>
                     <div class="card card-5">
                         <div class="header">
@@ -209,8 +213,12 @@
                 margin-right: vars.$spacing-1;
                 color: vars.$tetriary;
             }
-            .header, ul, p {
+            .header, p {
                 text-align: center;
+            }
+            .ul-wrapper {
+                margin: auto;
+                display: flex; width: fit-content;
             }
 
             &.card-0 { animation-delay: .7s }
@@ -245,7 +253,7 @@
     @media (max-width: vars.$mobile-size) {
         section { margin-bottom: vars.$spacing-2; }
 
-        h1, h2, h3, h4, p, li { text-align: center; margin: vars.$spacing-2 0; }
+        h1, h2, h3, h4, p { text-align: center; margin: vars.$spacing-2 0; }
 
         .intro { 
             position: relative; top: vars.$spacing-2; transform: translateY(0);
